@@ -1,14 +1,20 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-import SignupScreen from "./screens/SignupScreen";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import ConceptScreen from './screens/form/ConceptScreen';
+import SignupScreen from "./screens/SignupScreen";
 import Homepage from "./screens/Homepage";
 import Recettepage from "./screens/Recettepage";
 import Placard from "./screens/Placard";
 import Filter from "./screens/Filter";
+
+const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
