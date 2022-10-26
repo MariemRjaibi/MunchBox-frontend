@@ -28,10 +28,6 @@ export default function FormScreen({ navigation }) {
     //Food preference
     preference: "",
     optionPreference: "",
-
-    // Sing in & sing up
-    name: "",
-    email: "",
   });
 
   const [screen, setscreen] = useState(0);
@@ -53,50 +49,39 @@ export default function FormScreen({ navigation }) {
   };
 
   // onPress={() => console.log("next")}
+
+  // Bouton suivant et soumettre 
   function handlePress() {
-    for (let screen = 0; screen < 2; screen++) {
-      if (screen === screen.length) {
-        console.log(formData);
-      } else {
-        setscreen((currScreen) => currScreen + 1);
-      }
-      {
-        /* <Text>{screen === screen.length - 1 ? "Submit" : "Next"}</Text> */
-      }
-    }
+    if(screen === 3){
+      console.log("hello")
+      navigation.navigate(SignupScreen)
+    }else{
+      setscreen((currScreen) => currScreen + 1)
+    }           
   }
 
+  const iconBtnNext =  <FontAwesome name="chevron-circle-right" size={55} color={"#e8be4b"} style={styles.buttonNext}/>;
+  const iconBtnReturn = <FontAwesome name="arrow-left" size={20} color={"#e8be4b"} style={styles.buttonReturn}/>;
+  const textBtnSubmit = <Text style={styles.btnSubmit}>Let's cook</Text>;
   return (
     <View style={styles.container}>
-      <View>{ScreenDisplay()}</View>
+
+      <View>
+
+        <Pressable disabled={screen === 0} onPress={() => setscreen((currScreen) => currScreen - 1)}>
+          <Text>{screen === 0  ? " " : iconBtnReturn}</Text>
+        </Pressable>
+
+        <View>
+          {ScreenDisplay()}
+        </View>
+        
+        </View>
 
       <View style={styles.btnContainer}>
-        <Pressable
-          disabled={screen === 0}
-          onPress={() => setscreen((currScreen) => currScreen - 1)}
-        >
-          <FontAwesome
-            name="arrow-left"
-            size={55}
-            color={"#e8be4b"}
-            style={styles.buttonNext}
-          />
-        </Pressable>
         <Pressable onPress={() => handlePress()}>
-          <FontAwesome
-            name="chevron-circle-right"
-            size={55}
-            color={"#e8be4b"}
-            style={styles.buttonNext}
-          />
+          <Text >{screen === 3  ? textBtnSubmit : iconBtnNext}</Text> 
         </Pressable>
-        <TouchableOpacity
-          style={styles.addBtn}
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate(SignupScreen)}
-        >
-          <Text style={styles.textButton}>Let's go !</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -114,8 +99,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   btnContainer: {
-    flexDirection: "row",
-    alignItems: "flex-end",
+    // flexDirection: "row",
+    // alignItems: "flex-end",
     marginBottom: 50,
   },
+  buttonNext: {
+   justifyContent:'flex-end',
+  },
+  btnSubmit:{
+    backgroundColor: "#e8be4b",
+    color:"#fff",
+    fontSize: 30,
+    paddingHorizontal:40,
+  },
+  
 });
