@@ -10,27 +10,58 @@ import {
   TouchableOpacity,
   View,
   TouchableWithoutFeedback,
+  Pressable,
 } from "react-native";
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function Placard({ navigation }) {
+import { SliderPicker } from "react-native-slider-picker";
+
+export default function Placard() {
   const [ingredient, setIngredient] = useState("");
   let [ingredientList, setIngredientList] = useState([]);
+  const [allergie, setAllergie] = useState("");
+  let [allergiesList, setAllergiesList] = useState([]);
+  const [pescto, setPescto] = useState(false);
+  const [omnivore, setOmnivore] = useState(false);
+  const [vegan, setVegan] = useState(false);
+  const [lactoseFree, setLactoseFree] = useState(false);
+  const [glutenFree, setGlutenFree] = useState(false);
 
-  function handleAdd() {
+  const inactivecColor = "rgba(146,195,188, 0.1)";
+  const activeColor = "rgba(146,195,188, 0.5)";
+
+  function handleAddIngredients() {
     setIngredientList([...ingredientList, ingredient]);
     setIngredient("");
   }
+  function handleAddAllergies() {
+    setAllergiesList([...allergiesList, allergie]);
+    setAllergie("");
+  }
 
-  function handleChange(value) {
+  function handleChangeIngredients(value) {
     setIngredient(value);
   }
-  function handleDelete(e) {
+  function handleChangeAllergies(value) {
+    setAllergie(value);
+  }
+  function handleDeleteIngredients(e) {
     // console.log(e);
     setIngredientList(ingredientList.filter((data) => data !== e));
   }
-  //console.log(ingredientList);
+  function handleDeleteAllergies(e) {
+    setAllergiesList(allergiesList.filter((data) => data !== e));
+  }
+  // const diet = [pescto, omnivore, vegan, glutenFree, lactoseFree];
+  // useEffect(() => {
+  //   if (pescto || omnivore || vegan || glutenFree || lactoseFree) {
+  //     setColor("red");
+  //   }
+  // }, [pescto, omnivore]);
+  // console.log(pescto);
+  // console.log(color);
+
   const displayedItems = ingredientList.map((e, i) => {
     return (
       <View style={styles.item}>
@@ -42,7 +73,23 @@ export default function Placard({ navigation }) {
           size={20}
           color="#92C3BC"
           style={styles.deleteIcon}
-          onPress={() => handleDelete(e)}
+          onPress={() => handleDeleteIngredients(e)}
+        />
+      </View>
+    );
+  });
+  const displayedAllergiesItems = allergiesList.map((e, i) => {
+    return (
+      <View style={styles.item}>
+        <Text key={i} style={styles.list}>
+          {e}
+        </Text>
+        <FontAwesome
+          name="times"
+          size={20}
+          color="#92C3BC"
+          style={styles.deleteIcon}
+          onPress={() => handleDeleteAllergies(e)}
         />
       </View>
     );
@@ -50,39 +97,178 @@ export default function Placard({ navigation }) {
   //console.log(ingredientList);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <View style={styles.bigText}>
-          <Text style={styles.bigTextContent}> Filter</Text>
-        </View>
+      <ScrollView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+        >
+          {/* <View style={styles.bigText}>
+            <Text style={styles.bigTextContent}> Filter</Text>
+          </View> */}
 
-        <View style={styles.inputContainer}>
-          <Text>Ingredients</Text>
-          {/* <Text>{count}</Text> */}
-          <TextInput
-            style={styles.inputText}
-            placeholder="Add an ingredient"
-            onChangeText={(value) => {
-              handleChange(value);
-            }}
-            value={ingredient}
-          ></TextInput>
-          <TouchableOpacity
-            style={styles.addBtn}
-            activeOpacity={0.8}
-            onPress={() => handleAdd()}
-          >
-            <Text style={styles.textButton}>Add</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
+          <View style={styles.inputContainer}>
+            {displayedItems.length === 0 ? (
+              <Text style={styles.textTitle}>Ingredients</Text>
+            ) : (
+              <Text style={styles.textTitle}>
+                Ingredients: {displayedItems.length}
+              </Text>
+            )}
+            <View style={styles.searchBar}>
+              <TextInput
+                style={styles.inputText}
+                placeholder="Add an ingredient"
+                onChangeText={(value) => {
+                  handleChangeIngredients(value);
+                }}
+                value={ingredient}
+              ></TextInput>
 
-        <TouchableOpacity style={styles.findBtn} activeOpacity={0.8}>
-          <Text style={styles.textButton}>Find a recipe</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+              <TouchableOpacity
+                style={styles.addBtn}
+                activeOpacity={0.8}
+                onPress={() => handleAddIngredients()}
+              >
+                <Text style={styles.textButton}>Add</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
+
+          <Text style={styles.textTitle}> Diet </Text>
+          <View style={styles.dietElements}>
+            <Pressable
+              style={styles.dietItem}
+              backgroundColor={pescto ? activeColor : inactivecColor}
+              onPress={() => setPescto((current) => !current)}
+            >
+              <Image
+                style={styles.imgAvatar}
+                source={require("../assets/icon/fish.png")}
+              />
+              <Text style={styles.textDiet}> Pescto</Text>
+            </Pressable>
+            <Pressable
+              style={styles.dietItem}
+              backgroundColor={omnivore ? activeColor : inactivecColor}
+              onPress={() => setOmnivore((current) => !current)}
+            >
+              <Image
+                style={styles.imgAvatar}
+                source={require("../assets/icon/meat.png")}
+              />
+              <Text style={styles.textDiet}> Omnivore</Text>
+            </Pressable>
+            <Pressable
+              style={styles.dietItem}
+              backgroundColor={vegan ? activeColor : inactivecColor}
+              onPress={() => setVegan((current) => !current)}
+            >
+              <Image
+                style={styles.imgAvatar}
+                source={require("../assets/icon/vegan.png")}
+              />
+              <Text style={styles.textDiet}> Vegan</Text>
+            </Pressable>
+            <Pressable
+              style={styles.dietItem}
+              backgroundColor={lactoseFree ? activeColor : inactivecColor}
+              onPress={() => setLactoseFree((current) => !current)}
+            >
+              <Image
+                style={styles.imgAvatar}
+                source={require("../assets/icon/milk-bottle.png")}
+              />
+              <Text style={styles.textDiet}> Lactose-Free</Text>
+            </Pressable>
+            <Pressable
+              style={styles.dietItem}
+              backgroundColor={glutenFree ? activeColor : inactivecColor}
+              onPress={() => setGlutenFree((current) => !current)}
+            >
+              <Image
+                style={styles.imgAvatar}
+                source={require("../assets/icon/grain.png")}
+              />
+              <Text style={styles.textDiet}> Gluten-Free</Text>
+            </Pressable>
+          </View>
+          <View style={styles.sliderContainer}>
+            <Text style={styles.textTitle}> Cooking time</Text>
+            <SliderPicker
+              minLabel={"15min"}
+              midLabel={"30min"}
+              maxLabel={"+1h"}
+              defaultValue={1}
+              maxValue={2}
+              labelFontColor={"#92C3BC"}
+              labelFontWeight={"400"}
+              labelFontSize={15}
+              showFill={true}
+              fillColor={"#92c3bc"}
+              showSeparatorScale={true}
+              buttonBackgroundColor={"#fff"}
+              buttonBorderColor={"#92C3BC"}
+              buttonBorderWidth={1}
+              scaleNumberFontWeight={"300"}
+              buttonDimensionsPercentage={6}
+            />
+          </View>
+          <View style={styles.sliderContainer}>
+            <Text style={styles.textTitle}> Preparation time</Text>
+            <SliderPicker
+              style={styles.slider}
+              minLabel={"15min"}
+              midLabel={"30min"}
+              maxLabel={"+1h"}
+              defaultValue={1}
+              maxValue={2}
+              labelFontColor={"#92C3BC"}
+              labelFontWeight={"400"}
+              labelFontSize={15}
+              showFill={true}
+              fillColor={"#92c3bc"}
+              showSeparatorScale={true}
+              buttonBackgroundColor={"#fff"}
+              buttonBorderColor={"#92C3BC"}
+              buttonBorderWidth={1}
+              scaleNumberFontWeight={"300"}
+              buttonDimensionsPercentage={6}
+            />
+          </View>
+          <View style={styles.inputContainerAllergies}>
+            {displayedAllergiesItems.length === 0 ? (
+              <Text style={styles.textTitle}>Allergies</Text>
+            ) : (
+              <Text style={styles.textTitle}>
+                Allergies: {displayedAllergiesItems.length}
+              </Text>
+            )}
+
+            <View style={styles.searchBar}>
+              <TextInput
+                style={styles.inputText}
+                placeholder="Add an allergie"
+                onChangeText={(value) => {
+                  handleChangeAllergies(value);
+                }}
+                value={allergie}
+              ></TextInput>
+
+              <TouchableOpacity
+                style={styles.addBtn}
+                activeOpacity={0.8}
+                onPress={() => handleAddAllergies()}
+              >
+                <Text style={styles.textButton}>Add</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <ScrollView style={styles.displayedView}>
+            {displayedAllergiesItems}
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }
@@ -90,15 +276,24 @@ export default function Placard({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#ffff",
     alignItems: "center",
     justifyContent: "center",
   },
-  searchBar: {},
+
   inputContainer: {
-    flexDirection: "row",
-    marginTop: 30,
+    // flexDirection: "row",
+    alignItems: "center",
+    marginTop: "20%",
     marginBottom: 30,
+  },
+  inputContainerAllergies: {
+    alignItems: "center",
+
+    marginBottom: 30,
+  },
+  searchBar: {
+    flexDirection: "row",
   },
   inputText: {
     width: 270,
@@ -114,9 +309,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 50,
     fontSize: 14,
-    padding: 10,
-    marginTop: 6,
+    height: 50,
+    //  padding: 10,
+    // marginTop: 6,
     marginLeft: 15,
+    alignItems: "center",
+    justifyContent: "center",
   },
   bigText: {
     alignItems: "center",
@@ -138,15 +336,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   displayedView: {
-    height: "40%",
     backgroundColor: "rgba(146,195,188, 0.2)",
     width: "80%",
     borderRadius: 20,
     alignItem: "center",
+    marginBottom: "15%",
   },
   list: {
     paddingLeft: 20,
-    paddingTop: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   item: {
     flexDirection: "row",
@@ -154,6 +353,44 @@ const styles = StyleSheet.create({
   },
   deleteIcon: {
     paddingRight: 20,
-    paddingTop: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  imgAvatar: {
+    width: 40,
+    height: 40,
+    marginTop: 30,
+  },
+  dietElements: {
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    marginBottom: "50%",
+    marginTop: "5%",
+    justifyContent: "space-evenly",
+  },
+  dietItem: {
+    alignItems: "center",
+    borderRadius: 20,
+    // backgroundColor: "rgba(146,195,188, 0.1)",
+    height: "40%",
+    width: "40%",
+    marginBottom: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.84,
+    elevation: 5,
+  },
+  textTitle: {
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  sliderContainer: {
+    alignItems: "center",
+    marginBottom: "20%",
   },
 });
