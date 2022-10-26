@@ -16,7 +16,7 @@ export default function FamilynumberScreen({ formData, setFormData }) {
   // NumberAdult:"",
   // numberChildren: "",
 
-  // counter number Adult
+  // Compteur adulte
   const [counterAdult, setCounterAdult] = useState(0);
 
   const counterClickPlus = () => {
@@ -29,6 +29,7 @@ export default function FamilynumberScreen({ formData, setFormData }) {
     }
   };
 
+   // Compteur enfant
   const [counterChild, setCounterChild] = useState(0);
 
   const counterPlusChildClick = () => {

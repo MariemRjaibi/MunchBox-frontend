@@ -27,10 +27,13 @@ export default function AllergiesScreen({ formData, setFormData }) {
 
   const optionsData = [
     { id: 1, option: "Vegan", isChecked: false },
-    { id: 2, option: "vegetarien", isChecked: false },
-    { id: 3, option: "Pesco-végétarien", isChecked: false },
-    { id: 4, option: "Gluten-free", isChecked: false },
-    { id: 5, option: "Lactose", isChecked: false },
+    { id: 2, option: "Vegetarian", isChecked: false },
+    { id: 3, option: "Pescetarian", isChecked: false },
+    { id: 4, option: "Gluten Free", isChecked: false },
+    { id: 5, option: "Lacto-Vegetarian", isChecked: false },
+    { id: 6, option: "Ketogenic", isChecked: false },
+    { id: 7, option: "Ovo-Vegetarian", isChecked: false },
+    { id: 8, option: "Paleo", isChecked: false },
   ];
 
   const option = optionsData.map((data, i) => {
@@ -60,7 +63,7 @@ export default function AllergiesScreen({ formData, setFormData }) {
 
       <View style={styles.containerCheckbox}>{option}</View>
 
-      <View>
+      {/* <View>
         <Text style={styles.subTitle}>I can't eat ...</Text>
         <TextInput
           placeholder="Tell me your allergies"
@@ -68,7 +71,7 @@ export default function AllergiesScreen({ formData, setFormData }) {
           value={allergies}
           style={styles.input}
         />
-      </View>
+      </View> */}
     </KeyboardAvoidingView>
   );
 }
