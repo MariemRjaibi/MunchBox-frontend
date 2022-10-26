@@ -11,100 +11,85 @@ import {
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default function PreferencesScreen({ formData, setFormData }) {
+
   // Répurération de la data pour le form final
   // preference:"",
   // optionPreference:"",
 
+
+
   const [ingredient, setIngredient] = useState("");
   const [ingredientList, setIngredientList] = useState([]);
 
+  // Récupérer et stocker les aliments écrit par l'utilisateur dans l'input
   const addPreferenceClick = () => {
+
+    //Afficer les aliments taper par l'utilisateur
     setIngredientList([...ingredientList, ingredient]);
     setIngredient("");
+
+    // variable pour relier au formulaire
+    const allergies = [...ingredientList, ingredient];
+    setFormData({...formData, allergies})
   };
 
-  // const handleChange = () =>{
-  //     setIngredient(value);
-  //     //(preference) => setFormData({...formData, preference })
-  // }
 
+  // Ajouter des aliments à la liste des allergies
   const listPreference = ingredientList.map((data, i) => {
     return (
       <View key={i} style={styles.addOption}>
         <Text style={styles.textOption}> {data}</Text>
-        <FontAwesome
-          name="close"
-          size={15}
-          color={"#000"}
-          onPress={() => deleteClick()}
-          style={styles.btnDelete}
-        />
+        <FontAwesome name="close" size={15} color={"#000"} onPress={() => deleteClick()} style={styles.btnDelete} />
       </View>
     );
   });
 
+  // Liste par défaut des aliments pour les intollérances 
   const optionsData = [
     { id: 1, name: "Grain", photo: require("../../assets/icon/grain.png") },
     { id: 2, name: "Shrimp", photo: require("../../assets/icon/shrimp.png") },
     { id: 3, name: "Porc", photo: require("../../assets/icon/porc.png") },
-    {
-      id: 4,
-      name: "Watermelon",
-      photo: require("../../assets/icon/watermelon.png"),
-    },
-    {
-      id: 5,
-      name: "Mushroom",
-      photo: require("../../assets/icon/mushroom.png"),
-    },
+    { id: 4, name: "Watermelon", photo: require("../../assets/icon/watermelon.png") },
+    { id: 5, name: "Mushroom", photo: require("../../assets/icon/mushroom.png"), },
     { id: 6, name: "Salad", photo: require("../../assets/icon/salad.png") },
     { id: 7, name: "Peanut", photo: require("../../assets/icon/peanut.png") },
     {
-      id: 8,
-      name: "Oeuf-dur",
-      photo: require("../../assets/icon/oeuf-dur.png"),
+      id: 8, name: "Oeuf-dur", photo: require("../../assets/icon/oeuf-dur.png"),
     },
   ];
 
-  // style={{
-  //     backgroundColor: isActive ? 'salmon' : '',
-  //     color: isActive ? 'white' : '',
-  //   }}>
+  //backgroundColor: isActive ? 'salmon' : '',  color: isActive ? 'white' : '',
+
 
   const optionPreferences = optionsData.map((data, i) => {
+
     const [isActive, setIsActive] = useState(false);
 
-    const OptionClik = (event) => {
-      console.log(data.name);
+    const[preference, setPreference] = useState([]);
+    //const [preferenceList, setPreferenceList] = useState([]);
+
+  
+    const OptionClik = () => {
+      //console.log(data.name);
+      setPreference(data.name)
+      console.log(preference);
+      
+     //setPreference([...preferenceList, preference]);
+      //setFormData({...formData, preference})
+
       // setIsActive(current => !current);
 
-      // if (isActive > 1) {
-      //     console.log("ok")
-      //   } else {
-      //     event.currentTarget.style.backgroundColor = 'salmon';
-      //     event.currentTarget.style.color = 'white';
-      //   }
       //onPress={(preference) => setFormData({...formData, preference })}
     };
 
+
+
+
     return (
-      <View
-        key={i}
-        style={[
-          {
-            backgroundColor: isActive ? "salmon" : "",
-            color: isActive ? "white" : "",
-          },
-          styles.section,
-        ]}
-      >
-        <TouchableOpacity
-          value={formData.preference}
-          onPress={() => OptionClik()}
-        >
+      <View key={i} style={styles.section}>
+        <TouchableOpacity value={preference} onPress={OptionClik}>
           <Image source={data.photo} style={styles.photo} />
           <Text style={styles.textOption}>{data.name}</Text>
         </TouchableOpacity>
@@ -118,20 +103,9 @@ export default function PreferencesScreen({ formData, setFormData }) {
       <Text style={styles.subTitle}>I don't like to eat ...</Text>
 
       <View style={styles.containerInput}>
-        <TextInput
-          placeholder="Tell me what you don’t eat"
-          onChangeText={(value) => setIngredient(value)}
-          value={ingredient}
-          style={styles.input}
-        />
+        <TextInput placeholder="Tell me what you don’t eat" onChangeText={(value) => setIngredient(value)} value={ingredient} style={styles.input}/>
         <View>
-          <FontAwesome
-            name="plus"
-            size={20}
-            color={"#ffffff"}
-            onPress={() => addPreferenceClick()}
-            style={styles.btnPlus}
-          />
+          <FontAwesome name="plus" size={20} color={"#ffffff"} onPress={() => addPreferenceClick()} style={styles.btnPlus} />
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -148,14 +122,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   title: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: "bold",
+    color: "#92C3BC",
     marginBottom: 15,
   },
   subTitle: {
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 15,
+    //color:"#ABAEB1",
   },
   containerInput: {
     flexDirection: "row",

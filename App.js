@@ -41,7 +41,7 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-// Configuration natigation
+// Configuration navigation
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 

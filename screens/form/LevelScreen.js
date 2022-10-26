@@ -78,12 +78,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 15,
+    fontSize: 30,
+    fontWeight:"bold",
+    color:"#92C3BC",
+    //marginBottom: 15,
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 50,
   },
 });

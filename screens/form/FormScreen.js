@@ -7,6 +7,10 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
+import { useDispatch } from 'react-redux';
+import { addPreference } from '../../reducers/filters';
+
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import FamilynumberScreen from "./FamilynumberScreen";
@@ -15,10 +19,15 @@ import PreferencesScreen from "./PreferencesScreen";
 import LevelScreen from "./LevelScreen";
 import SignupScreen from "../SignupScreen";
 
+
+
 export default function FormScreen({ navigation }) {
+
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     // Family number
-    NumberAdult: "",
+    result: "",
     numberChildren: "",
 
     // Allergies
@@ -27,15 +36,34 @@ export default function FormScreen({ navigation }) {
 
     //Food preference
     preference: "",
-    optionPreference: "",
+    allergies: "",
   });
+
+   // Compteur enfant
+   const [numberChildren, setnumberChildren] = useState(0);
+
+  
+   const counterPlusChildClick = () => {
+     setnumberChildren(numberChildren + 1);
+     //setFormData((numberChildren))
+ 
+     // Manque +1 result -> -
+    // setFormData({...formData, numberChildren})
+   };
+ 
+   const counterPlusChildMoins = () => {
+     if (numberChildren > 0) {
+       setnumberChildren(numberChildren - 1);
+     }
+   };
+
 
   const [screen, setscreen] = useState(0);
 
   const ScreenDisplay = () => {
     if (screen === 0) {
       return (
-        <FamilynumberScreen formData={formData} setFormData={setFormData} />
+        <FamilynumberScreen  plusChild={counterPlusChildClick} moinsChild={counterPlusChildMoins} counter={numberChildren} formData={formData} setFormData={setFormData} />
       );
     } else if (screen === 1) {
       return <AllergieScreen formData={formData} setFormData={setFormData} />;
@@ -52,8 +80,10 @@ export default function FormScreen({ navigation }) {
 
   // Bouton suivant et soumettre 
   function handlePress() {
+    console.log("Info :", formData)
     if(screen === 3){
-      console.log("hello")
+      //console.log("Info :", formData)
+      //dispatch(addPreference(formData))
       navigation.navigate(SignupScreen)
     }else{
       setscreen((currScreen) => currScreen + 1)
@@ -61,16 +91,20 @@ export default function FormScreen({ navigation }) {
   }
 
   const iconBtnNext =  <FontAwesome name="chevron-circle-right" size={55} color={"#e8be4b"} style={styles.buttonNext}/>;
-  const iconBtnReturn = <FontAwesome name="arrow-left" size={20} color={"#e8be4b"} style={styles.buttonReturn}/>;
+  const iconBtnReturn = <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>;
   const textBtnSubmit = <Text style={styles.btnSubmit}>Let's cook</Text>;
   return (
     <View style={styles.container}>
 
-      <View>
+      <View style={styles.main}>
 
-        <Pressable disabled={screen === 0} onPress={() => setscreen((currScreen) => currScreen - 1)}>
-          <Text>{screen === 0  ? " " : iconBtnReturn}</Text>
-        </Pressable>
+        <View style={styles.header}>
+          <Pressable style={styles.btnNext} disabled={screen === 0} onPress={() => setscreen((currScreen) => currScreen - 1)}>
+            <Text>{screen === 0  ? " " : iconBtnReturn}</Text>
+          </Pressable>
+          <Text style={styles.textHeader}>kitchen preference</Text>
+        </View>
+       
 
         <View>
           {ScreenDisplay()}
@@ -97,6 +131,22 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#FBFBFB",
     justifyContent: "space-between",
+  },
+  main:{
+    //backgroundColor:"pink",
+  },
+  header:{
+    flexDirection:"row",
+    marginBottom: 20,
+    //backgroundColor:"#FFD87D",
+    //justifyContent:"space-between",
+  },
+  btnNext:{
+   //alignSelf:"flex-start",
+  },
+  textHeader:{
+   marginLeft:"30%",
+   color:"#2E516A",
   },
   btnContainer: {
     // flexDirection: "row",

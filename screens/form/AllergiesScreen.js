@@ -15,6 +15,7 @@ import {
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { current } from "@reduxjs/toolkit";
 
 //  <Checkbox
 //             disabled={false}
@@ -38,40 +39,27 @@ export default function AllergiesScreen({ formData, setFormData }) {
 
   const option = optionsData.map((data, i) => {
     const [isChecked, setChecked] = useState(false);
+
+    const checkboxClick = () =>{
+      setChecked(current => !current);
+      console.log("coucou")
+    }
+
     return (
       <View key={i} style={styles.section}>
-        <Checkbox
-          style={styles.checkbox}
-          value={isChecked}
-          onValueChange={setChecked}
-          color={isChecked ? "#92C3BC" : undefined}
-        />
+        <Checkbox style={styles.checkbox} value={isChecked}  onValueChange={checkboxClick} color={isChecked ? "#92C3BC" : undefined}/>
         <Text style={styles.textOption}>{data.option}</Text>
       </View>
     );
   });
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} >
       <View>
         <Text style={styles.title}>Food allergies</Text>
         <Text style={styles.text}>Avez-vous un régime alimentaire ? </Text>
       </View>
-
       <View style={styles.containerCheckbox}>{option}</View>
-
-      {/* <View>
-        <Text style={styles.subTitle}>I can't eat ...</Text>
-        <TextInput
-          placeholder="Tell me your allergies"
-          onChangeText={(value) => setAllergies(value)}
-          value={allergies}
-          style={styles.input}
-        />
-      </View> */}
     </KeyboardAvoidingView>
   );
 }
@@ -87,14 +75,16 @@ const styles = StyleSheet.create({
 
   // },
   title: {
-    fontSize: 35,
-    fontWeight: "bold",
-    marginBottom: 15,
+    fontSize: 30,
+    fontWeight:"bold",
+    color:"#92C3BC",
+    //marginBottom: 15,
     //marginTop: 25,
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 20,
+    //color:"#ABAEB1",
   },
   containerCheckbox: {
     marginBottom: 40,
