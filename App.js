@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Reducers import
 import users from "./reducers/users";
 import filters from "./reducers/filters";
+import modalFilters from "./reducers/modalFilters";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -30,7 +31,7 @@ import SignupScreen from "./screens/SignupScreen";
 import Placard from "./screens/Placard";
 
 // Configuration Reducer Store
-const reducers = combineReducers({ users });
+const reducers = combineReducers({ users, modalFilters });
 const persistConfig = { key: "munchbox", storage: AsyncStorage };
 
 const store = configureStore({
@@ -51,12 +52,13 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
+            {/* <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
-            <Stack.Screen name="Homepage" component={Homepage} />
+            <Stack.Screen name="Homepage" component={Homepage} /> */}
             <Stack.Screen name="Recettepage" component={Recettepage} />
-            <Stack.Screen name="Filter" component={Filter} />
+            {/* <Stack.Screen name="Placard" component={Placard} /> */}
+            {/* <Stack.Screen name="Filter" component={Filter} /> */}
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

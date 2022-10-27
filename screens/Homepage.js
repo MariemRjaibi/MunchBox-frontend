@@ -41,7 +41,7 @@ export default function Homepage({ navigation }) {
       </TouchableOpacity>
       <Text style={styles.textChoix2}> Que faire avec mes produits?</Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Placard")}
+        onPress={() => navigation.navigate(Placard)}
         style={styles.button2}
         activeOpacity={0.8}
       >

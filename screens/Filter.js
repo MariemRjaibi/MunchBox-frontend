@@ -11,63 +11,83 @@ import {
   View,
   TouchableWithoutFeedback,
   Pressable,
+  Keyboard,
 } from "react-native";
-import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
 import { SliderPicker } from "react-native-slider-picker";
+//Reducer imports
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addIngredients,
+  addAllergies,
+  updatePescto,
+  updateOmnivore,
+  updateVegan,
+  updateglutenfree,
+  updatelactosefree,
+  removeAllergies,
+  removeIngredients,
+} from "../reducers/modalFilters";
 
 export default function Placard() {
+  //Dispatch info to reducer
+  const dispatch = useDispatch();
+  //Read reducer info
+  const ingredientList = useSelector(
+    (state) => state.modalFilters.value.ingredients
+  );
+  const allergiesList = useSelector(
+    (state) => state.modalFilters.value.allergies
+  );
+  // const dietFromReducer = useSelector((state) => state.modalFilters.value.diet);
+  // console.log(dietFromReducer);
+
   const [ingredient, setIngredient] = useState("");
-  let [ingredientList, setIngredientList] = useState([]);
+
   const [allergie, setAllergie] = useState("");
-  let [allergiesList, setAllergiesList] = useState([]);
+
   const [pescto, setPescto] = useState(false);
   const [omnivore, setOmnivore] = useState(false);
   const [vegan, setVegan] = useState(false);
   const [lactoseFree, setLactoseFree] = useState(false);
   const [glutenFree, setGlutenFree] = useState(false);
 
+  //switching colors in Diet
   const inactivecColor = "rgba(146,195,188, 0.1)";
   const activeColor = "rgba(146,195,188, 0.5)";
 
+  //dispatch info to reducers (ingredients & allergies)
   function handleAddIngredients() {
-    setIngredientList([...ingredientList, ingredient]);
+    console.log("clicked");
+    dispatch(addIngredients(ingredient));
     setIngredient("");
   }
   function handleAddAllergies() {
-    setAllergiesList([...allergiesList, allergie]);
+    dispatch(addAllergies(allergie));
     setAllergie("");
   }
 
+  // set values of inputs
   function handleChangeIngredients(value) {
     setIngredient(value);
   }
   function handleChangeAllergies(value) {
     setAllergie(value);
   }
+
+  //dispatch the remove function of the reducer
   function handleDeleteIngredients(e) {
-    // console.log(e);
-    setIngredientList(ingredientList.filter((data) => data !== e));
+    dispatch(removeIngredients(e));
   }
   function handleDeleteAllergies(e) {
-    setAllergiesList(allergiesList.filter((data) => data !== e));
+    dispatch(removeAllergies(e));
   }
-  // const diet = [pescto, omnivore, vegan, glutenFree, lactoseFree];
-  // useEffect(() => {
-  //   if (pescto || omnivore || vegan || glutenFree || lactoseFree) {
-  //     setColor("red");
-  //   }
-  // }, [pescto, omnivore]);
-  // console.log(pescto);
-  // console.log(color);
 
   const displayedItems = ingredientList.map((e, i) => {
     return (
-      <View style={styles.item}>
-        <Text key={i} style={styles.list}>
-          {e}
-        </Text>
+      <View key={i} style={styles.item}>
+        <Text style={styles.list}>{e}</Text>
         <FontAwesome
           name="times"
           size={20}
@@ -80,10 +100,8 @@ export default function Placard() {
   });
   const displayedAllergiesItems = allergiesList.map((e, i) => {
     return (
-      <View style={styles.item}>
-        <Text key={i} style={styles.list}>
-          {e}
-        </Text>
+      <View key={i} style={styles.item}>
+        <Text style={styles.list}>{e}</Text>
         <FontAwesome
           name="times"
           size={20}
@@ -94,7 +112,17 @@ export default function Placard() {
       </View>
     );
   });
-  //console.log(ingredientList);
+  function handlePressPescto() {
+    setPescto((current) => !current);
+  }
+  function handleValidation() {
+    dispatch(updatePescto(pescto));
+    dispatch(updateOmnivore(omnivore));
+    dispatch(updateVegan(vegan));
+    dispatch(updatelactosefree(lactoseFree));
+    dispatch(updateglutenfree(glutenFree));
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <ScrollView>
@@ -102,10 +130,6 @@ export default function Placard() {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
-          {/* <View style={styles.bigText}>
-            <Text style={styles.bigTextContent}> Filter</Text>
-          </View> */}
-
           <View style={styles.inputContainer}>
             {displayedItems.length === 0 ? (
               <Text style={styles.textTitle}>Ingredients</Text>
@@ -123,7 +147,6 @@ export default function Placard() {
                 }}
                 value={ingredient}
               ></TextInput>
-
               <TouchableOpacity
                 style={styles.addBtn}
                 activeOpacity={0.8}
@@ -140,7 +163,7 @@ export default function Placard() {
             <Pressable
               style={styles.dietItem}
               backgroundColor={pescto ? activeColor : inactivecColor}
-              onPress={() => setPescto((current) => !current)}
+              onPress={() => handlePressPescto()}
             >
               <Image
                 style={styles.imgAvatar}
@@ -264,9 +287,17 @@ export default function Placard() {
               </TouchableOpacity>
             </View>
           </View>
+
           <ScrollView style={styles.displayedView}>
             {displayedAllergiesItems}
           </ScrollView>
+          <TouchableOpacity
+            style={styles.addBtn}
+            activeOpacity={0.8}
+            onPress={() => handleValidation()}
+          >
+            <Text style={styles.textButton}>Ok</Text>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>
     </TouchableWithoutFeedback>
