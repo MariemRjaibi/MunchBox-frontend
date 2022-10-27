@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import BatchCalendar from "./screens/BatchCalendar";
 import ConceptScreen from "./screens/form/ConceptScreen";
 import Homepage from "./screens/Homepage";
 import Recettepage from "./screens/Recettepage";
@@ -12,6 +13,7 @@ import Placard from "./screens/Placard";
 import Filter from "./screens/Filter";
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
+import Example from "./screens/Modal2";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="batchCalendar" component={BatchCalendar} />
         <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
         <Stack.Screen name="FormScreen" component={FormScreen} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
