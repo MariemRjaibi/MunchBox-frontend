@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Filter from "./Filter";
 
 export default function Placard({ navigation }) {
   const [ingredient, setIngredient] = useState("");
@@ -77,7 +78,11 @@ export default function Placard({ navigation }) {
         </View>
         <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
 
-        <TouchableOpacity style={styles.findBtn} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.findBtn}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate("Filter")}
+        >
           <Text style={styles.textButton}>Find a recipe</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
