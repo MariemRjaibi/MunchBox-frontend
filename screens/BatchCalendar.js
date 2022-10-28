@@ -12,8 +12,9 @@ import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ShoppingList from "./ShoppingList";
 
-export default function BatchCalendar() {
+export default function BatchCalendar(navigation) {
   const [selectedDate, setSelectedDate] = useState();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -31,6 +32,7 @@ export default function BatchCalendar() {
     hideDatePicker();
   };
 
+
   return (
     <View style={styles.container1}>
       <View style={styles.title1}>
@@ -40,6 +42,9 @@ export default function BatchCalendar() {
       <View style={styles.container}>
         <View style={styles.cards1}>
           <View style={styles.carteRecette}>
+
+            
+
             <Image
               style={styles.imageRecette1}
               source={require("../assets/plat.png")}
@@ -88,50 +93,56 @@ export default function BatchCalendar() {
                 : "Please select date"
             }`}</Text>
           </View>
+        </View>
+        <View style={styles.container2}>
+          <Text
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >{`Selected Date:  ${
+            selectedDate
+              ? moment(selectedDate).format("DD/MM/YYYY")
+              : "Please select date"
+          }`}</Text>
+        </View>
+        <View style={styles.cards2}>
+          <View style={styles.carteRecette}>
+            <Image
+              style={styles.imageRecette1}
+              source={require("../assets/plat.png")}
+            />
+            <Text style={styles.textChoix2}>Pizza Marguerita</Text>
           </View>
-          <View style={styles.container2}><Text
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >{`Selected Date:  ${
-                selectedDate
-                  ? moment(selectedDate).format("DD/MM/YYYY")
-                  : "Please select date"
-              }`}</Text></View>
-          <View style={styles.cards2}>
-            <View style={styles.carteRecette}>
-              <Image
-                style={styles.imageRecette1}
-                source={require("../assets/plat.png")}
-              />
-              <Text style={styles.textChoix2}>Pizza Marguerita</Text>
-            </View>
-            <Text style={styles.textChoixDate1}>
-              <Button
-                buttonTextColorIOS="blue"
-                title="Please select date"
-                onPress={showDatePicker}
-              />
-              <Text
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >{`Selected Date:  ${
-                selectedDate
-                  ? moment(selectedDate).format("DD/MM/YYYY")
-                  : "Please select date"
-              }`}</Text>
-            </Text>
-          </View>
-        
+          <Text style={styles.textChoixDate1}>
+            <Button
+              buttonTextColorIOS="blue"
+              title="Please select date"
+              onPress={showDatePicker}
+            />
+            <Text
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >{`Selected Date:  ${
+              selectedDate
+                ? moment(selectedDate).format("DD/MM/YYYY")
+                : "Please select date"
+            }`}</Text>
+          </Text>
         </View>
       </View>
-      
-    
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ShoppingList")}
+        style={styles.button2}
+        activeOpacity={0.3}
+      >
+        <Text style={styles.textButton}> Generate My Shopping List</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -144,7 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: "auto",
   },
-  container2:{
+  container2: {
     flex: 0.1,
     padding: 5,
   },
@@ -220,5 +231,25 @@ const styles = StyleSheet.create({
   chosenDate: {
     left: -50,
     flex: 1,
+  },
+  button2: {
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    paddingVertical: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    height: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    position: "absolute",
+    top: 600,
+    right: 140,
+  },
+  textButton: {
+    color: "#DE45FF",
+    height: 30,
+    fontWeight: "600",
+    fontSize: 12,
   },
 });
