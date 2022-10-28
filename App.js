@@ -28,7 +28,9 @@ import Recettepage from "./screens/Recettepage";
 import Filter from "./screens/Filter";
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
+import RecipeModal from "./screens/RecipeModal";
 import Placard from "./screens/Placard";
+
 
 // Configuration Reducer Store
 const reducers = combineReducers({ users, modalFilters });

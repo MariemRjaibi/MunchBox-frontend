@@ -5440,7 +5440,7 @@ prompts@^2.3.2, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.8.1:
+prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5603,6 +5603,13 @@ react-native-slider-picker@^1.1.4:
   integrity sha512-ln5qfFh0TSzqTfRgRKrZddO+l45KNZ3MYibWApdm7rkstJsTUN/uVWjQgXuU5fBGdYtOfCvk6s5XcV0R/kA4+A==
   dependencies:
     react-native-css-vh-vw "^1.0.4"
+
+react-native-switch-selector@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-switch-selector/-/react-native-switch-selector-2.2.1.tgz#551ff32c018281904b1d5df79f5192c788195d87"
+  integrity sha512-HeUGoPD+rDV9F0CWJnIjZaK1JJS95dnxxVzTzufeLYCtA/iFKxhy+PS8kAyXTwfrTSgFFAmURgcpkAcAMqDg8Q==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-native@0.69.6:
   version "0.69.6"
