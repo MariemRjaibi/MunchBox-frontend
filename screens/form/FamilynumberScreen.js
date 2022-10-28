@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Button,
   Image,
   ImageBackground,
   StyleSheet,
@@ -16,38 +17,49 @@ export default function FamilynumberScreen({ formData, setFormData }) {
   // NumberAdult:"",
   // numberChildren: "",
 
-  // counter number Adult
-  const [counterAdult, setCounterAdult] = useState(0);
+  // Compteur adulte
+  const [numberAdult, setnumberAdult] = useState(0);
+
+  //const result = setFormData({...formData, numberAdult});
 
   const counterClickPlus = () => {
-    setCounterAdult(counterAdult + 1);
+    setnumberAdult(numberAdult + 1);
+    setFormData({...formData, numberAdult})
   };
 
+  
   const counterClickmoins = () => {
-    if (counterAdult > 0) {
-      setCounterAdult(counterAdult - 1);
+    if (numberAdult > 0) {
+      setnumberAdult(numberAdult - 1);
     }
   };
 
-  const [counterChild, setCounterChild] = useState(0);
+   // Compteur enfant
+  const [numberChildren, setnumberChildren] = useState(0);
 
+  
   const counterPlusChildClick = () => {
-    setCounterChild(counterChild + 1);
+    setnumberChildren(numberChildren + 1);
+    //setFormData((numberChildren))
+
+    // Manque +1 result -> -
+    setFormData({...formData, numberChildren})
   };
 
   const counterPlusChildMoins = () => {
-    if (counterAdult > 0) {
-      setCounterChild(counterChild - 1);
+    if (numberChildren > 0) {
+      setnumberChildren(numberChildren - 1);
     }
   };
 
+
+ 
   return (
     <View style={styles.container}>
       <View style={styles.head}>
         <Text style={styles.title}>Family Numbers</Text>
         <Text style={styles.subTitle}>How many family members?</Text>
       </View>
-
       <View style={styles.mainChoise}>
         <View style={[styles.containerChoice, styles.FirstcontainerChoice]}>
           <Text style={styles.titleChoice}>Adults</Text>
@@ -63,7 +75,7 @@ export default function FamilynumberScreen({ formData, setFormData }) {
               onPress={() => counterClickmoins()}
               style={styles.btnCounter}
             />
-            <Text style={styles.txtCounter}>{counterAdult}</Text>
+            <Text style={styles.txtCounter}>{numberAdult}</Text>
             <FontAwesome
               name="plus"
               size={10}
@@ -88,7 +100,7 @@ export default function FamilynumberScreen({ formData, setFormData }) {
               onPress={() => counterPlusChildMoins()}
               style={styles.btnCounter}
             />
-            <Text style={styles.txtCounter}>{counterChild}</Text>
+            <Text style={styles.txtCounter}>{numberChildren}</Text>
             <FontAwesome
               name="plus"
               size={10}
@@ -106,16 +118,19 @@ export default function FamilynumberScreen({ formData, setFormData }) {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
-    height: "75%",
+    height: "80%",
   },
   head: {
     marginBottom: 30,
   },
   title: {
-    fontSize: 35,
+    fontSize: 30,
+    fontWeight:"bold",
+    color:"#92C3BC",
   },
   subTitle: {
     fontSize: 20,
+    //color:"#315671",
   },
   mainChoise: {
     flexDirection: "row",

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -14,6 +15,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { SliderPicker } from "react-native-slider-picker";
 
 export default function LevelScreen({ navigation }) {
+
+  const[kitchenLevel, setKitchenLevel] = useState(0);
+
+  const levelClick = (position) =>{
+    setKitchenLevel({value: position})
+    console.log("level : ",kitchenLevel)
+  }
+
   return (
     <View style={styles.container}>
       <View>
@@ -22,11 +31,13 @@ export default function LevelScreen({ navigation }) {
           Quel est ton degré de maitrise en cuisine ?{" "}
         </Text>
         <SliderPicker
+         
           minLabel={"Débutant"}
           midLabel={"Commis"}
           maxLabel={"Etchebest"}
           defaultValue={1}
           maxValue={2}
+          callback={levelClick}
           //   callback={position => {
           //     this.setState({ value: position });
           //   }}
@@ -78,12 +89,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 15,
+    fontSize: 30,
+    fontWeight:"bold",
+    color:"#92C3BC",
+    //marginBottom: 15,
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 50,
   },
 });

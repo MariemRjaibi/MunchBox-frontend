@@ -24,11 +24,11 @@ export default function SignupScreen({ navigation }) {
   //   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <ImageBackground
-        source={require("../assets/background-concept.jpg")}
-        style={styles.background}
-      >
+    <ImageBackground
+      source={require("../assets/background-concept.jpg")}
+      style={styles.background}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
@@ -82,8 +82,8 @@ export default function SignupScreen({ navigation }) {
             <View style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }} />
           </View>
         </KeyboardAvoidingView>
-      </ImageBackground>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 }
 

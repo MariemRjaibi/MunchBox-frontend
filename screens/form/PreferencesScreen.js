@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDeferredValue, useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -11,102 +11,71 @@ import {
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default function PreferencesScreen({ formData, setFormData }) {
-  // Répurération de la data pour le form final
-  // preference:"",
-  // optionPreference:"",
 
-  const [ingredient, setIngredient] = useState("");
-  const [ingredientList, setIngredientList] = useState([]);
+  // Donnée à récupérer 
+  // regime:"",
 
-  const addPreferenceClick = () => {
-    setIngredientList([...ingredientList, ingredient]);
-    setIngredient("");
-  };
+   const[preference, setPreference] = useState("");
+   const [preferenceList, setPreferenceList] = useState([]);
 
-  // const handleChange = () =>{
-  //     setIngredient(value);
-  //     //(preference) => setFormData({...formData, preference })
-  // }
+   //Changement de couleur -> True or False
+   const inativeColor = "#ffffff";
+   const activeColor = "#E8F4F5";
 
-  const listPreference = ingredientList.map((data, i) => {
-    return (
-      <View key={i} style={styles.addOption}>
-        <Text style={styles.textOption}> {data}</Text>
-        <FontAwesome
-          name="close"
-          size={15}
-          color={"#000"}
-          onPress={() => deleteClick()}
-          style={styles.btnDelete}
-        />
-      </View>
-    );
-  });
+   // Probleme avec rgba fait un petit carre foncé sur le texte
+   //const activeColor = "rgba(146,195,188, 0.4)";
+  
 
+
+  // Liste par défaut des regime alimentaire
   const optionsData = [
-    { id: 1, name: "Grain", photo: require("../../assets/icon/grain.png") },
-    { id: 2, name: "Shrimp", photo: require("../../assets/icon/shrimp.png") },
-    { id: 3, name: "Porc", photo: require("../../assets/icon/porc.png") },
-    {
-      id: 4,
-      name: "Watermelon",
-      photo: require("../../assets/icon/watermelon.png"),
-    },
-    {
-      id: 5,
-      name: "Mushroom",
-      photo: require("../../assets/icon/mushroom.png"),
-    },
-    { id: 6, name: "Salad", photo: require("../../assets/icon/salad.png") },
-    { id: 7, name: "Peanut", photo: require("../../assets/icon/peanut.png") },
-    {
-      id: 8,
-      name: "Oeuf-dur",
-      photo: require("../../assets/icon/oeuf-dur.png"),
-    },
+    { id: 1, name: "Vegan", photo: require("../../assets/icon/grain.png"), isActive: true, },
+    { id: 2, name: "Vegetarian", photo: require("../../assets/icon/shrimp.png"), isActive: false, },
+    { id: 3, name: "Pescatarian", photo: require("../../assets/icon/watermelon.png"), isActive: false, },
+    { id: 4, name: "Gluten Free", photo: require("../../assets/icon/mushroom.png"), isActive: false, },
+    { id: 5, name: "Lacto-vegetarian", photo: require("../../assets/icon/salad.png"), isActive: false, },
+    { id: 6, name: "Ovo-vegetarian", photo: require("../../assets/icon/peanut.png"), isActive: false, },
+    { id: 7, name: "Paleo", photo: require("../../assets/icon/oeuf-dur.png"), isActive: false,},
   ];
 
-  // style={{
-  //     backgroundColor: isActive ? 'salmon' : '',
-  //     color: isActive ? 'white' : '',
-  //   }}>
+   
 
   const optionPreferences = optionsData.map((data, i) => {
+
     const [isActive, setIsActive] = useState(false);
 
-    const OptionClik = (event) => {
-      console.log(data.name);
-      // setIsActive(current => !current);
+    const preferenceClik = () => {
 
-      // if (isActive > 1) {
-      //     console.log("ok")
-      //   } else {
-      //     event.currentTarget.style.backgroundColor = 'salmon';
-      //     event.currentTarget.style.color = 'white';
-      //   }
-      //onPress={(preference) => setFormData({...formData, preference })}
+      // True or False
+      setIsActive((current) => !current);
+      console.info(isActive);
+      
+      setPreference(data.name);
+      //console.log(data.name);
+
+      // Ajouter tous les choix dans un tableau
+      setPreferenceList([...preferenceList, data.name]);
+
+      // Meilleur methode mais bug ? 
+      // setPreferenceList([...preferenceList, preference]);
+  
+      const regime = [...preferenceList, data.name];
+      setFormData({...formData, regime})
+      
     };
 
+    optionsData.filter(value => value.isActive)
+
+    //style={[{ backgroundColor: data.isActive ? "pink" : "grey", fontSize: data.isActive ? "10" : "20", }]}
+
+
     return (
-      <View
-        key={i}
-        style={[
-          {
-            backgroundColor: isActive ? "salmon" : "",
-            color: isActive ? "white" : "",
-          },
-          styles.section,
-        ]}
-      >
-        <TouchableOpacity
-          value={formData.preference}
-          onPress={() => OptionClik()}
-        >
+      <View key={i}  style={styles.section} backgroundColor={isActive ? activeColor : inativeColor}>
+        <TouchableOpacity onPress={() => preferenceClik()} value={preference}>
           <Image source={data.photo} style={styles.photo} />
-          <Text style={styles.textOption}>{data.name}</Text>
+          <Text style={styles.textOption} >{data.name}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -114,29 +83,10 @@ export default function PreferencesScreen({ formData, setFormData }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Food preferences</Text>
-      <Text style={styles.subTitle}>I don't like to eat ...</Text>
+      <Text style={styles.title}>🍉 Food preferences</Text>
+      <Text style={styles.text}>Avez-vous un régime alimentaire ? </Text>
 
-      <View style={styles.containerInput}>
-        <TextInput
-          placeholder="Tell me what you don’t eat"
-          onChangeText={(value) => setIngredient(value)}
-          value={ingredient}
-          style={styles.input}
-        />
-        <View>
-          <FontAwesome
-            name="plus"
-            size={20}
-            color={"#ffffff"}
-            onPress={() => addPreferenceClick()}
-            style={styles.btnPlus}
-          />
-        </View>
-      </View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={styles.containerOption}>{listPreference}</View>
-
         <View style={styles.containerPreference}>{optionPreferences}</View>
       </ScrollView>
     </View>
@@ -148,14 +98,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   title: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: "bold",
+    color: "#92C3BC",
     marginBottom: 15,
   },
   subTitle: {
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 15,
+    //color:"#ABAEB1",
+  },
+  text: {
+    fontSize: 20,
+    marginBottom: 20,
+    //color:"#ABAEB1",
   },
   containerInput: {
     flexDirection: "row",
@@ -176,7 +133,12 @@ const styles = StyleSheet.create({
   },
   btnPlus: {
     backgroundColor: "#e8be4b",
+    padding:10,
+    paddingHorizontal:12,
     borderRadius: 100,
+    position:"absolute",
+    right:10,
+    top:"10%",
   },
   contentContainer: {
     margin: 0,
@@ -208,7 +170,7 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 10,
-    backgroundColor: "#ffffff",
+    //backgroundColor: "#ffffff",
     borderRadius: 20,
     marginBottom: 20,
     marginLeft: 20,
@@ -228,5 +190,6 @@ const styles = StyleSheet.create({
   },
   textOption: {
     textAlign: "center",
+    width:65,
   },
 });
