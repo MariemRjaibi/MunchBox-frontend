@@ -11,17 +11,16 @@ import {
 } from "react-native";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Homepage from "./Homepage";
 
 export default function Recettepage(navigation) {
   const [listRecipe, setListRecipe] = useState([]);
-  const [startRecipe, setStartRecipe] = useState([]);
-  const [mcRecipe, setMcRecipe] = useState([]);
-  const [anyFilter, setAnyFilter] = useState(true);
-  const [isStarter, setIsStarter] = useState(false);
-  const [isMainCourse, setIsMainCourse] = useState(false);
-  const [isDessert, setIsDessert] = useState(false);
-  const [isSideDish, setIsSideDish] = useState(false);
+  // const [startRecipe, setStartRecipe] = useState([]);
+  // const [mcRecipe, setMcRecipe] = useState([]);
+  // const [anyFilter, setAnyFilter] = useState(true);
+  // const [isStarter, setIsStarter] = useState(false);
+  // const [isMainCourse, setIsMainCourse] = useState(false);
+  // const [isDessert, setIsDessert] = useState(false);
+  // const [isSideDish, setIsSideDish] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -267,7 +266,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingBottom: 10,
     borderRadius: 15,
-    width:150,
     height: "auto",
     marginBottom: 20,
   },
@@ -277,9 +275,9 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     width: 150,
   },
-  imageRecipe:{
-    width:"100%",
-    height:120,
+  imageRecipe: {
+    width: 150,
+    height: 150,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
   },
