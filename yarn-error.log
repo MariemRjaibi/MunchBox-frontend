@@ -14,11 +14,8 @@ Platform:
   darwin arm64
 
 Trace: 
-<<<<<<< HEAD
   SyntaxError: /Users/mariem/Desktop/MunchBox/frontend/package.json: Unexpected token < in JSON at position 454
-=======
   SyntaxError: C:\Users\33659\OneDrive\Desktop\munchBox\MunchBox-frontend\package.json: Unexpected token < in JSON at position 454
->>>>>>> fc3726b8dd4f630255fe761dbb7ce48e9d4f05a5
       at JSON.parse (<anonymous>)
       at /usr/local/lib/node_modules/yarn/lib/cli.js:1629:59
       at Generator.next (<anonymous>)
