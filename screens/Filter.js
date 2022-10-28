@@ -29,6 +29,7 @@ import {
   removeAllergies,
   removeIngredients,
 } from "../reducers/modalFilters";
+import Recettepage from "./Recettepage";
 
 export default function Placard() {
   //Dispatch info to reducer
@@ -116,6 +117,7 @@ export default function Placard() {
     setPescto((current) => !current);
   }
   function handleValidation() {
+    navigation.navigate("Recettepage");
     dispatch(updatePescto(pescto));
     dispatch(updateOmnivore(omnivore));
     dispatch(updateVegan(vegan));
