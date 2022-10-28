@@ -74,6 +74,7 @@ export default function App() {
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
             <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen} />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
+            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
