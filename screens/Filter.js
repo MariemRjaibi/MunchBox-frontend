@@ -31,7 +31,7 @@ import {
 } from "../reducers/modalFilters";
 import Recettepage from "./Recettepage";
 
-export default function Placard() {
+export default function Filter({navigation}) {
   //Dispatch info to reducer
   const dispatch = useDispatch();
   //Read reducer info
