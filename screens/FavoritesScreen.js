@@ -5,7 +5,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 
 
-export default function Recettepage({navigation}) {
+export default function FavoritesScreen({navigation}) {
 
 let listRecipe= [
   {id: 1, image: require('../assets/plat-1.jpg'), name: 'Steak with Oriental vegeratien ', time: '35 min'},
@@ -37,31 +37,29 @@ const Recipes = listRecipe.map((data, i) => {
 
   return (
     <View style={styles.container}>
+    
+        <View style={styles.containerheader}>
 
-      <View style={styles.containerHeader}>
+            <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>
+
+            <View>
+                <TouchableOpacity style={styles.containerIconUser}>
+                    <Image style={styles.imageProfil} source={require('../assets/Etchebest.jpg')}/>
+                </TouchableOpacity>
+            </View>
+        </View>
+        
+        <View style={styles.containerHead}>
+            <Text style={styles.title}>Favorites recipes</Text>
+            <Text style={styles.subTitle}>What you want to cook today ?</Text>
+        </View>
+        
+        
+        <View style={styles.containerFilter}>
 
         <View>
-          <Text style={styles.welcomeText}>Hello Phifi</Text>
-          <Text style={styles.tagline}>What you want to cook today ? </Text>
+            <FontAwesome name="filter" size={25} color={"#ffffff"}  style={styles.filterIcon}/>
         </View>
-
-        <View>
-          <TouchableOpacity style={styles.containerIconUser}>
-            {/* <FontAwesome name="user" size={20} color={"#fff"}  style={styles.iconUser}/> */}
-            <Image style={styles.imageProfil} source={require('../assets/Etchebest.jpg')}/>
-          </TouchableOpacity>
-        </View>
-
-      </View>
-
-      
-      
-     
-    <View style={styles.containerFilter}>
-
-    <View>
-        <FontAwesome name="filter" size={25} color={"#ffffff"}  style={styles.filterIcon}/>
-    </View>
      
 
       <ScrollView contentContainerStyle={styles.contentScroll}  horizontal={true}>
@@ -94,7 +92,7 @@ const Recipes = listRecipe.map((data, i) => {
 
       <View style={styles.containerNumberRecipes}>
           <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
-          <Text style={styles.numberRecipe}>12</Text>
+          <Text style={styles.numberRecipe}>3</Text>
       </View>
 
       <View style={styles.containerRecipes}>
@@ -115,40 +113,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     
   },
-  containerHeader:{
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
-    
-  },
-  welcomeText:{
-    color:"#83C5BC",
-    fontWeight: "bold",
-    fontSize: 30,
-  },
-  tagline:{
-    color:"#ABAEB1",
-    fontSize: 16,
-  },
-  containerIconUser:{
-    // backgroundColor: "#92C3BC",
-    // padding: 5,
-    // justifyContent:"center",
-    // width: 40,
-    // height: 40,
-    // borderRadius: 100,
-
-  },
-  iconUser:{
-    textAlign:"center",
+  containerheader:{
+    flexDirection:"row",
+    justifyContent:'space-between',
   },
   imageProfil: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 100,
     borderWidth:2,
     borderColor: "#83C5BC",
+  },
+  containerHead:{
+    marginBottom:20,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight:"bold",
+    color:"#92C3BC",
   },
   containerNumberRecipes: {
     flexDirection:"row", 
@@ -205,28 +187,27 @@ const styles = StyleSheet.create({
   containerRecipes: {
     flexDirection: "row", 
     flexWrap: "wrap",
+    justifyContent:"space-evenly",
   },
   cardRecipe:{
     backgroundColor: "rgba(255, 216, 125, 0.3)",
     marginHorizontal: 5,
     paddingBottom: 10,
-    borderRadius: 15,
+    borderRadius: 15, 
     width:150,
     height: "auto",
     marginBottom: 20,
-
   },
   cardTitle:{
     paddingVertical: 10,
     fontWeight: "500",
     paddingLeft:5,
-    width: 150,
   },
   imageRecipe:{
     width:"100%",
     height:120,
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
+   borderTopRightRadius: 15,
+   borderTopLeftRadius: 15,
   },
   cardInfo:{
     paddingHorizontal:6,

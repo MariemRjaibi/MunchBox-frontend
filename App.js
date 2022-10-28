@@ -28,6 +28,13 @@ import Placard from "./screens/Placard";
 import Filter from "./screens/Filter";
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
+import ShoppinglistScreen from "./screens/ShoppinglistScreen";
+import BatchweekScreen from "./screens/BatchweekScreen";
+import FavoritesScreen from "./screens/FavoritesScreen";
+
+import { shouldUseActivityState } from "react-native-screens";
+
+
 
 
 // Configuration Reducer Store
@@ -57,6 +64,9 @@ export default function App() {
             <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="Filter" component={Filter} />
+            <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
+            <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen} />
+            <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

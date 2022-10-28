@@ -12,7 +12,7 @@ import {
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function FamilynumberScreen({ formData, setFormData, plusChild, moinsChild }) {
+export default function FamilynumberScreen({ formData, setFormData }) {
   //prop form
   // NumberAdult:"",
   // numberChildren: "",
@@ -24,7 +24,7 @@ export default function FamilynumberScreen({ formData, setFormData, plusChild, m
 
   const counterClickPlus = () => {
     setnumberAdult(numberAdult + 1);
-    //setFormData({...formData, numberAdult})
+    setFormData({...formData, numberAdult})
   };
 
   
@@ -34,19 +34,26 @@ export default function FamilynumberScreen({ formData, setFormData, plusChild, m
     }
   };
 
-  //  // Compteur enfant
-  // const [numberChildren, setnumberChildren] = useState(0);
+   // Compteur enfant
+  const [numberChildren, setnumberChildren] = useState(0);
 
   
-   
+  const counterPlusChildClick = () => {
+    setnumberChildren(numberChildren + 1);
+    //setFormData((numberChildren))
 
-  // const counterPlusChildMoins = () => {
-  //   if (numberChildren > 0) {
-  //     setnumberChildren(numberChildren - 1);
-  //   }
-  // };
+    // Manque +1 result -> -
+    setFormData({...formData, numberChildren})
+  };
+
+  const counterPlusChildMoins = () => {
+    if (numberChildren > 0) {
+      setnumberChildren(numberChildren - 1);
+    }
+  };
 
 
+ 
   return (
     <View style={styles.container}>
       <View style={styles.head}>
@@ -80,7 +87,6 @@ export default function FamilynumberScreen({ formData, setFormData, plusChild, m
         </View>
 
         <View style={styles.containerChoice}>
-      
           <Text style={styles.titleChoice}>Children</Text>
           <Image
             style={styles.imgAvatar}
@@ -91,7 +97,7 @@ export default function FamilynumberScreen({ formData, setFormData, plusChild, m
               name="minus"
               size={10}
               color={"#92C3BC"}
-              onPress={() => plusChild()}
+              onPress={() => counterPlusChildMoins()}
               style={styles.btnCounter}
             />
             <Text style={styles.txtCounter}>{numberChildren}</Text>
@@ -99,7 +105,7 @@ export default function FamilynumberScreen({ formData, setFormData, plusChild, m
               name="plus"
               size={10}
               color={"#92C3BC"}
-              onPress={() => moinsChild()}
+              onPress={() => counterPlusChildClick()}
               style={styles.btnCounter}
             />
           </View>

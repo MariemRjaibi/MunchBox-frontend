@@ -13,11 +13,16 @@ import { addPreference } from '../../reducers/filters';
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
+// Screens du formulaire
 import FamilynumberScreen from "./FamilynumberScreen";
 import AllergieScreen from "./AllergiesScreen";
 import PreferencesScreen from "./PreferencesScreen";
 import LevelScreen from "./LevelScreen";
+
+// Navigaton page suivante
 import SignupScreen from "../SignupScreen";
+
+import AsupScreen from "./AsupScreen";
 
 
 
@@ -25,51 +30,40 @@ export default function FormScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
+  // Etat pour récupérer les données du formulaire
   const [formData, setFormData] = useState({
     // Family number
-    result: "",
+    numberAdult: "",
     numberChildren: "",
 
+     //Food preference
+     regime: "",
+    
     // Allergies
-    regime: "",
-    optionAllergies: "",
-
-    //Food preference
-    preference: "",
     allergies: "",
+    preferences: "",
+
   });
 
-   // Compteur enfant
-   const [numberChildren, setnumberChildren] = useState(0);
-
   
-   const counterPlusChildClick = () => {
-     setnumberChildren(numberChildren + 1);
-     //setFormData((numberChildren))
- 
-     // Manque +1 result -> -
-    // setFormData({...formData, numberChildren})
-   };
- 
-   const counterPlusChildMoins = () => {
-     if (numberChildren > 0) {
-       setnumberChildren(numberChildren - 1);
-     }
-   };
-
 
   const [screen, setscreen] = useState(0);
 
   const ScreenDisplay = () => {
     if (screen === 0) {
       return (
-        <FamilynumberScreen  plusChild={counterPlusChildClick} moinsChild={counterPlusChildMoins} counter={numberChildren} formData={formData} setFormData={setFormData} />
+        <FamilynumberScreen  formData={formData} setFormData={setFormData} />
       );
     } else if (screen === 1) {
-      return <AllergieScreen formData={formData} setFormData={setFormData} />;
-    } else if (screen === 2) {
+
       return (
+       // < AsupScreen formData={formData} setFormData={setFormData} />
         <PreferencesScreen formData={formData} setFormData={setFormData} />
+      ) 
+     
+    } else if (screen === 2) {
+      return ( 
+        <AllergieScreen formData={formData} setFormData={setFormData} />     
       );
     } else {
       return <LevelScreen formData={formData} setFormData={setFormData} />;
@@ -83,7 +77,7 @@ export default function FormScreen({ navigation }) {
     console.log("Info :", formData)
     if(screen === 3){
       //console.log("Info :", formData)
-      //dispatch(addPreference(formData))
+      dispatch(addPreference(formData))
       navigation.navigate(SignupScreen)
     }else{
       setscreen((currScreen) => currScreen + 1)
