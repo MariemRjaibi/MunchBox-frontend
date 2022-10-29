@@ -30,8 +30,9 @@ import {
   removeIngredients,
 } from "../reducers/modalFilters";
 import Recettepage from "./Recettepage";
+//import Homepage from "./Homepage";
 
-export default function Filter({navigation}) {
+export default function Filter({ navigation }) {
   //Dispatch info to reducer
   const dispatch = useDispatch();
   //Read reducer info
@@ -117,7 +118,7 @@ export default function Filter({navigation}) {
     setPescto((current) => !current);
   }
   function handleValidation() {
-    navigation.navigate("Recettepage");
+    navigation.navigate(Recettepage);
     dispatch(updatePescto(pescto));
     dispatch(updateOmnivore(omnivore));
     dispatch(updateVegan(vegan));

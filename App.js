@@ -37,10 +37,8 @@ import ShoppingList from "./screens/ShoppingList";
 
 import { shouldUseActivityState } from "react-native-screens";
 
-
 import RecipeModal from "./screens/RecipeModal";
 import Placard from "./screens/Placard";
-
 
 // Configuration Reducer Store
 const reducers = combineReducers({ users, modalFilters });
@@ -64,17 +62,18 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
+            {/* <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
-            <Stack.Screen name="Homepage" component={Homepage} />
+            <Stack.Screen name="Homepage" component={Homepage} /> */}
             <Stack.Screen name="Recettepage" component={Recettepage} />
-            <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="Filter" component={Filter} />
-            <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
+            <Stack.Screen name="Placard" component={Placard} />
+            {/* <Stack.Screen name="Filter" component={Filter} /> */}
+            {/* <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
             <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen} />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
-            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
+            <Stack.Screen name="batchCalendar" component={BatchCalendar} />  */}
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
