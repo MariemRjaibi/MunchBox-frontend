@@ -28,6 +28,7 @@ export default function Recettepage({ navigation }) {
   const [calories, setCalories] = useState("");
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [displayedSteps, setDisplayedSteps] = useState([]);
   //const ingredientList =[];
 
   // const [startRecipe, setStartRecipe] = useState([]);
@@ -110,20 +111,45 @@ export default function Recettepage({ navigation }) {
     }
 
     setPrepTime(data.readyInMinutes);
+
+    //return the ingredients array in the modal
     let newIngredients = [];
     data.extendedIngredients.forEach(function (element) {
       newIngredients.push(element.name);
     });
     setIngredientsList([...ingredientsList, ...newIngredients]);
+
+    // the steps to display
+    let steps = [];
+    //console.log(data.analyzedInstructions[0].steps);
+    data.analyzedInstructions[0].steps.forEach(function (element) {
+      steps.push(element.step);
+    });
+    setDisplayedSteps([...displayedSteps, ...steps]);
   }
-  // the array to display
+
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
   //console.log(ingredientsList);
-
   function handlePressSwitcher() {
     setIsActive((current) => !current);
   }
+  const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
+    return (
+      <View key={i}>
+        <Text>{data}</Text>
+      </View>
+    );
+  });
+  const newStepsArray = displayedSteps.map((data, i) => {
+    return (
+      <View key={i}>
+        <Text>{data}</Text>
+      </View>
+    );
+  });
+
+  // the array to display
   const Recipes = listRecipe.map((data, i) => {
     return (
       <TouchableOpacity onPress={() => handleDescription(data)}>
@@ -155,19 +181,18 @@ export default function Recettepage({ navigation }) {
       </TouchableOpacity>
     );
   });
-  const hello = [1, 2, 3];
+
   //.log(Array.isArray(ingredientsList));
-  const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
-    return (
-      <View key={i}>
-        <Text>{data}</Text>
-      </View>
-    );
-  });
+
   //console.log(isEnabled);
   return (
     <View style={styles.container}>
-      <Modal visible={modalVisible} animationType="fade" transparent>
+      <Modal
+        visible={modalVisible}
+        animationType="fade"
+        transparent
+        style={styles.modalContainer}
+      >
         <ScrollView contentContainerStyle={styles.scrollview}>
           <Image source={{ uri: image }} style={styles.chicken} />
           <Ionicons
@@ -239,7 +264,7 @@ export default function Recettepage({ navigation }) {
               { label: "Steps", value: "steps" },
             ]}
           />
-          {isActive ? newIngredientsArray : <Text>hello steps</Text>}
+          {isActive ? newIngredientsArray : newStepsArray}
 
           <Text
             style={{
@@ -545,8 +570,10 @@ const styles = StyleSheet.create({
   //    backgroundColor: "white",
   //    alignItems: "center",
   // },
+  modalContainer: { flex: 1, width: "100%", backgroundColor: "#FFF4CF" },
   scrollview: {
     flex: 1,
+
     backgroundColor: "#FFF4CF",
     paddingBottom: 20,
     alignItems: "center",

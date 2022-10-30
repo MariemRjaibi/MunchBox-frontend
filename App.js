@@ -68,12 +68,15 @@ export default function App() {
             <Stack.Screen name="Homepage" component={Homepage} /> */}
             <Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="Filter" component={Filter} />
-            <Stack.Screen name="Placard" component={Placard} />
-            {/* <Stack.Screen name="Filter" component={Filter} /> */}
+            {/* <Stack.Screen name="Placard" component={Placard} />
+            <Stack.Screen name="Filter" component={Filter} /> */}
             {/* <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
-            <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen} />
+            <Stack.Screen
+              name="ShoppinglistScreen"
+              component={ShoppinglistScreen}
+            />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
-            <Stack.Screen name="batchCalendar" component={BatchCalendar} />  */}
+            <Stack.Screen name="batchCalendar" component={BatchCalendar} /> */}
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

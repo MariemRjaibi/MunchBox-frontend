@@ -30,6 +30,7 @@ import {
   removeIngredients,
 } from "../reducers/modalFilters";
 import Recettepage from "./Recettepage";
+import Placard from "./Placard";
 //import Homepage from "./Homepage";
 
 export default function Filter({ navigation }) {
@@ -118,7 +119,7 @@ export default function Filter({ navigation }) {
     setPescto((current) => !current);
   }
   function handleValidation() {
-    navigation.navigate(Recettepage);
+    navigation.navigate("Placard");
     dispatch(updatePescto(pescto));
     dispatch(updateOmnivore(omnivore));
     dispatch(updateVegan(vegan));
