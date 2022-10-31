@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 import {
   Button,
   Image,
@@ -24,13 +24,14 @@ export default function FamilynumberScreen({ formData, setFormData }) {
 
   const counterClickPlus = () => {
     setnumberAdult(numberAdult + 1);
-    setFormData({...formData, numberAdult})
+    setFormData({...formData, numberAdult : numberAdult + 1})
   };
 
   
   const counterClickmoins = () => {
     if (numberAdult > 0) {
       setnumberAdult(numberAdult - 1);
+      setFormData({...formData, numberAdult : numberAdult - 1})
     }
   };
 
@@ -43,16 +44,24 @@ export default function FamilynumberScreen({ formData, setFormData }) {
     //setFormData((numberChildren))
 
     // Manque +1 result -> -
-    setFormData({...formData, numberChildren})
+    setFormData({...formData,  numberChildren : numberChildren+ 1})
   };
 
   const counterPlusChildMoins = () => {
     if (numberChildren > 0) {
       setnumberChildren(numberChildren - 1);
     }
+   setFormData({...formData,  numberChildren : numberChildren -1})
   };
 
+//  hello =  setFormData({...formData, numberChildren});
 
+    
+//const counter = setFormData({...formData, numberChildren});
+  
+  //console.log(counter);
+
+ //const test = setFormData({...formData, numberChildren});
  
   return (
     <View style={styles.container}>

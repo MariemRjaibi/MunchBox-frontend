@@ -41,15 +41,19 @@ export default function BatchCalendar(navigation) {
     },
   ]);
 
+<<<<<<< HEAD
+=======
+//affichage du Datepicker sur telephone
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   const showDatePicker = (i) => {
     setCurrentIndex(i);
     setDatePickerVisibility(true);
   };
-
+//cacher le datepicker du telephone
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-
+//permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
   const handleConfirm = (date) => {
     console.warn(date);
     let res = recettes.map((element, index) => ({
@@ -64,6 +68,7 @@ export default function BatchCalendar(navigation) {
   let dateRecipe = recettes.map((data, i) => {
     return (
       <View style={styles.cardRecipe}>
+<<<<<<< HEAD
         <DateTimePickerModal
           style={styles.calendrier}
           isVisible={isDatePickerVisible}
@@ -74,6 +79,20 @@ export default function BatchCalendar(navigation) {
         />
         <View key={"item" + i} contentContainerStyle={styles.containerRecipes}>
           <Text style={styles.subTitle}>Lundi</Text>
+=======
+
+
+        <DateTimePickerModal
+          style={styles.calendrier}
+          isVisible={isDatePickerVisible}
+          mode="date" 
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          //Affiche la date a choisir a partir d'aujourd'hui
+          minimumDate={moment().toDate()}
+        />
+        <View key={"item" + i} contentContainerStyle={styles.containerRecipes}>
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
           <View style={styles.descriptionRecipe}>
             <Image style={styles.imageRecipe} source={data.image} />
             <View style={styles.descriptionRecipeText}>
@@ -89,7 +108,11 @@ export default function BatchCalendar(navigation) {
               <Text style={styles.textDate}>
                 {`Selected Date:  ${
                   data.date
+<<<<<<< HEAD
                     ? moment(data.date).format("YYYY-MM-DD")
+=======
+                    ? moment(data.date).format("DD-MM-YYYY")
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
                     : "Please select date"
                 }`}
                 ;
@@ -130,25 +153,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: "auto",
   },
-  container2: {
-    flex: 0.1,
-    padding: 5,
-  },
-  cards1: {
-    backgroundColor: "#DEBACC",
-    borderRadius: 15,
-    height: "14%",
-  },
-  cards2: {
-    backgroundColor: "#DEBAFF",
-    borderRadius: 15,
-    height: "14%",
-  },
+
   calendrier: {
     backgroundColor: "red",
   },
   textDate: {
     left: 10,
+<<<<<<< HEAD
   },
   carteRecette: {
     backgroundColor: "#FCFED5",
@@ -162,6 +173,11 @@ const styles = StyleSheet.create({
   textChoixDate1: {
     fontSize: 14,
 
+=======
+  },
+  textChoixDate1: {
+    fontSize: 14,
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
     top: -80,
     justifyContent: "space-around",
     right: 50,
@@ -170,16 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
   },
-  text: {
-    fontSize: 14,
-    borderColor: "F9D77E",
-    borderWidth: 2,
-    borderRadius: 15,
-    width: 190,
-    padding: 10,
-    left: 150,
-    top: -70,
-  },
+
   textChoix1: {
     color: "#DE45FF",
     justifyContent: "center",
@@ -192,25 +199,9 @@ const styles = StyleSheet.create({
     left: 100,
     fontFamily: "Grandhotel",
   },
-  imageRecette1: {
-    justifyContent: "center",
-    backgroundColor: "red",
-    borderRadius: 15,
 
-    width: 120,
-    height: 80,
-  },
-  boutonDate: {
-    fontSize: 19,
-    left: 160,
-    top: -80,
-    justifyContent: "space-around",
-    right: 50,
-  },
-  chosenDate: {
-    left: -50,
-    flex: 1,
-  },
+ 
+  
   button2: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
@@ -231,12 +222,16 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 12,
   },
+<<<<<<< HEAD
   subTitle: {
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 15,
     //color:"#ABAEB1",
   },
+=======
+ 
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   imageRecipe: {
     width: 120,
     height: 120,
@@ -246,10 +241,14 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "bold",
   },
+<<<<<<< HEAD
   DescriptionRecipeText: {
     paddingTop: 10,
     paddingLeft: 20,
   },
+=======
+
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   descriptionRecipe: {
     flexDirection: "row",
     backgroundColor: "#ffffff",

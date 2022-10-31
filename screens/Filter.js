@@ -119,7 +119,11 @@ export default function Filter({ navigation }) {
     setPescto((current) => !current);
   }
   function handleValidation() {
+<<<<<<< HEAD
     navigation.navigate("Placard");
+=======
+    navigation.navigate("TabNavigator");
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
     dispatch(updatePescto(pescto));
     dispatch(updateOmnivore(omnivore));
     dispatch(updateVegan(vegan));

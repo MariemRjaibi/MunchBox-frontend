@@ -22,7 +22,6 @@ import LevelScreen from "./LevelScreen";
 // Navigaton page suivante
 import SignupScreen from "../SignupScreen";
 
-import AsupScreen from "./AsupScreen";
 
 
 
@@ -33,15 +32,15 @@ export default function FormScreen({ navigation }) {
   // Etat pour récupérer les données du formulaire
   const [formData, setFormData] = useState({
     // Family number
-    numberAdult: "",
-    numberChildren: "",
+    numberAdult: 0,
+    numberChildren: 0,
 
      //Food preference
-     regime: "",
+     regime: [],
     
     // Allergies
-    allergies: "",
-    preferences: "",
+    allergies: [],
+    allergiesOption: [],
 
   });
 

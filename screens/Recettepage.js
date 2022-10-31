@@ -36,10 +36,6 @@ export default function Recettepage({ navigation }) {
     console.log(state);
     return state;
   });
-  const isFiltered = useSelector((state) => {
-    console.log(state);
-    return state.choosePaths.value;
-  });
   const dispatch = useDispatch();
 
   //const ingredientList =[];
@@ -55,18 +51,8 @@ export default function Recettepage({ navigation }) {
   function handleFilter() {
     navigation.navigate(Filter);
   }
-  const [apiPath, setApiPath] = useState("");
 
   useEffect(() => {
-    // if (isFiltered) {
-    //   setApiPath(
-    //     "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags="
-    //   );
-    // } else {
-    //   setApiPath(
-    //     "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
-    //   );
-    // }
     const _clearAll = async () => {
       try {
         await AsyncStorage.clear();
@@ -491,6 +477,7 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "#83C5BC",
   },
+
   containerNumberRecipes: {
     flexDirection: "row",
     alignItems: "flex-start",

@@ -1182,6 +1182,26 @@
     semver "7.3.2"
     slugify "^1.3.4"
     sucrase "^3.20.0"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+"@expo/configure-splash-screen@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@expo/configure-splash-screen/-/configure-splash-screen-0.6.0.tgz#07d97ee512fd859fcc09506ba3762fd6263ebc39"
+  integrity sha512-4DyPoNXJqx9bN4nEwF3HQreo//ECu7gDe1Xor3dnnzFm9P/VDxAKdbEhA0n+R6fgkNfT2onVHWijqvdpTS3Xew==
+  dependencies:
+    color-string "^1.5.3"
+    commander "^5.1.0"
+    fs-extra "^9.0.0"
+    glob "^7.1.6"
+    lodash "^4.17.15"
+    pngjs "^5.0.0"
+    xcode "^3.0.0"
+    xml-js "^1.6.11"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 
 "@expo/dev-server@~0.1.120":
   version "0.1.120"
@@ -1294,7 +1314,14 @@
     base64-js "^1.2.3"
     xmlbuilder "^14.0.0"
 
+<<<<<<< HEAD
 "@expo/prebuild-config@~5.0.3":
+<<<<<<< HEAD
+=======
+=======
+"@expo/prebuild-config@~5.0.0", "@expo/prebuild-config@~5.0.3":
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   version "5.0.3"
   resolved "https://registry.npmjs.org/@expo/prebuild-config/-/prebuild-config-5.0.3.tgz"
   integrity sha512-G4j1H3WFjRaiQ+FgFNULrnIm7RsQyjc4xp6lLTP2ydBv79wO3x8wAdeZvaZh7eOkfu9BESpQzACT1uuJTag5jg==
@@ -2595,6 +2622,7 @@ color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz"
   integrity sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==
+<<<<<<< HEAD
 
 color-name@^1.0.0, color-name@~1.1.4:
   version "1.1.4"
@@ -2778,6 +2806,203 @@ crypt@0.0.2, crypt@~0.0.1:
   resolved "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
   integrity sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==
 
+=======
+
+color-name@^1.0.0, color-name@~1.1.4:
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
+  integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+<<<<<<< HEAD
+color-string@^1.9.0:
+=======
+color-string@^1.5.3, color-string@^1.9.0:
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+  version "1.9.1"
+  resolved "https://registry.npmjs.org/color-string/-/color-string-1.9.1.tgz"
+  integrity sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==
+  dependencies:
+    color-name "^1.0.0"
+    simple-swizzle "^0.2.2"
+
+color@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/color/-/color-4.2.3.tgz"
+  integrity sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==
+  dependencies:
+    color-convert "^2.0.1"
+    color-string "^1.9.0"
+
+colorette@^1.0.7:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/colorette/-/colorette-1.4.0.tgz"
+  integrity sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==
+
+combined-stream@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
+  integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
+  dependencies:
+    delayed-stream "~1.0.0"
+
+command-exists@^1.2.4, command-exists@^1.2.8:
+  version "1.2.9"
+  resolved "https://registry.npmjs.org/command-exists/-/command-exists-1.2.9.tgz"
+  integrity sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==
+
+commander@^2.19.0:
+  version "2.20.3"
+  resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz"
+  integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
+commander@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz"
+  integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
+
+<<<<<<< HEAD
+=======
+commander@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
+  integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
+
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+commander@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz"
+  integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
+
+commander@~2.13.0:
+  version "2.13.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-2.13.0.tgz"
+  integrity sha512-MVuS359B+YzaWqjCL/c+22gfryv+mCBPHAv3zyVI2GN8EY6IRP8VwtasXn8jyyhvvq84R4ImN1OKRtcbIasjYA==
+
+commondir@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/commondir/-/commondir-1.0.1.tgz"
+  integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
+
+compare-versions@^3.4.0:
+  version "3.6.0"
+  resolved "https://registry.npmjs.org/compare-versions/-/compare-versions-3.6.0.tgz"
+  integrity sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA==
+
+component-emitter@^1.2.1:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/component-emitter/-/component-emitter-1.3.0.tgz"
+  integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
+
+component-type@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/component-type/-/component-type-1.2.1.tgz"
+  integrity sha512-Kgy+2+Uwr75vAi6ChWXgHuLvd+QLD7ssgpaRq2zCvt80ptvAfMc/hijcJxXkBa2wMlEZcJvC2H8Ubo+A9ATHIg==
+
+compressible@~2.0.16:
+  version "2.0.18"
+  resolved "https://registry.npmjs.org/compressible/-/compressible-2.0.18.tgz"
+  integrity sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==
+  dependencies:
+    mime-db ">= 1.43.0 < 2"
+
+compression@^1.7.1:
+  version "1.7.4"
+  resolved "https://registry.npmjs.org/compression/-/compression-1.7.4.tgz"
+  integrity sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==
+  dependencies:
+    accepts "~1.3.5"
+    bytes "3.0.0"
+    compressible "~2.0.16"
+    debug "2.6.9"
+    on-headers "~1.0.2"
+    safe-buffer "5.1.2"
+    vary "~1.1.2"
+
+concat-map@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
+  integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
+
+connect@^3.6.5, connect@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/connect/-/connect-3.7.0.tgz"
+  integrity sha512-ZqRXc+tZukToSNmh5C2iWMSoV3X1YUcPbqEM4DkEG5tNQXrQUZCNVGGv3IuicnkMtPfGf3Xtp8WCXs295iQ1pQ==
+  dependencies:
+    debug "2.6.9"
+    finalhandler "1.1.2"
+    parseurl "~1.3.3"
+    utils-merge "1.0.1"
+
+content-type@~1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/content-type/-/content-type-1.0.4.tgz"
+  integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
+
+convert-source-map@^1.7.0:
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/convert-source-map/-/convert-source-map-1.9.0.tgz"
+  integrity sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==
+
+copy-descriptor@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/copy-descriptor/-/copy-descriptor-0.1.1.tgz"
+  integrity sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==
+
+core-js-compat@^3.25.1:
+  version "3.25.5"
+  resolved "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.25.5.tgz"
+  integrity sha512-ovcyhs2DEBUIE0MGEKHP4olCUW/XYte3Vroyxuh38rD1wAO4dHohsovUC4eAOuzFxE6b+RXvBU3UZ9o0YhUTkA==
+  dependencies:
+    browserslist "^4.21.4"
+
+core-util-is@~1.0.0:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz"
+  integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
+
+cosmiconfig@^5.0.5, cosmiconfig@^5.1.0:
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-5.2.1.tgz"
+  integrity sha512-H65gsXo1SKjf8zmrJ67eJk8aIRKV5ff2D4uKZIBZShbhGSpEmsQOPW/SKMKYhSTrqR7ufy6RP69rPogdaPh/kA==
+  dependencies:
+    import-fresh "^2.0.0"
+    is-directory "^0.3.1"
+    js-yaml "^3.13.1"
+    parse-json "^4.0.0"
+
+cross-fetch@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.1.5.tgz"
+  integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
+  dependencies:
+    node-fetch "2.6.7"
+
+cross-spawn@^6.0.0, cross-spawn@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-6.0.5.tgz"
+  integrity sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==
+  dependencies:
+    nice-try "^1.0.4"
+    path-key "^2.0.1"
+    semver "^5.5.0"
+    shebang-command "^1.2.0"
+    which "^1.2.9"
+
+cross-spawn@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
+  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+  dependencies:
+    path-key "^3.1.0"
+    shebang-command "^2.0.0"
+    which "^2.0.1"
+
+crypt@0.0.2, crypt@~0.0.1:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
+  integrity sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==
+
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz"
@@ -3129,7 +3354,15 @@ expo-file-system@~14.1.0:
     "@expo/config-plugins" "~5.0.0"
     uuid "^3.4.0"
 
+<<<<<<< HEAD
 expo-font@~10.2.1:
+=======
+<<<<<<< HEAD
+expo-font@~10.2.1:
+=======
+expo-font@~10.2.0, expo-font@~10.2.1:
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   version "10.2.1"
   resolved "https://registry.npmjs.org/expo-font/-/expo-font-10.2.1.tgz"
   integrity sha512-sxy5GrdtY+Ka8Wo5wnrcFFeO6MbYC6Dris5wMLqshvVK6BneJNMUsFvwRfvVgg0TzsmMAc3Rlca2xyZ8ettinw==
@@ -3165,11 +3398,30 @@ expo-modules-core@0.11.8:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+<<<<<<< HEAD
 expo-status-bar@~1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.4.0.tgz"
   integrity sha512-vh98g8qMIjig/2XTBsoAWS6Vo2dIIwDWjB3/GiuZ9Lazpxc9GO/APfJ4dar7MibzIDUKIrjotrcL6rLdPH13Ew==
 
+=======
+<<<<<<< HEAD
+=======
+expo-splash-screen@~0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.16.2.tgz#38ecba9fc9fc2234ee38bcb818d8c88cd83cff9e"
+  integrity sha512-AHSRyGwu58WNt8shW5g/4cQ9e9IzUwNTC/WGWxshHCwgbWIJmHLvK3+D45MTmzGWteOoTI8oV7KSQKBNJSTiyw==
+  dependencies:
+    "@expo/configure-splash-screen" "^0.6.0"
+    "@expo/prebuild-config" "~5.0.0"
+
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+expo-status-bar@~1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.4.0.tgz"
+  integrity sha512-vh98g8qMIjig/2XTBsoAWS6Vo2dIIwDWjB3/GiuZ9Lazpxc9GO/APfJ4dar7MibzIDUKIrjotrcL6rLdPH13Ew==
+
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 expo@~46.0.16:
   version "46.0.16"
   resolved "https://registry.npmjs.org/expo/-/expo-46.0.16.tgz"
@@ -3476,7 +3728,11 @@ fs.realpath@^1.0.0:
 
 fsevents@^2.3.2:
   version "2.3.2"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 function-bind@^1.1.1:
@@ -5399,6 +5655,7 @@ pngjs@^3.3.0:
   version "3.4.0"
   resolved "https://registry.npmjs.org/pngjs/-/pngjs-3.4.0.tgz"
   integrity sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==
+<<<<<<< HEAD
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -5457,6 +5714,74 @@ prompts@^2.3.2, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
+=======
+
+<<<<<<< HEAD
+=======
+pngjs@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-5.0.0.tgz#e79dd2b215767fd9c04561c01236df960bce7fbb"
+  integrity sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==
+
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+posix-character-classes@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/posix-character-classes/-/posix-character-classes-0.1.1.tgz"
+  integrity sha512-xTgYBc3fuo7Yt7JbiuFxSYGToMoz8fLoE6TC9Wx1P/u+LfeThMOAqmuyECnlBaaJb+u1m9hHiXUEtwW4OzfUJg==
+
+pretty-bytes@5.6.0:
+  version "5.6.0"
+  resolved "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-5.6.0.tgz"
+  integrity sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==
+
+pretty-format@^26.5.2, pretty-format@^26.6.2:
+  version "26.6.2"
+  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-26.6.2.tgz"
+  integrity sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==
+  dependencies:
+    "@jest/types" "^26.6.2"
+    ansi-regex "^5.0.0"
+    ansi-styles "^4.0.0"
+    react-is "^17.0.1"
+
+process-nextick-args@~2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
+  integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+
+progress@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/progress/-/progress-2.0.3.tgz"
+  integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
+
+promise-inflight@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/promise-inflight/-/promise-inflight-1.0.1.tgz"
+  integrity sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==
+
+promise@^7.1.1:
+  version "7.3.1"
+  resolved "https://registry.npmjs.org/promise/-/promise-7.3.1.tgz"
+  integrity sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==
+  dependencies:
+    asap "~2.0.3"
+
+promise@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.npmjs.org/promise/-/promise-8.2.0.tgz"
+  integrity sha512-+CMAlLHqwRYwBMXKCP+o8ns7DN+xHDUiI+0nArsiJ9y+kJVPLFxEaSw6Ha9s9H0tftxg2Yzl25wqj9G7m5wLZg==
+  dependencies:
+    asap "~2.0.6"
+
+prompts@^2.3.2, prompts@^2.4.0:
+  version "2.4.2"
+  resolved "https://registry.npmjs.org/prompts/-/prompts-2.4.2.tgz"
+  integrity sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==
+  dependencies:
+    kleur "^3.0.3"
+    sisteransi "^1.0.5"
+
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
@@ -5564,19 +5889,43 @@ react-is@^17.0.1:
 
 react-native-accordion-xg@^0.0.1:
   version "0.0.1"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-accordion-xg/-/react-native-accordion-xg-0.0.1.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-accordion-xg/-/react-native-accordion-xg-0.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-accordion-xg/-/react-native-accordion-xg-0.0.1.tgz#88aff00a26ba328517acfb9a9ac21612a1de4764"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-H2ojiaMdATqJiGY2A8hOTwvofDxApUCUteC31kU/k0EpMhapLssPra5SaIV0lgVb7rWoSjNQ9Kjx+/d3OC+Wzg==
 
 react-native-action-sheet-xg@^0.0.1:
   version "0.0.1"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-action-sheet-xg/-/react-native-action-sheet-xg-0.0.1.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-action-sheet-xg/-/react-native-action-sheet-xg-0.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-action-sheet-xg/-/react-native-action-sheet-xg-0.0.1.tgz#e8626215ab374a34f31357031b04601f5d3d3862"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-uiiFw5hEiKiZvW+yQyDL4QQrTu1/WEVcyWO+lYefK1B1bkMCoPYOZl/Zn6tSaPE1MTd7eGxIAIm0GZhDhn1o0Q==
   dependencies:
     react-native-stylesheet-xg "^1.1.0"
 
 react-native-buttons@^0.0.3:
   version "0.0.3"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-buttons/-/react-native-buttons-0.0.3.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-buttons/-/react-native-buttons-0.0.3.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-buttons/-/react-native-buttons-0.0.3.tgz#0669634c16a8b3481c3ac6ba5bcaf329f1a00aa6"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-QNrB7PSOjOYNCKoSOwN5pn7C7m5UJdXsq3dgQP2H2tQM2T82O/gIDN1nhNvE+RnYP6VaPcYp9DoI6WR/nUudrg==
   dependencies:
     react-native-colortool "^0.0.1"
@@ -5584,7 +5933,15 @@ react-native-buttons@^0.0.3:
 
 react-native-buttons@^0.0.4:
   version "0.0.4"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-buttons/-/react-native-buttons-0.0.4.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-buttons/-/react-native-buttons-0.0.4.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-buttons/-/react-native-buttons-0.0.4.tgz#6ae98074b9923f2dc1492b85f4ae3b5d5aba0a13"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-kPZV2yIZn0okH1HoJ+SahMgGBHNcfVOd+mu0w1H4q00Jqd+O50EJgIvrvsqA3PP/Y1rYjr49EiTa5dUFP//qaQ==
   dependencies:
     react-native-colortool "^0.0.1"
@@ -5599,6 +5956,7 @@ react-native-codegen@^0.69.2:
     flow-parser "^0.121.0"
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
+<<<<<<< HEAD
 
 react-native-colortool@^0.0.1:
   version "0.0.1"
@@ -5633,6 +5991,50 @@ react-native-datepicker@^1.4.4, react-native-datepicker@^1.7.2:
   dependencies:
     moment "^2.22.0"
 
+=======
+
+react-native-colortool@^0.0.1:
+  version "0.0.1"
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-colortool/-/react-native-colortool-0.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-colortool/-/react-native-colortool-0.0.1.tgz#0ae21efe2e3df18a1c3d9b48c30acaaa647dfb66"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+  integrity sha512-XMRdBKhr0nLlFA0AXQeZ8gaZb5oRjHBRA1RNnp+Z08qpuoijE77Y/Y4MjB/s8TMzA9LyvnAYeuLV5IWRD7zZFg==
+
+react-native-confirm@^0.0.1:
+  version "0.0.1"
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-confirm/-/react-native-confirm-0.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-confirm/-/react-native-confirm-0.0.1.tgz#495ba41e10f67a8c1323a9450623a172c4743a29"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+  integrity sha512-Y8fjhnhtsAT/maMJmDPXJauHazky5PpQx45I6mhf1fa7Xo1nw5rFO2f6j0nV2UgMmq3UaRXQuSf5n8inr/grYA==
+  dependencies:
+    react-native-buttons "^0.0.3"
+    react-native-input-xg "^0.0.2"
+    react-native-stylesheet-xg "^1.1.0"
+
+react-native-css-vh-vw@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/react-native-css-vh-vw/-/react-native-css-vh-vw-1.0.5.tgz"
+  integrity sha512-pY0gIB1xc1xLp3VH6mji7zHfiOc7BpFFCtOTpMeyjfoQ4CacmcCD6vTZuM2ReuK+oXdWrbx7CquTHxl44aHcBA==
+
+react-native-date-picker@^4.2.5:
+  version "4.2.5"
+  resolved "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.5.tgz"
+  integrity sha512-YjwiMpZEnVVS+ymLvmJDicVZ3pSR+nJHgtAhctMl6fO8f7iRNcYhY427gemlTBf2Ji+XIAK0Agyl255DhaemFw==
+  dependencies:
+    prop-types "^15.8.1"
+
+react-native-datepicker@^1.4.4, react-native-datepicker@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.npmjs.org/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz"
+  integrity sha512-ses0N1y44fYBmlejYwR2i+dGnQQ8v5/gacX2CrbFJiWxbcQaRuxexsZPB9YQuQkAy+uKz5Gti3Lrp3dh9BfkzA==
+  dependencies:
+    moment "^2.22.0"
+
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 react-native-design-utility@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/react-native-design-utility/-/react-native-design-utility-2.0.4.tgz"
@@ -5649,12 +6051,28 @@ react-native-dismiss-keyboard@^1.0.0:
 
 react-native-drawer-menu@^0.2.3:
   version "0.2.5"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-drawer-menu/-/react-native-drawer-menu-0.2.5.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-drawer-menu/-/react-native-drawer-menu-0.2.5.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-drawer-menu/-/react-native-drawer-menu-0.2.5.tgz#098a5ede6456f6066bb608dabe72b5c297e9a704"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-cZpq7xGRC/fiJB1du+hR0jN0TX0oy8hF/kxEqOzcC0jzSNOtKlZuja4MW2aJPzg/LlflNy1L3KUpDYyWUdl1IA==
 
 react-native-grading@^1.0.3:
   version "1.0.3"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-grading/-/react-native-grading-1.0.3.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-grading/-/react-native-grading-1.0.3.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-grading/-/react-native-grading-1.0.3.tgz#5d62ee2c46ba1013e0f6aca504191038ff57bd20"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-O8d9sUtcGuEIhHYEany7sizS+eFnTyKib8911GlMac3d+m546n6wBH8dgbEfaI5zBjvMlc3YlFfiYrnI+lS9/w==
 
 react-native-gradle-plugin@^0.0.7:
@@ -5664,14 +6082,30 @@ react-native-gradle-plugin@^0.0.7:
 
 react-native-input-xg@^0.0.2:
   version "0.0.2"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-input-xg/-/react-native-input-xg-0.0.2.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-input-xg/-/react-native-input-xg-0.0.2.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-input-xg/-/react-native-input-xg-0.0.2.tgz#9e5ee284db3c61df8fba0587f3d62943b8c23e27"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-oPPpSHCTwYPwIaduBzO+B6FObwXYux/A7zQRa/gXFUuyXMV7LhYl5yF7FdbVQb3xipZtoFZK7K0c1hrSBL8PEw==
   dependencies:
     react-native-stylesheet-xg "^1.1.0"
 
 react-native-label-select@^1.0.10:
   version "1.1.0"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-label-select/-/react-native-label-select-1.1.0.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-label-select/-/react-native-label-select-1.1.0.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-label-select/-/react-native-label-select-1.1.0.tgz#9bc7f78acf196b14f69c10d72ce68a02b6889538"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-wQlW/FYFa2gVK/qx/S1oMCMpTQYsu0byP7C9TLdMYU3mLbmLJrazN67MYfcA85v/pBeS42cpVoCNM0rZ4MFkjg==
 
 react-native-linear-gradient@^2.6.2:
@@ -5681,7 +6115,15 @@ react-native-linear-gradient@^2.6.2:
 
 react-native-link-xg@^0.0.1:
   version "0.0.1"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-link-xg/-/react-native-link-xg-0.0.1.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-link-xg/-/react-native-link-xg-0.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-link-xg/-/react-native-link-xg-0.0.1.tgz#8504ce4e6557ee8308f1056edad905322ca0c5bd"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-TWtIHPxVSPiZeAIsRkvX39lx0COpuSzA3FOLrYg1o9MdB7kM4jQqp5QGFflLBsMrKxKj35pl0OcwoDQkcHPGow==
   dependencies:
     react-native-stylesheet-xg "^1.1.0"
@@ -5715,7 +6157,15 @@ react-native-slider-picker@^1.1.4:
 
 react-native-stylesheet-xg@^1.0.3, react-native-stylesheet-xg@^1.1.0:
   version "1.1.0"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-stylesheet-xg/-/react-native-stylesheet-xg-1.1.0.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-stylesheet-xg/-/react-native-stylesheet-xg-1.1.0.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-stylesheet-xg/-/react-native-stylesheet-xg-1.1.0.tgz#d9f6b200c1aaf64378c97607488082b3d5e68c87"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-5lzzE+fhKXXrQMrwgqht3pmvTVfvei2EmDy1TF/YgfH5/MpoG0Q302JwFM1xcMMlEgMJIp6Kjz6L52r/q9+23Q==
 
 react-native-switch-selector@^2.2.1:
@@ -5727,14 +6177,30 @@ react-native-switch-selector@^2.2.1:
 
 react-native-tab-xg@^0.0.1:
   version "0.0.1"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-tab-xg/-/react-native-tab-xg-0.0.1.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-tab-xg/-/react-native-tab-xg-0.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-tab-xg/-/react-native-tab-xg-0.0.1.tgz#86340a784969501f25b3a762d8debdd3fa47228c"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-OXnEelWHsFcrL1FNNYgmieDLIPgDT3rKGGT6q5iAq8J36qp+/m8NiR/CD0MosV1EdsctTD+VjxWtRAbIKrRwnw==
   dependencies:
     react-native-stylesheet-xg "^1.1.0"
 
 react-native-ui-xg@^0.0.6:
   version "0.0.6"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-ui-xg/-/react-native-ui-xg-0.0.6.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-ui-xg/-/react-native-ui-xg-0.0.6.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-ui-xg/-/react-native-ui-xg-0.0.6.tgz#abbe72cb56a555e4a443c19a58e89d18bf8b3a2e"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-TAGvzB0GmFfFRqetQgBQZLqq5cbd2ZJ6raDmlIVDPPyoIm6f6AVY+VjNHldzsMd85BGcffcorAEtWkW9gpxFOQ==
   dependencies:
     react-native-accordion-xg "^0.0.1"
@@ -5753,7 +6219,15 @@ react-native-ui-xg@^0.0.6:
 
 react-native-zoom-image@^0.1.1:
   version "0.1.2"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-native-zoom-image/-/react-native-zoom-image-0.1.2.tgz"
+=======
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/react-native-zoom-image/-/react-native-zoom-image-0.1.2.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-native-zoom-image/-/react-native-zoom-image-0.1.2.tgz#33c26744ba47ed5e0637925b92a7bf1e1c8c4515"
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   integrity sha512-4UrLf9mu9qM5ooNd5oQM+w7C0udxhSLwaMMyaFb+uzJyYV4Z1h88KurnqXLT7xeaQjktDMY0z16cNJyHgVcieQ==
 
 react-native@0.69.6:
@@ -6137,7 +6611,15 @@ safe-regex@^1.1.0:
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
+<<<<<<< HEAD
 sax@>=0.6.0:
+=======
+<<<<<<< HEAD
+sax@>=0.6.0:
+=======
+sax@>=0.6.0, sax@^1.2.4:
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   version "1.2.4"
   resolved "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
@@ -7146,7 +7628,15 @@ ws@^7, ws@^7.5.1:
   resolved "https://registry.npmjs.org/ws/-/ws-7.5.9.tgz"
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
+<<<<<<< HEAD
 xcode@^3.0.1:
+=======
+<<<<<<< HEAD
+xcode@^3.0.1:
+=======
+xcode@^3.0.0, xcode@^3.0.1:
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   version "3.0.1"
   resolved "https://registry.npmjs.org/xcode/-/xcode-3.0.1.tgz"
   integrity sha512-kCz5k7J7XbJtjABOvkc5lJmkiDh8VhjVCGNiqdKCscmVpdVUpEAyXv1xmCLkQJ5dsHqx3IPO4XW+NTDhU/fatA==
@@ -7154,6 +7644,7 @@ xcode@^3.0.1:
     simple-plist "^1.1.0"
     uuid "^7.0.3"
 
+<<<<<<< HEAD
 xml2js@0.4.23:
   version "0.4.23"
   resolved "https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz"
@@ -7222,6 +7713,86 @@ yargs@^15.1.0, yargs@^15.3.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
+=======
+<<<<<<< HEAD
+=======
+xml-js@^1.6.11:
+  version "1.6.11"
+  resolved "https://registry.yarnpkg.com/xml-js/-/xml-js-1.6.11.tgz#927d2f6947f7f1c19a316dd8eea3614e8b18f8e9"
+  integrity sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==
+  dependencies:
+    sax "^1.2.4"
+
+>>>>>>> 06f34800138c70e43da068a27d141a437911eae9
+xml2js@0.4.23:
+  version "0.4.23"
+  resolved "https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz"
+  integrity sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==
+  dependencies:
+    sax ">=0.6.0"
+    xmlbuilder "~11.0.0"
+
+xmlbuilder@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-14.0.0.tgz"
+  integrity sha512-ts+B2rSe4fIckR6iquDjsKbQFK2NlUk6iG5nf14mDEyldgoc2nEKZ3jZWMPTxGQwVgToSjt6VGIho1H8/fNFTg==
+
+xmlbuilder@^15.1.1:
+  version "15.1.1"
+  resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-15.1.1.tgz"
+  integrity sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==
+
+xmlbuilder@~11.0.0:
+  version "11.0.1"
+  resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz"
+  integrity sha512-fDlsI/kFEx7gLvbecc0/ohLG50fugQp8ryHzMTuW9vSa1GJ0XYWKnhsUx7oie3G98+r56aTQIUB4kht42R3JvA==
+
+xtend@~4.0.1:
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/xtend/-/xtend-4.0.2.tgz"
+  integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+y18n@^4.0.0:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/y18n/-/y18n-4.0.3.tgz"
+  integrity sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==
+
+yallist@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz"
+  integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+
+yargs-parser@^18.1.2:
+  version "18.1.3"
+  resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-18.1.3.tgz"
+  integrity sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==
+  dependencies:
+    camelcase "^5.0.0"
+    decamelize "^1.2.0"
+
+yargs-parser@^20.2.9:
+  version "20.2.9"
+  resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.9.tgz"
+  integrity sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==
+
+yargs@^15.1.0, yargs@^15.3.1:
+  version "15.4.1"
+  resolved "https://registry.npmjs.org/yargs/-/yargs-15.4.1.tgz"
+  integrity sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
+  dependencies:
+    cliui "^6.0.0"
+    decamelize "^1.2.0"
+    find-up "^4.1.0"
+    get-caller-file "^2.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^2.0.0"
+    set-blocking "^2.0.0"
+    string-width "^4.2.0"
+    which-module "^2.0.0"
+    y18n "^4.0.0"
+    yargs-parser "^18.1.2"
+
+>>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
