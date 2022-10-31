@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import filters from "./reducers/filters";
 import modalFilters from "./reducers/modalFilters";
+import favorites from "./reducers/favorites";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -43,7 +44,7 @@ import Placard from "./screens/Placard";
 
 
 // Configuration Reducer Store
-const reducers = combineReducers({ users, modalFilters });
+const reducers = combineReducers({ users, modalFilters, favorites, filters });
 const persistConfig = { key: "munchbox", storage: AsyncStorage };
 
 const store = configureStore({

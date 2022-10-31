@@ -1,11 +1,23 @@
+import { useSelector } from 'react-redux';
 import { StyleSheet,Platform,Image, Text, View, ScrollView, Button, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
+import Recettepage from './Recettepage';
 
 
 
 
 export default function FavoritesScreen({navigation}) {
+
+  const favorites = useSelector((state) => state.favorites.value);
+
+  let listRecipes = <Text>Add recipes to your favorites</Text>;
+  if(listRecipes.length > 0){
+    listRecipes = favorites.map((data, i ) => {
+      return <Recettepage key={i} {...data} isFavorites/>
+    })
+  }
 
 let listRecipe= [
   {id: 1, image: require('../assets/plat-1.jpg'), name: 'Steak with Oriental vegeratien ', time: '35 min'},
@@ -91,12 +103,14 @@ const Recipes = listRecipe.map((data, i) => {
 
 
       <View style={styles.containerNumberRecipes}>
-          <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
-          <Text style={styles.numberRecipe}>3</Text>
+          <Text style={styles.textNumberRecipes}>Number of recipes saved : </Text>
+          <Text style={styles.numberRecipe}>{Recipes.length}</Text>
       </View>
 
       <View style={styles.containerRecipes}>
-        {Recipes}
+        {listRecipes}
+        {/* {Recipes} */}
+        
       </View>
     
     

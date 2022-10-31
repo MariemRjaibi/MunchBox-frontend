@@ -13,85 +13,111 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function AllergiesScreen({ formData, setFormData }) {
-
   // Répurération de la data pour le form final
-  // preference:"",
-  // optionPreference:"",
+  // allergies:"",
+  // allergiesOption:[],
 
-
+  // ======= Liste des ingredients entrées manuellement par l'utilisateur ======= //
   const [ingredient, setIngredient] = useState("");
   const [ingredientList, setIngredientList] = useState([]);
 
   // Récupérer et stocker les aliments écrit par l'utilisateur dans l'input
   const addPreferenceClick = () => {
-
     //Afficer les aliments taper par l'utilisateur
     setIngredientList([...ingredientList, ingredient]);
     setIngredient("");
 
     // variable pour relier au formulaire
     const allergies = [...ingredientList, ingredient];
-    setFormData({...formData, allergies})
+    setFormData({ ...formData, allergies });
   };
-
 
   // Ajouter des aliments à la liste des allergies
   const listPreference = ingredientList.map((data, i) => {
     return (
       <View key={i} style={styles.addOption}>
         <Text style={styles.textOption}> {data}</Text>
-        <FontAwesome name="close" size={15} color={"#000"} onPress={() => deleteClick()} style={styles.btnDelete} />
+        <FontAwesome
+          name="close"
+          size={15}
+          color={"#000"}
+          onPress={() => deleteClick()}
+          style={styles.btnDelete}
+        />
       </View>
     );
   });
 
-  // Liste par défaut des aliments pour les intollérances 
+
+
+  // ======= Liste des options par défaut des allergies de l'utilisateur ======= //
+
+  // Liste par défaut des aliments pour les intollérances
   const optionsData = [
     { id: 1, name: "Grain", photo: require("../../assets/icon/grain.png") },
-    { id: 2, name: "Shellfish", photo: require("../../assets/icon/shrimp.png") },
+    {
+      id: 2,
+      name: "Shellfish",
+      photo: require("../../assets/icon/shrimp.png"),
+    },
     { id: 3, name: "Porc", photo: require("../../assets/icon/porc.png") },
-    { id: 4, name: "Gluten", photo: require("../../assets/icon/watermelon.png") },
-    { id: 5, name: "Dairy", photo: require("../../assets/icon/mushroom.png"), },
+    {
+      id: 4,
+      name: "Gluten",
+      photo: require("../../assets/icon/watermelon.png"),
+    },
+    { id: 5, name: "Dairy", photo: require("../../assets/icon/mushroom.png") },
     { id: 6, name: "Wheat", photo: require("../../assets/icon/salad.png") },
     { id: 7, name: "Peanut", photo: require("../../assets/icon/peanut.png") },
-    { id: 8, name: "Egg", photo: require("../../assets/icon/oeuf-dur.png")},
+    { id: 8, name: "Egg", photo: require("../../assets/icon/oeuf-dur.png") },
   ];
 
-  //backgroundColor: isActive ? 'salmon' : '',  color: isActive ? 'white' : '',
-  const[preference, setPreference] = useState("");
+  //const [preference, setPreference] = useState("");
+
+  // Ajouter tous les choix de l'utilisateur dans un tableau
   const [preferenceList, setPreferenceList] = useState([]);
 
-  
+  // Couleurs statut active et inative
+  const inativeColor = "#ffffff";
+  const activeColor = "#E8F4F5";
+
+  const preferenceClik = (data) => {
+    // console.log("test => ", preferenceList.includes("Gluten"));
+
+    if (preferenceList.includes(data.name)) {
+      // Filter si le nom existe déja dans le tableau
+      setPreferenceList(preferenceList.filter((e) => e !== data.name));
+      setFormData({
+        ...formData,
+        allergiesOption: [...preferenceList].filter((e) => e !== data.name),
+      });
+    } else {
+      // push
+      setPreferenceList([...preferenceList, data.name]);
+      setFormData({
+        ...formData,
+        allergiesOption: [...preferenceList, data.name],
+      });
+    }
+  };
 
   const optionPreferences = optionsData.map((data, i) => {
 
+    // Changer de couleur si il est déja dans le tableau
+    let isActive = preferenceList.some((e) => {
+      //console.log('debug',data.name,e);
+      return e === data.name;
+    });
 
-    const preferenceClik = () => {
-      setPreference(data.name);
-      //console.log(data.name);
-
-      // Ajouter tous les choix dans un tableau
-      setPreferenceList([...preferenceList, data.name]);
-
-      // Meilleur methode mais bug ? 
-      // setPreferenceList([...preferenceList, preference]);
-
-  
-      const preferences = [...preferenceList, data.name];
-      setFormData({...formData, preferences})
-      
-  
-      // setIsActive(current => !current);
-    };
-
- 
-
-   // const [isActive, setIsActive] = useState(false);
     return (
-      <View key={i} style={styles.section}>
-        <TouchableOpacity onPress={() => preferenceClik()} value={preference}>
+      <View
+        key={i}
+        style={styles.section}
+        backgroundColor={isActive ? "#E8F4F5" : "#ffffff"}
+      >
+        <TouchableOpacity onPress={() => preferenceClik(data)}>
           <Image source={data.photo} style={styles.photo} />
-          <Text style={styles.textOption} >{data.name}</Text>
+          <Text style={styles.textOption}>{data.name}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -103,9 +129,20 @@ export default function AllergiesScreen({ formData, setFormData }) {
       <Text style={styles.subTitle}>I don't like or can't to eat ...</Text>
 
       <View style={styles.containerInput}>
-        <TextInput placeholder="Tell me what you don’t eat" onChangeText={(value) => setIngredient(value)} value={ingredient} style={styles.input}/>
+        <TextInput
+          placeholder="Tell me what you don’t eat"
+          onChangeText={(value) => setIngredient(value)}
+          value={ingredient}
+          style={styles.input}
+        />
         <View>
-          <FontAwesome name="plus" size={20} color={"#ffffff"} onPress={() => addPreferenceClick()} style={styles.btnPlus} />
+          <FontAwesome
+            name="plus"
+            size={20}
+            color={"#ffffff"}
+            onPress={() => addPreferenceClick()}
+            style={styles.btnPlus}
+          />
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -151,11 +188,11 @@ const styles = StyleSheet.create({
   },
   btnPlus: {
     backgroundColor: "#e8be4b",
-    padding:10,
-    paddingHorizontal:12,
+    padding: 10,
+    paddingHorizontal: 12,
     borderRadius: 100,
-    right:50,
-    top:3,
+    right: 50,
+    top: 3,
   },
   contentContainer: {
     margin: 0,
