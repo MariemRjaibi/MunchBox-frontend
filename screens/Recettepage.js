@@ -11,9 +11,15 @@ import {
 } from "react-native";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Homepage from "./Homepage";
+import { faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
+import { calendar, uncalendar } from "../reducers/Calendar";
+import { useDispatch, useSelector } from 'react-redux';
+//import Homepage from "./Homepage";
 
 export default function Recettepage(navigation) {
+  // const dispatch = useDispatch();
+  // const calendars = useSelector((state) => state.calendars.value);
+  // const IsCalendar = calendars.some(calendar => calendar.id === data.recipes);
   const [listRecipe, setListRecipe] = useState([]);
   const [startRecipe, setStartRecipe] = useState([]);
   const [mcRecipe, setMcRecipe] = useState([]);
@@ -22,10 +28,14 @@ export default function Recettepage(navigation) {
   const [isMainCourse, setIsMainCourse] = useState(false);
   const [isDessert, setIsDessert] = useState(false);
   const [isSideDish, setIsSideDish] = useState(false);
+  
+
+
+
 
   useEffect(() => {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -38,7 +48,7 @@ export default function Recettepage(navigation) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -49,7 +59,7 @@ export default function Recettepage(navigation) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -60,7 +70,7 @@ export default function Recettepage(navigation) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -68,6 +78,14 @@ export default function Recettepage(navigation) {
         setListRecipe(data.recipes);
       });
   }
+
+  // const handlePressCalendar = () => {
+  //   if (isFavorite) {
+  //     dispatch(uncalendar(data.recipes));
+  //   } else {
+  //     dispatch(calendar({ ...recipe}));
+  //   }
+  // };
 
   // the array to display
 
@@ -92,9 +110,10 @@ export default function Recettepage(navigation) {
               name="calendar"
               size={20}
               color={"#83C5BC"}
-              onPress={() => addClick()}
+              onPress={() => addclick()}
               style={styles.btnDelete}
             />
+            
           </View>
         </View>
       </View>
@@ -157,6 +176,7 @@ export default function Recettepage(navigation) {
       </View>
 
       <View style={styles.containerNumberRecipes}>
+    
         <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
         <Text style={styles.numberRecipe}>12</Text>
       </View>
@@ -261,6 +281,7 @@ const styles = StyleSheet.create({
   containerRecipes: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent:"center",
   },
   cardRecipe: {
     backgroundColor: "rgba(255, 216, 125, 0.3)",
