@@ -358,7 +358,7 @@ export default function Recettepage({ navigation }) {
             {/* <FontAwesome name="user" size={20} color={"#fff"}  style={styles.iconUser}/> */}
             <Image
               style={styles.imageProfil}
-              source={require("../assets/Etchebest.jpg")}
+              source={require("../assets/filter.png")}
             />
           </TouchableOpacity>
         </View>
@@ -448,9 +448,9 @@ const styles = StyleSheet.create({
   imageProfil: {
     width: 50,
     height: 50,
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: "#83C5BC",
+    // borderRadius: 100,
+    // borderWidth: 2,
+    // borderColor: "#83C5BC",
   },
   containerNumberRecipes: {
     flexDirection: "row",

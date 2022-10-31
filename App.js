@@ -72,10 +72,13 @@ export default function App() {
             {/* <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />*/}
-            <Stack.Screen name="Homepage" component={Homepage} />
-            {/* <Stack.Screen name="RecettepageFiltered" component={RecettepageFiltered} />
-            
-            <Stack.Screen name="Recettepage" component={Recettepage} />
+            {/* <Stack.Screen name="Homepage" component={Homepage} /> */}
+            <Stack.Screen
+              name="RecettepageFiltered"
+              component={RecettepageFiltered}
+            />
+
+            {/*<Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="Placard" component={Placard} /> */}
             {/* <Stack.Screen name="Filter" component={Filter} />  */}
