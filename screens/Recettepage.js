@@ -38,15 +38,9 @@ export default function Recettepage({ navigation }) {
   });
   const dispatch = useDispatch();
 
-  //const ingredientList =[];
+yarn 
 
-  // const [startRecipe, setStartRecipe] = useState([]);
-  // const [mcRecipe, setMcRecipe] = useState([]);
-  // const [anyFilter, setAnyFilter] = useState(true);
-  // const [isStarter, setIsStarter] = useState(false);
-  // const [isMainCourse, setIsMainCourse] = useState(false);
-  // const [isDessert, setIsDessert] = useState(false);
-  // const [isSideDish, setIsSideDish] = useState(false);
+
 
   function handleFilter() {
     navigation.navigate(Filter);
@@ -63,7 +57,7 @@ export default function Recettepage({ navigation }) {
     };
     // _clearAll();
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -87,7 +81,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -98,7 +92,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=27e515c8678443f0a6bf441a2e299960&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -127,6 +121,15 @@ export default function Recettepage({ navigation }) {
           data.summary[data.summary.indexOf("calories") - 1]
       );
     }
+  // const handlePressCalendar = () => {
+  //   if (isFavorite) {
+  //     dispatch(uncalendar(data.recipes));
+  //   } else {
+  //     dispatch(calendar({ ...recipe}));
+  //   }
+  // };
+
+  // the array to display
 
 setPrepTime(data.readyInMinutes);
 
@@ -532,6 +535,7 @@ const styles = StyleSheet.create({
   containerRecipes: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent:"center",
   },
   cardRecipe: {
     backgroundColor: "rgba(255, 216, 125, 0.3)",

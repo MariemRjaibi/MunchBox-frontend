@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\33659\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start
+  C:\Program Files\nodejs\node.exe C:\Users\windows\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
 
 PATH: 
-  C:\Users\33659\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\33659\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\33659\AppData\Local\Microsoft\WindowsApps;C:\Users\33659\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\33659\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\windows\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\windows\bin;C:\Python310\Scripts;C:\Python310;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\AOMEI\AOMEI Backupper\6.9.0;C:\Program Files (x86)\AOMEI\AOMEI Backupper\6.9.0(1);C:\Program Files (x86)\AOMEI\AOMEI Backupper\6.9.0(2);C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Users\windows\AppData\Local\Microsoft\WindowsApps;C:\Users\windows\.dotnet\tools;C:\Users\windows\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\windows\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.19
@@ -14,12 +14,13 @@ Platform:
   win32 x64
 
 Trace: 
+  SyntaxError: C:\Users\windows\Desktop\BOOTCAMP\NOUVEAU\PROJET BATCH COOK\MUNCHBOX\MunchBox-frontend\package.json: Unexpected token < in JSON at position 454
   SyntaxError: C:\Users\33659\OneDrive\Desktop\munchBox\MunchBox-frontend\package.json: Unexpected token < in JSON at position 454
       at JSON.parse (<anonymous>)
-      at C:\Users\33659\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1629:59
+      at C:\Users\windows\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1629:59
       at Generator.next (<anonymous>)
-      at step (C:\Users\33659\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
-      at C:\Users\33659\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+      at step (C:\Users\windows\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\windows\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
