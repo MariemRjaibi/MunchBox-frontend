@@ -80,7 +80,7 @@ export default function ShoppinglistScreen() {
       <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>
       <View style={styles.containerHead}>
         <Text style={styles.title}>Shopping list</Text>
-        <Text style={styles.subTitle}>What are your next races?</Text>
+        <Text style={styles.subTitle}>What to buy for your next recipe?</Text>
       </View>
       <View style={styles.containerInput}>
         <TextInput placeholder="What do you need?" onChangeText={(value) => setShopping(value)} value={shopping} style={styles.input}/>
