@@ -63,7 +63,7 @@ export default function Recettepage({ navigation }) {
     };
     // _clearAll();
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40"
     )
       .then((response) => response.json())
       .then((data) => {

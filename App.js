@@ -215,26 +215,26 @@ const TabNavigator = () => {
 };
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
-  });
-  //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
-  useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
-    }
-    prepare();
-  }, []);
+  // const [fontsLoaded] = useFonts({
+  //   Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
+  // });
+  // //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
+  // useEffect(() => {
+  //   async function prepare() {
+  //     await SplashScreen.preventAutoHideAsync();
+  //   }
+  //   prepare();
+  // }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
   return (
     <Provider store={store}>
@@ -255,7 +255,7 @@ export default function App() {
             />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
             <Stack.Screen name="batchCalendar" component={BatchCalendar} />
-            <Stack.Screen name="Filter" component={Filter} />
+
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

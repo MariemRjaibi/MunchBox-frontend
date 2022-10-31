@@ -92,7 +92,7 @@ export default function Placard({ navigation }) {
         <TouchableOpacity
           style={styles.findBtn}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate(RecettepageFiltered)}
+          onPress={() => navigation.navigate("RecettepageFiltered")}
         >
           <Text style={styles.textButton}>Find a recipe</Text>
         </TouchableOpacity>
