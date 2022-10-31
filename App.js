@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import filters from "./reducers/filters";
 import modalFilters from "./reducers/modalFilters";
+import placardIngredients from "./reducers/placardIngredients";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -27,6 +28,7 @@ import ConceptScreen from "./screens/form/ConceptScreen";
 import Homepage from "./screens/Homepage";
 import Recettepage from "./screens/Recettepage";
 import Filter from "./screens/Filter";
+import RecettepageFiltered from "./screens/RecettepageFiltered";
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
 import ShoppinglistScreen from "./screens/ShoppinglistScreen";
@@ -41,7 +43,12 @@ import RecipeModal from "./screens/RecipeModal";
 import Placard from "./screens/Placard";
 
 // Configuration Reducer Store
-const reducers = combineReducers({ users, modalFilters });
+const reducers = combineReducers({
+  users,
+  modalFilters,
+  placardIngredients,
+  filters,
+});
 const persistConfig = { key: "munchbox", storage: AsyncStorage };
 
 const store = configureStore({
@@ -64,12 +71,14 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {/* <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
-            <Stack.Screen name="SignupScreen" component={SignupScreen} />
-            <Stack.Screen name="Homepage" component={Homepage} /> */}
+            <Stack.Screen name="SignupScreen" component={SignupScreen} />*/}
+            <Stack.Screen name="Homepage" component={Homepage} />
+            {/* <Stack.Screen name="RecettepageFiltered" component={RecettepageFiltered} />
+            
             <Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="Filter" component={Filter} />
-            {/* <Stack.Screen name="Placard" component={Placard} />
-            <Stack.Screen name="Filter" component={Filter} /> */}
+            <Stack.Screen name="Placard" component={Placard} /> */}
+            {/* <Stack.Screen name="Filter" component={Filter} />  */}
             {/* <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
             <Stack.Screen
               name="ShoppinglistScreen"

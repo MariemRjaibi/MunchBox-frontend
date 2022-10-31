@@ -14,7 +14,7 @@ const initialState = {
   },
 };
 
-export const filtersSlice = createSlice({
+export const modalFiltersSlice = createSlice({
   name: "modalFilters",
   initialState,
   reducers: {
@@ -70,5 +70,5 @@ export const {
   updateglutenfree,
   removeIngredients,
   removeAllergies,
-} = filtersSlice.actions;
-export default filtersSlice.reducer;
+} = modalFiltersSlice.actions;
+export default modalFiltersSlice.reducer;

@@ -14,25 +14,36 @@ import {
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Filter from "./Filter";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addPlacardIngredients,
+  removePlacardIngredients,
+} from "../reducers/placardIngredients";
 
 export default function Placard({ navigation }) {
-  const [ingredient, setIngredient] = useState("");
-  let [ingredientList, setIngredientList] = useState([]);
+  const ingredientsToDisplay = useSelector((state) => {
+    console.log(state);
+    state.placardIngredients.value;
+  });
+  const dispatch = useDispatch();
+  const [littleIngredient, setIngredient] = useState("");
+  //let [ingredientList, setIngredientList] = useState([]);
 
   function handleAdd() {
-    setIngredientList([...ingredientList, ingredient]);
+    dispatch(addPlacardIngredients(littleIngredient));
     setIngredient("");
   }
+  console.log(ingredientsToDisplay);
 
   function handleChange(value) {
     setIngredient(value);
   }
   function handleDelete(e) {
-    // console.log(e);
-    setIngredientList(ingredientList.filter((data) => data !== e));
+    dispatch(removePlacardIngredients(littleIngredient));
   }
-  console.log(ingredientList);
-  const displayedItems = ingredientList.map((e, i) => {
+  //console.log("hello here", ingredientsToDisplay);
+  const hello = [1, 2, 3];
+  const displayedItems = hello.map((e, i) => {
     return (
       <View style={styles.item}>
         <Text key={i} style={styles.list}>
@@ -48,7 +59,6 @@ export default function Placard({ navigation }) {
       </View>
     );
   });
-  //console.log(ingredientList);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView
@@ -66,7 +76,7 @@ export default function Placard({ navigation }) {
             onChangeText={(value) => {
               handleChange(value);
             }}
-            value={ingredient}
+            value={littleIngredient}
           ></TextInput>
           <TouchableOpacity
             style={styles.addBtn}

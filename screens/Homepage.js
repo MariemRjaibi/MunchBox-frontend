@@ -16,18 +16,40 @@ import Placard from "./Placard";
 
 export default function Homepage({ navigation }) {
   return (
-    <View style={styles.container}>
-      <View style={styles.container}>
+    <View style={styles.mainContainer}>
+      <View style={styles.upContainer}>
+        <Text>You lack inspiration?</Text>
+        <Text>Find a recipe and get your shopping list</Text>
         <Image
-          style={styles.imageBackground1}
-          source={require("../assets/achat.png")}
+          style={styles.upImage}
+          source={require("../assets/recipes.png")}
         />
-        <Image
-          style={styles.imageBackground2}
-          source={require("../assets/panier.png")}
-        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate(Recettepage)}
+          style={styles.button1}
+          activeOpacity={0.8}
+        >
+          <Text>Ok, great!</Text>
+        </TouchableOpacity>
       </View>
-
+      <View style={styles.bottomContainer}>
+        <Text>Find recipes based on ingredients that you have on hand</Text>
+        <Image
+          style={styles.bottomImage}
+          source={require("../assets/vegetables.png")}
+        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate(Placard)}
+          style={styles.button1}
+          activeOpacity={0.8}
+        >
+          <Text>Yes!</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+  {
+    /* 
       <Text style={styles.textChoix1}>
         En manque d'idées ?? Trouves ta recette!!
       </Text>
@@ -46,96 +68,76 @@ export default function Homepage({ navigation }) {
         activeOpacity={0.8}
       >
         <Text style={styles.textButton}> HERE</Text>
-      </TouchableOpacity>
-    </View>
-  );
+      </TouchableOpacity> */
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: "#F9D77E",
+    // width: "100%",
+    // height: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  texto: {
-    fontSize: 20,
-  },
-  imageBackground1: {
+  upContainer: {
     width: "100%",
-    height: "50%",
-    borderBottomLeftRadius: 160,
-    borderBottomRightRadius: 660,
-    borderTopLeftRadius: 150,
-    borderTopRightRadius: 150,
-    backgroundColor: "#F9D77E",
-
     flex: 1,
+    height: "40%",
+    width: "80%",
+    backgroundColor: "rgba(146,195,188, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "10%",
+    borderRadius: 15,
+    // borderColor: "#F9D77E",
+    // borderWidth: 2,
+    marginTop: "10%",
+    shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.0,
+    // shadowRadius: 4.84,
+    // elevation: 5,
   },
-  imageBackground2: {
+  bottomContainer: {
     width: "100%",
-    height: "50%",
-    borderBottomLeftRadius: 660,
-    borderBottomRightRadius: 160,
-    borderTopLeftRadius: 150,
-    borderTopRightRadius: 150,
-    backgroundColor: "#F9D77E",
     flex: 1,
+    height: "40%",
+    width: "80%",
+    backgroundColor: "rgba(146,195,188, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15,
+    // borderColor: "#F9D77E",
+    // borderWidth: 2,
+    marginBottom: "10%",
   },
-  textChoix1: {
-    color: "#DE45FF",
-    height: 30,
-    fontWeight: "600",
-    fontSize: 16,
-    position: "absolute",
-    top: 250,
-    right: 60,
+  upImage: {
+    marginTop: "10%",
+    width: "40%",
+    height: "40%",
+    marginBottom: "10%",
   },
-  textChoix2: {
-    color: "#DE45FF",
-    height: 30,
-    fontWeight: "600",
-    fontSize: 16,
-    position: "absolute",
-    top: 550,
-    right: 90,
+  bottomImage: {
+    marginTop: "10%",
+    width: "40%",
+    height: "40%",
+    marginBottom: "10%",
   },
-  image: {
-    width: "100%",
-    height: "50%",
-    left: 60,
-  },
-  textButton: {
-    color: "#DE45FF",
-    height: 30,
-    fontWeight: "600",
-    fontSize: 16,
-  },
-
   button1: {
-    borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.2)",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 100,
-    height: 100,
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    position: "absolute",
-    top: 300,
-    right: 160,
-  },
-
-  button2: {
-    borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.2)",
-    paddingVertical: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 100,
-    height: 100,
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    position: "absolute",
-    top: 600,
-    right: 160,
+    backgroundColor: "#F9D77E",
+    borderRadius: 15,
+    padding: 9,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
 });
