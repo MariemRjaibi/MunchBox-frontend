@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Filter from "./Filter";
+import RecettepageFiltered from "./RecettepageFiltered";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addPlacardIngredients,
@@ -22,9 +22,11 @@ import {
 
 export default function Placard({ navigation }) {
   const ingredientsToDisplay = useSelector((state) => {
-    console.log(state);
-    state.placardIngredients.value;
+    console.log("looooog", state);
+    //console.log(state.placardIngredients.value);
+    return state.placardIngredients.value;
   });
+  console.log(ingredientsToDisplay);
   const dispatch = useDispatch();
   const [littleIngredient, setIngredient] = useState("");
   //let [ingredientList, setIngredientList] = useState([]);
@@ -33,17 +35,16 @@ export default function Placard({ navigation }) {
     dispatch(addPlacardIngredients(littleIngredient));
     setIngredient("");
   }
-  console.log(ingredientsToDisplay);
 
   function handleChange(value) {
     setIngredient(value);
   }
   function handleDelete(e) {
-    dispatch(removePlacardIngredients(littleIngredient));
+    dispatch(removePlacardIngredients(e));
   }
-  //console.log("hello here", ingredientsToDisplay);
-  const hello = [1, 2, 3];
-  const displayedItems = hello.map((e, i) => {
+  //console.log("hello hesre", ingredientsToDisplay);
+  //const hello = [1, 2, 3];
+  const displayedItems = ingredientsToDisplay.map((e, i) => {
     return (
       <View style={styles.item}>
         <Text key={i} style={styles.list}>
@@ -91,7 +92,7 @@ export default function Placard({ navigation }) {
         <TouchableOpacity
           style={styles.findBtn}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("Filter")}
+          onPress={() => navigation.navigate(RecettepageFiltered)}
         >
           <Text style={styles.textButton}>Find a recipe</Text>
         </TouchableOpacity>

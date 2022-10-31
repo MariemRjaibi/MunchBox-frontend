@@ -12,79 +12,196 @@ import {
   Keyboard,
 } from "react-native";
 import Homepage from "./Homepage";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../reducers/users";
 
 export default function SignupScreen({ navigation }) {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const token = useSelector((state) => state?.user?.value?.token ?? null); // s'il trouve pas une valeur il retourne null sans descendre plus bas; null=valeur par défaut
+  const token = useSelector((state) => state.users.value.token);
+  const [signInUsername, setSignInUsername] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
 
-  // const handleSubmit = () => {
-  //     dispatch(login(username));
-  //     navigation.navigate('TabNavigator');
-  //   };
+  //console.log(token);
+  const handleRegister = () => {
+    fetch("http://192.168.10.169:3000/users/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          dispatch(login({ username: username, token: data.token }));
+          setUsername("");
+          setPassword("");
+        }
+      });
+    navigation.navigate(Homepage);
+  };
 
-  return (
-    <ImageBackground
-      source={require("../assets/background-concept.jpg")}
-      style={styles.background}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.container}
-        >
-          <Image
-            source={require("../assets/Munchbox-logo.jpg")}
-            style={styles.logo}
-          />
-          <Text style={styles.title}>Join us today!</Text>
-          <Text style={styles.signup}>Sign Up</Text>
+  // console.log('token', token)
 
-          <View style={styles.input}>
-            <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
-            <TextInput
-              placeholder="Username"
-              onChangeText={(value) => setUsername(value)}
-              value={username}
-              style={styles.inputContent}
-            />
-            <Text style={{ color: "white", fontSize: 20 }}>Email</Text>
-            <TextInput
-              placeholder="Email"
-              onChangeText={(value) => setEmail(value)}
-              value={email}
-              style={styles.inputContent}
-            />
-            <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
-            <TextInput
-              placeholder="Password"
-              onChangeText={(value) => setPassword(value)}
-              value={password}
-              style={styles.inputContent}
-            />
-          </View>
+  const handleConnection = () => {
+    fetch("http://192.168.10.169:3000/users/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: signInUsername,
+        password: signInPassword,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          dispatch(login({ username: signInUsername, token: data.token }));
+          setSignInUsername("");
+          setSignInPassword("");
+        }
+      });
+    navigation.navigate(Homepage);
+  };
 
-          <TouchableOpacity
-            style={styles.button}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate(Homepage)}
+  if (!token) {
+    return (
+      <ImageBackground
+        source={require("../assets/background-concept.jpg")}
+        style={styles.background}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
           >
-            <Text style={styles.register}>Register</Text>
-          </TouchableOpacity>
+            <Image
+              source={require("../assets/Munchbox-logo.jpg")}
+              style={styles.logo}
+            />
+            <Text style={styles.title}>Join us today!</Text>
+            <Text style={styles.signup}>Sign Up</Text>
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }} />
-            <View>
-              <Text style={{ width: 150, textAlign: "center", color: "white" }}>
-                or sign up with
-              </Text>
+            <View style={styles.input}>
+              <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
+              <TextInput
+                placeholder="Username"
+                onChangeText={(value) => setUsername(value)}
+                value={username}
+                style={styles.inputContent}
+              />
+              <Text style={{ color: "white", fontSize: 20 }}>Email</Text>
+              <TextInput
+                placeholder="Email"
+                onChangeText={(value) => setEmail(value)}
+                value={email}
+                style={styles.inputContent}
+              />
+              <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
+              <TextInput
+                placeholder="Password"
+                onChangeText={(value) => setPassword(value)}
+                value={password}
+                style={styles.inputContent}
+              />
             </View>
-            <View style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }} />
-          </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </ImageBackground>
-  );
+
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.8}
+              onPress={() => handleRegister()} //navigation.navigate(Homepage)
+            >
+              <Text style={styles.register}>Register</Text>
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+              />
+              <View>
+                <Text
+                  style={{ width: 150, textAlign: "center", color: "white" }}
+                >
+                  or sign up with
+                </Text>
+              </View>
+              <View
+                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+              />
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </ImageBackground>
+    );
+  } else {
+    return (
+      <ImageBackground
+        source={require("../assets/background-concept.jpg")}
+        style={styles.background}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
+          >
+            <Image
+              source={require("../assets/Munchbox-logo.jpg")}
+              style={styles.logo}
+            />
+            <Text style={styles.title}>Join us today!</Text>
+            <Text style={styles.signup}>Sign In</Text>
+
+            <View style={styles.input}>
+              <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
+              <TextInput
+                placeholder="Username"
+                onChangeText={(value) => setUsername(value)}
+                value={username}
+                style={styles.inputContent}
+              />
+
+              <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
+              <TextInput
+                placeholder="Password"
+                onChangeText={(value) => setPassword(value)}
+                value={password}
+                style={styles.inputContent}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.8}
+              onPress={() => handleConnection()} //navigation.navigate(Homepage)
+            >
+              <Text style={styles.register}>Let's Cook!</Text>
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+              />
+              <View>
+                <Text
+                  style={{ width: 150, textAlign: "center", color: "white" }}
+                >
+                  or sign up with
+                </Text>
+              </View>
+              <View
+                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+              />
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </ImageBackground>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

@@ -13,8 +13,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import React from "react";
 import Recettepage from "./Recettepage";
 import Placard from "./Placard";
+import { useDispatch } from "react-redux";
+import { updateIsFiltered } from "../reducers/choosePaths";
 
 export default function Homepage({ navigation }) {
+  const dispatch = useDispatch();
   return (
     <View style={styles.mainContainer}>
       <View style={styles.upContainer}>
@@ -25,7 +28,7 @@ export default function Homepage({ navigation }) {
           source={require("../assets/recipes.png")}
         />
         <TouchableOpacity
-          onPress={() => navigation.navigate(Recettepage)}
+          onPress={() => navigation.navigate("TabNavigator")}
           style={styles.button1}
           activeOpacity={0.8}
         >
@@ -39,7 +42,10 @@ export default function Homepage({ navigation }) {
           source={require("../assets/vegetables.png")}
         />
         <TouchableOpacity
-          onPress={() => navigation.navigate(Placard)}
+          onPress={() => {
+            navigation.navigate("Placard");
+            dispatch(updateIsFiltered());
+          }}
           style={styles.button1}
           activeOpacity={0.8}
         >

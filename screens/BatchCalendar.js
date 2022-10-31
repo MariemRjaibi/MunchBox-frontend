@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Platform,
+  ScrollView,
   Text,
   View,
   StyleSheet,
@@ -8,17 +8,41 @@ import {
   Image,
   Button,
 } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import ShoppingList from "./ShoppingList";
+import font from "expo-font";
 
 export default function BatchCalendar(navigation) {
-  const [selectedDate, setSelectedDate] = useState();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState();
+  const [recettes, setRecettes] = useState([
+    {
+      id: 1,
+      image: require("../assets/plat-1.jpg"),
+      name: "Steak with vegeratien ",
+      time: "35 min",
+      date: undefined,
+    },
+    {
+      id: 2,
+      image: require("../assets/plat-2.jpg"),
+      name: "Pizza with love",
+      time: "1h30",
+      date: undefined,
+    },
+    {
+      id: 3,
+      image: require("../assets/plat-1.jpg"),
+      name: "Pate avec steak",
+      time: "65 min",
+      date: undefined,
+    },
+  ]);
 
-  const showDatePicker = () => {
+  const showDatePicker = (i) => {
+    setCurrentIndex(i);
     setDatePickerVisibility(true);
   };
 
@@ -27,11 +51,55 @@ export default function BatchCalendar(navigation) {
   };
 
   const handleConfirm = (date) => {
-    setSelectedDate(date);
-    console.warn("la date choisie est: ", date);
+    console.warn(date);
+    let res = recettes.map((element, index) => ({
+      ...element,
+      date: index == currentIndex ? date : element.date,
+    }));
+    setRecettes(res);
+
     hideDatePicker();
   };
 
+  let dateRecipe = recettes.map((data, i) => {
+    return (
+      <View style={styles.cardRecipe}>
+        <DateTimePickerModal
+          style={styles.calendrier}
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          minimumDate={moment().toDate()}
+        />
+        <View key={"item" + i} contentContainerStyle={styles.containerRecipes}>
+          <Text style={styles.subTitle}>Lundi</Text>
+          <View style={styles.descriptionRecipe}>
+            <Image style={styles.imageRecipe} source={data.image} />
+            <View style={styles.descriptionRecipeText}>
+              <Text style={styles.titleRecipe}>{data.name} </Text>
+              <Text>{data.time}</Text>
+
+              <Button
+                buttonTextColorIOS="blue"
+                title="Please select date"
+                onPress={() => showDatePicker(i)}
+              />
+              <Text style={styles.textChoixDate1}></Text>
+              <Text style={styles.textDate}>
+                {`Selected Date:  ${
+                  data.date
+                    ? moment(data.date).format("YYYY-MM-DD")
+                    : "Please select date"
+                }`}
+                ;
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  });
 
   return (
     <View style={styles.container1}>
@@ -40,116 +108,23 @@ export default function BatchCalendar(navigation) {
       </View>
       <Text style={styles.titre}> Plan your Batch Calendar</Text>
       <View style={styles.container}>
-        <View style={styles.cards1}>
-          <View style={styles.carteRecette}>
-
-            
-
-            <Image
-              style={styles.imageRecette1}
-              source={require("../assets/plat.png")}
-            />
-
-            <Text style={styles.textChoix2}>Pizza Napolitaine</Text>
-          </View>
-
-          <Text style={styles.textChoixDate1}>
-            <Button
-              buttonTextColorIOS="blue"
-              title="Please select date"
-              onPress={showDatePicker}
-            />
-
-            <Text
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >{`Selected Date:  ${
-              selectedDate
-                ? moment(selectedDate).format("DD/MM/YYYY")
-                : "Please select date"
-            }`}</Text>
-          </Text>
-
-          <View>
-            <DateTimePickerModal
-              style={styles.calendrier}
-              isVisible={isDatePickerVisible}
-              mode="date"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-            />
-            <Text
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >{`Selected Date:  ${
-              selectedDate
-                ? moment(selectedDate).format("DD/MM/YYYY")
-                : "Please select date"
-            }`}</Text>
-          </View>
-        </View>
-        <View style={styles.container2}>
-          <Text
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >{`Selected Date:  ${
-            selectedDate
-              ? moment(selectedDate).format("DD/MM/YYYY")
-              : "Please select date"
-          }`}</Text>
-        </View>
-        <View style={styles.cards2}>
-          <View style={styles.carteRecette}>
-            <Image
-              style={styles.imageRecette1}
-              source={require("../assets/plat.png")}
-            />
-            <Text style={styles.textChoix2}>Pizza Marguerita</Text>
-          </View>
-          <Text style={styles.textChoixDate1}>
-            <Button
-              buttonTextColorIOS="blue"
-              title="Please select date"
-              onPress={showDatePicker}
-            />
-            <Text
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >{`Selected Date:  ${
-              selectedDate
-                ? moment(selectedDate).format("DD/MM/YYYY")
-                : "Please select date"
-            }`}</Text>
-          </Text>
-        </View>
+        <View style={styles.containerRecipes}>{dateRecipe}</View>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("ShoppingList")}
         style={styles.button2}
         activeOpacity={0.3}
       >
         <Text style={styles.textButton}> Generate My Shopping List</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.85,
-    backgroundColor: "#DEDEDE",
+    flex: 0.9,
+    backgroundColor: "#DEDfDE",
     justifyContent: "top",
     padding: 8,
     borderRadius: 15,
@@ -172,6 +147,9 @@ const styles = StyleSheet.create({
   calendrier: {
     backgroundColor: "red",
   },
+  textDate: {
+    left: 10,
+  },
   carteRecette: {
     backgroundColor: "#FCFED5",
     marginHorizontal: 5,
@@ -183,7 +161,7 @@ const styles = StyleSheet.create({
   },
   textChoixDate1: {
     fontSize: 14,
-    left: 160,
+
     top: -80,
     justifyContent: "space-around",
     right: 50,
@@ -209,9 +187,10 @@ const styles = StyleSheet.create({
     alignContent: "center",
     height: 60,
     fontWeight: "600",
-    fontSize: 16,
+    fontSize: 30,
     padding: 20,
     left: 100,
+    fontFamily: "Grandhotel",
   },
   imageRecette1: {
     justifyContent: "center",
@@ -251,5 +230,32 @@ const styles = StyleSheet.create({
     height: 30,
     fontWeight: "600",
     fontSize: 12,
+  },
+  subTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: 15,
+    //color:"#ABAEB1",
+  },
+  imageRecipe: {
+    width: 120,
+    height: 120,
+    borderRadius: 20,
+  },
+  titleRecipe: {
+    fontSize: 19,
+    fontWeight: "bold",
+  },
+  DescriptionRecipeText: {
+    paddingTop: 10,
+    paddingLeft: 20,
+  },
+  descriptionRecipe: {
+    flexDirection: "row",
+    backgroundColor: "#ffffff",
+    borderRadius: 20,
+  },
+  containerRecipes: {
+    marginTop: 25,
   },
 });

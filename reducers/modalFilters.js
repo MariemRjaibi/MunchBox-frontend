@@ -71,4 +71,5 @@ export const {
   removeIngredients,
   removeAllergies,
 } = modalFiltersSlice.actions;
+
 export default modalFiltersSlice.reducer;

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: "",
+  value: [],
 };
 
 export const placardIngredientsSlice = createSlice({
@@ -9,7 +9,7 @@ export const placardIngredientsSlice = createSlice({
   initialState,
   reducers: {
     addPlacardIngredients: (state, action) => {
-      // console.log(state);
+      console.log(state.value);
       state.value.push(action.payload);
     },
     removePlacardIngredients: (state, action) => {

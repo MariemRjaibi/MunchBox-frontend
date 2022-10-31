@@ -12,6 +12,7 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -19,6 +20,10 @@ import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
 
 export default function Recettepage({ navigation }) {
+  const ingredientsToDisplay = useSelector(
+    (state) => state.placardIngredients.value
+  );
+  console.log(ingredientsToDisplay);
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isActive, setIsActive] = useState(true);

@@ -17,7 +17,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorites } from "../reducers/favorites";
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
 export default function Recettepage({ navigation }) {
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,6 +31,17 @@ export default function Recettepage({ navigation }) {
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
+
+  const favoris = useSelector((state) => {
+    console.log(state);
+    return state;
+  });
+  const isFiltered = useSelector((state) => {
+    console.log(state);
+    return state.choosePaths.value;
+  });
+  const dispatch = useDispatch();
+
   //const ingredientList =[];
 
   // const [startRecipe, setStartRecipe] = useState([]);
@@ -42,8 +55,27 @@ export default function Recettepage({ navigation }) {
   function handleFilter() {
     navigation.navigate(Filter);
   }
+  const [apiPath, setApiPath] = useState("");
 
   useEffect(() => {
+    // if (isFiltered) {
+    //   setApiPath(
+    //     "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags="
+    //   );
+    // } else {
+    //   setApiPath(
+    //     "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
+    //   );
+    // }
+    const _clearAll = async () => {
+      try {
+        await AsyncStorage.clear();
+        console.log("Done");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    // _clearAll();
     fetch(
       "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
     )
@@ -128,12 +160,17 @@ export default function Recettepage({ navigation }) {
     setDisplayedSteps([...displayedSteps, ...steps]);
   }
 
+  function handleFavoris(data) {
+    dispatch(addFavorites(data.title));
+  }
+
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
   //console.log(ingredientsList);
   function handlePressSwitcher() {
     setIsActive((current) => !current);
   }
+
   const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
     return (
       <View key={i}>
@@ -155,12 +192,14 @@ export default function Recettepage({ navigation }) {
       <TouchableOpacity onPress={() => handleDescription(data)}>
         <View key={i} style={styles.cardRecipe}>
           <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <FontAwesome
-            name="heart"
-            size={20}
-            color={"#000"}
-            style={styles.iconContent}
-          />
+          <TouchableOpacity onPress={() => handleFavoris(data)}>
+            <FontAwesome
+              name="heart"
+              size={20}
+              color={"#000"}
+              style={styles.iconContent}
+            />
+          </TouchableOpacity>
           <Text style={styles.cardTitle}>{data.title}</Text>
           <View style={styles.cardInfo}>
             <View style={styles.containerInfo}>
