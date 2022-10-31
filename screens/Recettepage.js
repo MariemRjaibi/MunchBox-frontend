@@ -38,7 +38,7 @@ export default function Recettepage({ navigation }) {
   });
   const dispatch = useDispatch();
 
-yarn 
+
 
 
 
