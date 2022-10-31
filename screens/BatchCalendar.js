@@ -40,20 +40,15 @@ export default function BatchCalendar(navigation) {
       date: undefined,
     },
   ]);
-
-<<<<<<< HEAD
-=======
-//affichage du Datepicker sur telephone
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   const showDatePicker = (i) => {
     setCurrentIndex(i);
     setDatePickerVisibility(true);
   };
-//cacher le datepicker du telephone
+  //cacher le datepicker du telephone
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-//permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
+  //permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
   const handleConfirm = (date) => {
     console.warn(date);
     let res = recettes.map((element, index) => ({
@@ -68,31 +63,16 @@ export default function BatchCalendar(navigation) {
   let dateRecipe = recettes.map((data, i) => {
     return (
       <View style={styles.cardRecipe}>
-<<<<<<< HEAD
         <DateTimePickerModal
           style={styles.calendrier}
           isVisible={isDatePickerVisible}
           mode="date"
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
-          minimumDate={moment().toDate()}
-        />
-        <View key={"item" + i} contentContainerStyle={styles.containerRecipes}>
-          <Text style={styles.subTitle}>Lundi</Text>
-=======
-
-
-        <DateTimePickerModal
-          style={styles.calendrier}
-          isVisible={isDatePickerVisible}
-          mode="date" 
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
           //Affiche la date a choisir a partir d'aujourd'hui
           minimumDate={moment().toDate()}
         />
         <View key={"item" + i} contentContainerStyle={styles.containerRecipes}>
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
           <View style={styles.descriptionRecipe}>
             <Image style={styles.imageRecipe} source={data.image} />
             <View style={styles.descriptionRecipeText}>
@@ -108,11 +88,7 @@ export default function BatchCalendar(navigation) {
               <Text style={styles.textDate}>
                 {`Selected Date:  ${
                   data.date
-<<<<<<< HEAD
-                    ? moment(data.date).format("YYYY-MM-DD")
-=======
                     ? moment(data.date).format("DD-MM-YYYY")
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
                     : "Please select date"
                 }`}
                 ;
@@ -159,25 +135,9 @@ const styles = StyleSheet.create({
   },
   textDate: {
     left: 10,
-<<<<<<< HEAD
-  },
-  carteRecette: {
-    backgroundColor: "#FCFED5",
-    marginHorizontal: 5,
-    paddingBottom: 10,
-    borderRadius: 15,
-    width: 120,
-    height: "auto",
-    marginBottom: 0,
   },
   textChoixDate1: {
     fontSize: 14,
-
-=======
-  },
-  textChoixDate1: {
-    fontSize: 14,
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
     top: -80,
     justifyContent: "space-around",
     right: 50,
@@ -200,8 +160,6 @@ const styles = StyleSheet.create({
     fontFamily: "Grandhotel",
   },
 
- 
-  
   button2: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
@@ -222,16 +180,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 12,
   },
-<<<<<<< HEAD
-  subTitle: {
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 15,
-    //color:"#ABAEB1",
-  },
-=======
- 
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
+
   imageRecipe: {
     width: 120,
     height: 120,
@@ -241,14 +190,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "bold",
   },
-<<<<<<< HEAD
-  DescriptionRecipeText: {
-    paddingTop: 10,
-    paddingLeft: 20,
-  },
-=======
-
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
   descriptionRecipe: {
     flexDirection: "row",
     backgroundColor: "#ffffff",
