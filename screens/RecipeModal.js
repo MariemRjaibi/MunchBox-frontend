@@ -27,8 +27,9 @@ export default function RecipeModal() {
    const [isActive, setIsActive]= useState(false); //change state between ingredients and steps
 
    const handlePress= (value) => {
+    console.log(value);
     setIsEnabled(value);
-    setIsActive (isActive => {return !isActive});
+    setIsActive (!isActive);
    }
     console.log('Hello', isEnabled)
     console.log('Bye', isActive)
@@ -59,8 +60,8 @@ export default function RecipeModal() {
           <FontAwesome name='star-o' size={25} color='#92C3BC' style={styles.note} />
           <FontAwesome name='star-o' size={25} color='#92C3BC' style={styles.note} />
           <Text style= {styles.starnote}> 4/5 (123 reviews)</Text>
-          </View>
-          <SwitchSelector
+          </View> 
+          <SwitchSelector // Add toggle switch to show or hide ingredients/steps
             buttonColor= {"#92C3BC"}
             ios_backgroundColor= {"#92C3BC"}
             hasPadding
@@ -73,8 +74,9 @@ export default function RecipeModal() {
                 { label: "Ingredients", value: 'ingredients' }, 
                 { label: "Steps", value: 'steps' } 
               ]}   
-          />
-{!isActive && (isEnabled==='ingredients') ? <Text>Ingredients Modal</Text>: <Text>Steps Modal</Text>}
+          /> 
+          {(isEnabled==='ingredients') &&<Text>Ingredients Modal</Text>}
+          {(isEnabled==='steps') &&<Text>Steps Modal</Text>}
           <Text style={{fontSize: 20, fontWeight: "bold", marginTop: 20, marginBottom: 10}}>
             Nutrition Information
           </Text>
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     },
     close:{
         position: "absolute", 
-        top:10,
+        top:20,
         right:10,
         color:'black'
       },

@@ -50,7 +50,7 @@ const Recipes = listRecipe.map((data, i) => {
         </View>
         
         <View style={styles.containerHead}>
-            <Text style={styles.title}>Favorites recipes</Text>
+            <Text style={styles.title}>Favorite Recipes</Text>
             <Text style={styles.subTitle}>What you want to cook today ?</Text>
         </View>
         
@@ -66,7 +66,7 @@ const Recipes = listRecipe.map((data, i) => {
   
         <View style={styles.menu}>
           <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>BreackFast</Text>
+            <Text style={styles.menuBtnText}>Breakfast</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuBtn}>
             <Text style={styles.menuBtnText}>Starter</Text>

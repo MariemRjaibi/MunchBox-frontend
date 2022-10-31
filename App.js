@@ -40,6 +40,7 @@ import { shouldUseActivityState } from "react-native-screens";
 
 import RecipeModal from "./screens/RecipeModal";
 import Placard from "./screens/Placard";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 // Configuration Reducer Store
@@ -58,23 +59,55 @@ const persistor = persistStore(store);
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator screenOptions={({ route }) => ({
+      tabBarIcon: ({ color, size }) => {
+        let iconName = '';
+
+        if (route.name === 'Home') {
+          iconName = 'home';
+        } else if (route.name === 'Favorites') {
+          iconName = 'heart';
+        } else if (route.name === 'Calendar') {
+          iconName = 'calendar';
+        } else if (route.name === 'Shopping') {
+          iconName = 'shopping-basket';
+        }
+
+        return <FontAwesome name={iconName} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: '#F9D77E',
+      tabBarInactiveTintColor: '#335561',
+      tabBarStyle: {backgroundColor: '#92C3BC'},
+
+      headerShown: false,
+    })}>
+      <Tab.Screen name="Home" component={Recettepage} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} />
+      <Tab.Screen name="Calendar" component={BatchCalendar} />
+      <Tab.Screen name="Shopping" component={ShoppinglistScreen} />
+    </Tab.Navigator>
+  );
+};
+
 export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
             <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="Placard" component={Placard} />
-            <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
             <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen} />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
             <Stack.Screen name="batchCalendar" component={BatchCalendar} />
+             <Stack.Screen name="Filter" component={Filter} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
