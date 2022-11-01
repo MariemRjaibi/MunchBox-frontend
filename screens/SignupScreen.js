@@ -109,7 +109,6 @@ export default function SignupScreen({ navigation }) {
                 style={styles.inputContent}
               />
             </View>
-
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}
