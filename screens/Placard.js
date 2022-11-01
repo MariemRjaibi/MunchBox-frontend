@@ -13,14 +13,26 @@ import {
 } from "react-native";
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Filter from "./Filter";
+import RecettepageFiltered from "./RecettepageFiltered";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addPlacardIngredients,
+  removePlacardIngredients,
+} from "../reducers/placardIngredients";
 
 export default function Placard({ navigation }) {
-  const [ingredient, setIngredient] = useState("");
-  let [ingredientList, setIngredientList] = useState([]);
+  const ingredientsToDisplay = useSelector((state) => {
+    console.log("looooog", state);
+    //console.log(state.placardIngredients.value);
+    return state.placardIngredients.value;
+  });
+  console.log(ingredientsToDisplay);
+  const dispatch = useDispatch();
+  const [littleIngredient, setIngredient] = useState("");
+  //let [ingredientList, setIngredientList] = useState([]);
 
   function handleAdd() {
-    setIngredientList([...ingredientList, ingredient]);
+    dispatch(addPlacardIngredients(littleIngredient));
     setIngredient("");
   }
 
@@ -28,11 +40,11 @@ export default function Placard({ navigation }) {
     setIngredient(value);
   }
   function handleDelete(e) {
-    // console.log(e);
-    setIngredientList(ingredientList.filter((data) => data !== e));
+    dispatch(removePlacardIngredients(e));
   }
-  console.log(ingredientList);
-  const displayedItems = ingredientList.map((e, i) => {
+  //console.log("hello hesre", ingredientsToDisplay);
+  //const hello = [1, 2, 3];
+  const displayedItems = ingredientsToDisplay.map((e, i) => {
     return (
       <View style={styles.item}>
         <Text key={i} style={styles.list}>
@@ -48,7 +60,6 @@ export default function Placard({ navigation }) {
       </View>
     );
   });
-  //console.log(ingredientList);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView
@@ -66,7 +77,7 @@ export default function Placard({ navigation }) {
             onChangeText={(value) => {
               handleChange(value);
             }}
-            value={ingredient}
+            value={littleIngredient}
           ></TextInput>
           <TouchableOpacity
             style={styles.addBtn}
@@ -81,7 +92,7 @@ export default function Placard({ navigation }) {
         <TouchableOpacity
           style={styles.findBtn}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("Filter")}
+          onPress={() => navigation.navigate("RecettepageFiltered")}
         >
           <Text style={styles.textButton}>Find a recipe</Text>
         </TouchableOpacity>

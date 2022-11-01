@@ -27,9 +27,12 @@ export default function ConceptScreen({ navigation }) {
         colors={["transparent", "rgba(0,0,0,0.8)"]}
         style={styles.container}
       >
-        <View>
-          <Text style={styles.logo}>LOGO</Text>
-        </View>
+        <Image
+          source={require("../../assets/Munchbox-logo.jpg")}
+          style={styles.logo}
+        />
+        <Text style={styles.logo}>LOGO</Text>
+
         <View>
           <Text style={styles.title}>
             No time to search for your next meal idea?
@@ -88,5 +91,12 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: "flex-end",
+  },
+
+  logo: {
+    width: "50%",
+    height: "20%",
+    borderRadius: 50,
+    opacity: 0.9,
   },
 });

@@ -1,3 +1,5 @@
+
+
 import { StatusBar } from "expo-status-bar";
 import { useReducer } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -15,6 +17,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import filters from "./reducers/filters";
 import modalFilters from "./reducers/modalFilters";
+import placardIngredients from "./reducers/placardIngredients";
+import favorites from "./reducers/favorites";
+import choosePaths from "./reducers/choosePaths";
 import Calendar from "./reducers/Calendar";
 
 //Import de font
@@ -27,24 +32,33 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-
 // Screens import
 import ConceptScreen from "./screens/form/ConceptScreen";
 import BatchCalendar from "./screens/BatchCalendar";
 import Homepage from "./screens/Homepage";
 import Recettepage from "./screens/Recettepage";
 import Filter from "./screens/Filter";
+import RecettepageFiltered from "./screens/RecettepageFiltered";
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
 import ShoppinglistScreen from "./screens/ShoppinglistScreen";
 import BatchweekScreen from "./screens/BatchweekScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
+import { shouldUseActivityState } from "react-native-screens";
 import Placard from "./screens/Placard";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 // Configuration Reducer Store
-const reducers = combineReducers({ users, modalFilters, Calendar });
+const reducers = combineReducers({
+  users,
+  placardIngredients,
+  filters,
+  favorites,
+  modalFilters,
+  choosePaths,
+  Calendar,
+});
 const persistConfig = { key: "munchbox", storage: AsyncStorage };
 
 const store = configureStore({
@@ -61,28 +75,30 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName = '';
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName = "";
 
-        if (route.name === 'Home') {
-          iconName = 'home';
-        } else if (route.name === 'Favorites') {
-          iconName = 'heart';
-        } else if (route.name === 'Calendar') {
-          iconName = 'calendar';
-        } else if (route.name === 'Shopping') {
-          iconName = 'shopping-basket';
-        }
+          if (route.name === "Home") {
+            iconName = "home";
+          } else if (route.name === "Favorites") {
+            iconName = "heart";
+          } else if (route.name === "Calendar") {
+            iconName = "calendar";
+          } else if (route.name === "Shopping") {
+            iconName = "shopping-basket";
+          }
 
-        return <FontAwesome name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: '#F9D77E',
-      tabBarInactiveTintColor: '#335561',
-      tabBarStyle: {backgroundColor: '#92C3BC'},
+          return <FontAwesome name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "#F9D77E",
+        tabBarInactiveTintColor: "#335561",
+        tabBarStyle: { backgroundColor: "#92C3BC" },
 
-      headerShown: false,
-    })}>
+        headerShown: false,
+      })}
+    >
       <Tab.Screen name="Home" component={Recettepage} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Calendar" component={BatchCalendar} />
@@ -92,26 +108,26 @@ const TabNavigator = () => {
 };
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
-  });
-  //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
-  useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
-    }
-    prepare();
-  }, []);
+  // const [fontsLoaded] = useFonts({
+  //   Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
+  // });
+  // //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
+  // useEffect(() => {
+  //   async function prepare() {
+  //     await SplashScreen.preventAutoHideAsync();
+  //   }
+  //   prepare();
+  // }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
   return (
     <Provider store={store}>
@@ -126,9 +142,13 @@ export default function App() {
             <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
-            <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen}/>
+            <Stack.Screen
+              name="ShoppinglistScreen"
+              component={ShoppinglistScreen}
+            />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
             <Stack.Screen name="batchCalendar" component={BatchCalendar} />
+
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
@@ -136,7 +156,6 @@ export default function App() {
     </Provider>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

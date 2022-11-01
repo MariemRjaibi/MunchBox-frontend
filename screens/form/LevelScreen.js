@@ -27,7 +27,7 @@ export default function LevelScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Kitchen level</Text>
+        <Text style={styles.title}>🧑‍🍳Kitchen level</Text>
         <Text style={styles.text}>
           Quel est ton degré de maitrise en cuisine ?{" "}
         </Text>
@@ -57,7 +57,7 @@ export default function LevelScreen({ navigation }) {
       </View>
 
       <View>
-        <Text style={styles.title}>cooking time</Text>
+        <Text style={styles.title}>🍲 cooking time</Text>
         <Text style={styles.text}>Do you have time to cook?</Text>
         <SliderPicker
           minLabel={"Bof"}

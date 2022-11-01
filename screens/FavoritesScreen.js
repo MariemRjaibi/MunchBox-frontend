@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   Platform,
@@ -11,7 +12,18 @@ import {
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
+import Recettepage from "./Recettepage";
+
 export default function FavoritesScreen({ navigation }) {
+  const favorites = useSelector((state) => state.favorites.value);
+
+  let listRecipes = <Text>Add recipes to your favorites</Text>;
+  if (listRecipes.length > 0) {
+    listRecipes = favorites.map((data, i) => {
+      return <Recettepage key={i} {...data} isFavorites />;
+    });
+  }
+
   let listRecipe = [
     {
       id: 1,
@@ -49,15 +61,6 @@ export default function FavoritesScreen({ navigation }) {
             <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
             <Text style={styles.textInfo}>{data.time}</Text>
           </View>
-          <View style={styles.containerInfo}>
-            <FontAwesome
-              name="calendar"
-              size={20}
-              color={"#83C5BC"}
-              onPress={() => addClick()}
-              style={styles.btnDelete}
-            />
-          </View>
         </View>
       </View>
     );
@@ -65,58 +68,26 @@ export default function FavoritesScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-    
-        <View style={styles.containerheader}>
-
-            <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>
-
-            <View>
-                <TouchableOpacity style={styles.containerIconUser}>
-                    <Image style={styles.imageProfil} source={require('../assets/Etchebest.jpg')}/>
-                </TouchableOpacity>
-            </View>
-        </View>
-        
-        <View style={styles.containerHead}>
-            <Text style={styles.title}>Favorite Recipes</Text>
-            <Text style={styles.subTitle}>What you want to cook today ?</Text>
-        </View>
-        
-        
-        <View style={styles.containerFilter}>
+      <View style={styles.containerheader}>
+        <FontAwesome
+          name="chevron-left"
+          size={20}
+          color={"#92C3BC"}
+          style={styles.buttonReturn}
+        />
 
         <View>
-            <FontAwesome name="filter" size={25} color={"#ffffff"}  style={styles.filterIcon}/>
-        </View>
-     
-
-      <ScrollView contentContainerStyle={styles.contentScroll}  horizontal={true}>
-  
-        <View style={styles.menu}>
-          <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>Breakfast</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>Starter</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>Lunch</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>Dinner</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>Dessert</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuBtn}>
-            <Text style={styles.menuBtnText}>Popular</Text>
+          <TouchableOpacity style={styles.containerIconUser}>
+            <Image
+              style={styles.imageProfil}
+              source={require("../assets/Etchebest.jpg")}
+            />
           </TouchableOpacity>
         </View>
-        </ScrollView>
       </View>
 
       <View style={styles.containerHead}>
-        <Text style={styles.title}>Favorites recipes</Text>
+        <Text style={styles.title}>Favorite Recipes</Text>
         <Text style={styles.subTitle}>What you want to cook today ?</Text>
       </View>
 
@@ -136,7 +107,7 @@ export default function FavoritesScreen({ navigation }) {
         >
           <View style={styles.menu}>
             <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>BreackFast</Text>
+              <Text style={styles.menuBtnText}>Breakfast</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuBtn}>
               <Text style={styles.menuBtnText}>Starter</Text>
@@ -157,9 +128,19 @@ export default function FavoritesScreen({ navigation }) {
         </ScrollView>
       </View>
 
+      <View style={styles.containerHead}>
+        <Text style={styles.title}>Favorites recipes</Text>
+        <Text style={styles.subTitle}>What you want to cook today ?</Text>
+      </View>
+
       <View style={styles.containerNumberRecipes}>
-        <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
-        <Text style={styles.numberRecipe}>3</Text>
+        <Text style={styles.textNumberRecipes}>Number of recipes saved : </Text>
+        <Text style={styles.numberRecipe}>{Recipes.length}</Text>
+      </View>
+
+      <View style={styles.containerRecipes}>
+        {listRecipes}
+        {/* {Recipes} */}
       </View>
 
       <View style={styles.containerRecipes}>{Recipes}</View>

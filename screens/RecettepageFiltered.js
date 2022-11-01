@@ -12,15 +12,18 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
-import { useDispatch, useSelector } from "react-redux";
-import { addFavorites } from "../reducers/favorites";
-import { AsyncStorage } from "@react-native-async-storage/async-storage";
+
 export default function Recettepage({ navigation }) {
+  const ingredientsToDisplay = useSelector(
+    (state) => state.placardIngredients.value
+  );
+  console.log(ingredientsToDisplay);
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isActive, setIsActive] = useState(true);
@@ -31,15 +34,7 @@ export default function Recettepage({ navigation }) {
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
-
-  const favoris = useSelector((state) => {
-    console.log(state);
-    return state;
-  });
-  const dispatch = useDispatch();
-
-
-
+  //const ingredientList =[];
 
   // const [startRecipe, setStartRecipe] = useState([]);
   // const [mcRecipe, setMcRecipe] = useState([]);
@@ -54,17 +49,8 @@ export default function Recettepage({ navigation }) {
   }
 
   useEffect(() => {
-    const _clearAll = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    // _clearAll();
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags="
     )
       .then((response) => response.json())
       .then((data) => {
@@ -147,17 +133,12 @@ export default function Recettepage({ navigation }) {
     setDisplayedSteps([...displayedSteps, ...steps]);
   }
 
-  function handleFavoris(data) {
-    dispatch(addFavorites(data.title));
-  }
-
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
   //console.log(ingredientsList);
   function handlePressSwitcher() {
     setIsActive((current) => !current);
   }
-
   const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
     return (
       <View key={i}>
@@ -179,14 +160,12 @@ export default function Recettepage({ navigation }) {
       <TouchableOpacity onPress={() => handleDescription(data)}>
         <View key={i} style={styles.cardRecipe}>
           <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <TouchableOpacity onPress={() => handleFavoris(data)}>
-            <FontAwesome
-              name="heart"
-              size={20}
-              color={"#000"}
-              style={styles.iconContent}
-            />
-          </TouchableOpacity>
+          <FontAwesome
+            name="heart"
+            size={20}
+            color={"#000"}
+            style={styles.iconContent}
+          />
           <Text style={styles.cardTitle}>{data.title}</Text>
           <View style={styles.cardInfo}>
             <View style={styles.containerInfo}>
@@ -474,11 +453,10 @@ const styles = StyleSheet.create({
   imageProfil: {
     width: 50,
     height: 50,
-    // borderRadius: 100,
+    //borderRadius: 100,
     // borderWidth: 2,
     // borderColor: "#83C5BC",
   },
-
   containerNumberRecipes: {
     flexDirection: "row",
     alignItems: "flex-start",

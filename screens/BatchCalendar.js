@@ -40,17 +40,15 @@ export default function BatchCalendar(navigation) {
       date: undefined,
     },
   ]);
-
-//affichage du Datepicker sur telephone
   const showDatePicker = (i) => {
     setCurrentIndex(i);
     setDatePickerVisibility(true);
   };
-//cacher le datepicker du telephone
+  //cacher le datepicker du telephone
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-//permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
+  //permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
   const handleConfirm = (date) => {
     console.warn(date);
     let res = recettes.map((element, index) => ({
@@ -65,12 +63,10 @@ export default function BatchCalendar(navigation) {
   let dateRecipe = recettes.map((data, i) => {
     return (
       <View style={styles.cardRecipe}>
-
-
         <DateTimePickerModal
           style={styles.calendrier}
           isVisible={isDatePickerVisible}
-          mode="date" 
+          mode="date"
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
           //Affiche la date a choisir a partir d'aujourd'hui
@@ -113,13 +109,13 @@ export default function BatchCalendar(navigation) {
       <View style={styles.container}>
         <View style={styles.containerRecipes}>{dateRecipe}</View>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("ShoppingList")}
         style={styles.button2}
         activeOpacity={0.3}
       >
         <Text style={styles.textButton}> Generate My Shopping List</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
@@ -164,8 +160,6 @@ const styles = StyleSheet.create({
     fontFamily: "Grandhotel",
   },
 
- 
-  
   button2: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
@@ -186,7 +180,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 12,
   },
- 
+
   imageRecipe: {
     width: 120,
     height: 120,
@@ -196,7 +190,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "bold",
   },
-
   descriptionRecipe: {
     flexDirection: "row",
     backgroundColor: "#ffffff",
