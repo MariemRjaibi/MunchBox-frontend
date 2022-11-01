@@ -20,6 +20,7 @@ import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorites } from "../reducers/favorites";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function Recettepage({ navigation }) {
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -211,7 +212,7 @@ export default function Recettepage({ navigation }) {
 
   //console.log(isEnabled);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Modal
         visible={modalVisible}
         animationType="fade"
@@ -433,7 +434,7 @@ export default function Recettepage({ navigation }) {
       <ScrollView>
         <View style={styles.containerRecipes}>{Recipes}</View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
