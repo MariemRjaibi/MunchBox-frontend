@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   Text,
@@ -7,39 +7,29 @@ import {
   TouchableOpacity,
   Image,
   Button,
+  TimePickerAndroid,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import font from "expo-font";
+import { useSelector } from "react-redux";
 
 export default function BatchCalendar(navigation) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [currentIndex, setCurrentIndex] = useState();
-  const [recettes, setRecettes] = useState([
-    {
-      id: 1,
-      image: require("../assets/plat-1.jpg"),
-      name: "Steak with vegeratien ",
-      time: "35 min",
-      date: undefined,
-    },
-    {
-      id: 2,
-      image: require("../assets/plat-2.jpg"),
-      name: "Pizza with love",
-      time: "1h30",
-      date: undefined,
-    },
-    {
-      id: 3,
-      image: require("../assets/plat-1.jpg"),
-      name: "Pate avec steak",
-      time: "65 min",
-      date: undefined,
-    },
-  ]);
+  const [calendarRecipesToDisplay, setCalendarRecipesToDisplay] = useState([]);
+  const token = useSelector((state) => state.users.value.token);
+
+  useEffect(() => {
+    fetch(`http://192.168.10.183:3000/calendarRecipes/${token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCalendarRecipesToDisplay(data.recipes);
+      });
+  }, []);
+
   const showDatePicker = (i) => {
     setCurrentIndex(i);
     setDatePickerVisibility(true);
@@ -48,21 +38,21 @@ export default function BatchCalendar(navigation) {
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
+
   //permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
   const handleConfirm = (date) => {
-    console.warn(date);
-    let res = recettes.map((element, index) => ({
+    let res = calendarRecipesToDisplay.map((element, index) => ({
       ...element,
       date: index == currentIndex ? date : element.date,
     }));
-    setRecettes(res);
+    setCalendarRecipesToDisplay(res);
 
     hideDatePicker();
   };
 
-  let dateRecipe = recettes.map((data, i) => {
+  let dateRecipe = calendarRecipesToDisplay.map((data, i) => {
     return (
-      <View style={styles.cardRecipe}>
+      <View key={i} style={styles.cardRecipe}>
         <DateTimePickerModal
           style={styles.calendrier}
           isVisible={isDatePickerVisible}
@@ -74,10 +64,10 @@ export default function BatchCalendar(navigation) {
         />
         <View key={"item" + i} contentContainerStyle={styles.containerRecipes}>
           <View style={styles.descriptionRecipe}>
-            <Image style={styles.imageRecipe} source={data.image} />
+            <Image style={styles.imageRecipe} source={{ uri: data.image }} />
             <View style={styles.descriptionRecipeText}>
-              <Text style={styles.titleRecipe}>{data.name} </Text>
-              <Text>{data.time}</Text>
+              <Text style={styles.titleRecipe}>{data.title} </Text>
+              <Text>{data.prepTime}</Text>
 
               <Button
                 buttonTextColorIOS="blue"

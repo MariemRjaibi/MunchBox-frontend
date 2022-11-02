@@ -2,7 +2,7 @@
 
 import { StatusBar } from "expo-status-bar";
 import { useReducer } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 
 // Redux store
 import { Provider } from "react-redux";
@@ -48,6 +48,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { shouldUseActivityState } from "react-native-screens";
 import Placard from "./screens/Placard";
+
+LogBox.ignoreAllLogs();
+
 
 // Configuration Reducer Store
 const reducers = combineReducers({

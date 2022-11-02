@@ -31,13 +31,13 @@ export default function Recettepage({ navigation }) {
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
-
+  const [apikey, setApiKey] = useState("");
+  const user = useSelector((state) => state.users.value.token);
+  const dispatch = useDispatch();
   const favoris = useSelector((state) => {
     console.log(state);
     return state;
   });
-  const dispatch = useDispatch();
-
 
 
 
@@ -64,7 +64,7 @@ export default function Recettepage({ navigation }) {
     };
     // _clearAll();
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -77,7 +77,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -88,7 +88,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -99,7 +99,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -151,6 +151,51 @@ export default function Recettepage({ navigation }) {
     dispatch(addFavorites(data.title));
   }
 
+  //add a recipe in calendarscreen
+
+  function handleCalendar(data) {
+    let calendarSteps = [];
+    data.analyzedInstructions[0].steps.forEach(function (element) {
+      calendarSteps.push(element.step);
+    });
+    let calendarIngredients = [];
+    data.extendedIngredients.forEach(function (element) {
+      calendarIngredients.push(element.name);
+    });
+    //calories
+    let calendarCalories = "";
+    if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    } else {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 4] +
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    }
+
+const requestOptions = {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title: data.title,
+    image: data.image,
+    ingredients: calendarIngredients,
+    steps: calendarSteps,
+    calories: calendarCalories,
+    prepTime: data.readyInMinutes,
+    token: user,
+  }),
+};
+fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.result);
+  });
+  }
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
   //console.log(ingredientsList);
@@ -194,13 +239,14 @@ export default function Recettepage({ navigation }) {
               <Text style={styles.textInfo}>{data.time}</Text>
             </View>
             <View style={styles.containerInfo}>
+            <TouchableOpacity onPress={() => handleCalendar(data)}>
               <FontAwesome
                 name="calendar"
                 size={20}
                 color={"#83C5BC"}
-                onPress={() => addClick()}
                 style={styles.btnDelete}
               />
+            </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -209,7 +255,7 @@ export default function Recettepage({ navigation }) {
   });
 
   //.log(Array.isArray(ingredientsList));
-
+console.log(prepTime)
   //console.log(isEnabled);
   return (
     <View style={styles.container}>
@@ -504,8 +550,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFD87D",
     padding: 5,
     paddingHorizontal: 8,
-    borderRadius: 100,
+    borderRadius: 'width * 0.125*0.5',
     marginRight: 10,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
   },
   contentScroll: {
     //height: 25,
