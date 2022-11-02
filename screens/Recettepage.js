@@ -18,35 +18,33 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavorites } from "../reducers/favorites";
+import favorites, { addFavorites, removeAllFavorites, removeFavorites} from "../reducers/favorites";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
+
 export default function Recettepage({ navigation }) {
+
+  const dispatch = useDispatch();
+  
+
+  // ======= Bouton retour  =======//
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const [modalFilterVisible, setModalFilterVisible] = useState(false);
+
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
+  const [apikey, setApiKey] = useState("");
 
-  const favoris = useSelector((state) => {
-    console.log(state);
-    return state;
-  });
-  const dispatch = useDispatch();
-
-  //const ingredientList =[];
-
-  // const [startRecipe, setStartRecipe] = useState([]);
-  // const [mcRecipe, setMcRecipe] = useState([]);
-  // const [anyFilter, setAnyFilter] = useState(true);
-  // const [isStarter, setIsStarter] = useState(false);
-  // const [isMainCourse, setIsMainCourse] = useState(false);
-  // const [isDessert, setIsDessert] = useState(false);
-  // const [isSideDish, setIsSideDish] = useState(false);
+  
+  const user = useSelector((state) => state.users.value.token);
 
   function handleFilter() {
     navigation.navigate(Filter);
@@ -61,9 +59,9 @@ export default function Recettepage({ navigation }) {
         console.log(error);
       }
     };
-    // _clearAll();
+     //_clearAll();
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -76,7 +74,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -87,7 +85,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -98,7 +96,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -106,6 +104,54 @@ export default function Recettepage({ navigation }) {
         setListRecipe(data.recipes);
       });
   }
+
+  //add a recipe in calendarscreen
+
+  function handleCalendar(data) {
+    // console.log(data);
+    let calendarSteps = [];
+    data.analyzedInstructions[0].steps.forEach(function (element) {
+      calendarSteps.push(element.step);
+    });
+    let calendarIngredients = [];
+    data.extendedIngredients.forEach(function (element) {
+      calendarIngredients.push(element.name);
+    });
+    //calories
+    let calendarCalories = "";
+    if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    } else {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 4] +
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    }
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: data.title,
+        image: data.image,
+        ingredients: calendarIngredients,
+        steps: calendarSteps,
+        calories: calendarCalories,
+        prepTime: data.readyInMinutes,
+        token: user,
+      }),
+    };
+    fetch("http://192.168.10.180:3000/calendarRecipes", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      });
+  }
+
 
   //display the description of the recipe
   function handleDescription(data) {
@@ -146,13 +192,33 @@ export default function Recettepage({ navigation }) {
     setDisplayedSteps([...displayedSteps, ...steps]);
   }
 
+  const favoris = useSelector((state) => {
+    //console.log(state);
+    return state;
+  });
+
+  // ======= FAVORITES RECIPES =======    //
+
+  const favorites = useSelector((state) => state.favorites.value);
+
   function handleFavoris(data) {
-    dispatch(addFavorites(data.title));
+    console.log(data.title)
+    //console.log(favorites)
+      if(favorites.includes(data)){
+          //supprimer des Favoris 
+          dispatch(removeFavorites(data));
+      }else{
+          // Ajouter aux favoris
+          dispatch(addFavorites(data));
+       }
+    // Tout supprimer ou cleaner store redux persist
+      //dispatch(removeAllFavorites())
   }
 
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
   //console.log(ingredientsList);
+
   function handlePressSwitcher() {
     setIsActive((current) => !current);
   }
@@ -174,32 +240,34 @@ export default function Recettepage({ navigation }) {
 
   // the array to display
   const Recipes = listRecipe.map((data, i) => {
+
+    const isFavoriteActive = favorites.some(favorite => favorite.title === data.title);
+
+
     return (
       <TouchableOpacity onPress={() => handleDescription(data)}>
         <View key={i} style={styles.cardRecipe}>
           <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <TouchableOpacity onPress={() => handleFavoris(data)}>
-            <FontAwesome
-              name="heart"
-              size={20}
-              color={"#000"}
-              style={styles.iconContent}
-            />
+          <TouchableOpacity onPress={() => handleFavoris(data)} style={styles.iconHeart}>
+            <FontAwesome name="heart" size={20} color={isFavoriteActive ? "red" : "#ffffff"} />
           </TouchableOpacity>
           <Text style={styles.cardTitle}>{data.title}</Text>
           <View style={styles.cardInfo}>
             <View style={styles.containerInfo}>
               <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
               <Text style={styles.textInfo}>{data.time}</Text>
+              
             </View>
             <View style={styles.containerInfo}>
+             
+               <TouchableOpacity onPress={() => handleCalendar(data)}>
               <FontAwesome
                 name="calendar"
                 size={20}
                 color={"#83C5BC"}
-                onPress={() => addClick()}
-                style={styles.btnDelete}
+                style={styles.iconCalendar}
               />
+            </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -210,6 +278,8 @@ export default function Recettepage({ navigation }) {
   //.log(Array.isArray(ingredientsList));
 
   //console.log(isEnabled);
+
+  // ======  MODAL RECIPE ====== //
   return (
     <View style={styles.container}>
       <Modal
@@ -218,7 +288,7 @@ export default function Recettepage({ navigation }) {
         transparent
         style={styles.modalContainer}
       >
-        <ScrollView contentContainerStyle={styles.scrollview}>
+        <View style={styles.scrollview}>
           <Image source={{ uri: image }} style={styles.chicken} />
           <Ionicons
             name="close"
@@ -289,6 +359,7 @@ export default function Recettepage({ navigation }) {
               { label: "Steps", value: "steps" },
             ]}
           />
+          <ScrollView>
           {isActive ? newIngredientsArray : newStepsArray}
 
           <Text
@@ -367,23 +438,21 @@ export default function Recettepage({ navigation }) {
             </Pressable>
           </View>
           <Text>Experiencing an issue with the mobile site?</Text>
-        </ScrollView>
+          </ScrollView>
+        </View>
       </Modal>
       <View style={styles.containerHeader}>
         <View>
+          <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn} onPress={goBack}/>
           <Text style={styles.welcomeText}>Hello Phifi</Text>
           <Text style={styles.tagline}>What you want to cook today ? </Text>
         </View>
 
         <View>
-          <TouchableOpacity
-            style={styles.containerIconUser}
-            onPress={() => handleFilter()}
-          >
-            {/* <FontAwesome name="user" size={20} color={"#fff"}  style={styles.iconUser}/> */}
+          <TouchableOpacity style={styles.containerIconUser}>
             <Image
               style={styles.imageProfil}
-              source={require("../assets/filter.png")}
+              source={require("../assets/Etchebest.jpg")}
             />
           </TouchableOpacity>
         </View>
@@ -396,6 +465,7 @@ export default function Recettepage({ navigation }) {
             size={25}
             color={"#ffffff"}
             style={styles.filterIcon}
+            onPress={() => handleFilter()}
           />
         </View>
 
@@ -473,9 +543,9 @@ const styles = StyleSheet.create({
   imageProfil: {
     width: 50,
     height: 50,
-    // borderRadius: 100,
-    // borderWidth: 2,
-    // borderColor: "#83C5BC",
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: "#83C5BC",
   },
 
   containerNumberRecipes: {
@@ -491,9 +561,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#83C5BC",
-    //backgroundColor: "#FFD87D",
-    //padding: 7,
-    //borderRadius: 100,
   },
   containerFilter: {
     flexDirection: "row",
@@ -525,13 +592,13 @@ const styles = StyleSheet.create({
   },
   menuBtnText: {
     fontSize: 16,
-    //fontWeight: "bold",
     paddingBottom: 5,
     color: "#ffffff",
   },
   containerRecipes: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent:"space-evenly",
   },
   cardRecipe: {
     backgroundColor: "rgba(255, 216, 125, 0.3)",
@@ -566,11 +633,10 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     fontSize: 12,
   },
-  iconContent: {
-    position: "absolute",
-    top: 10,
+  iconHeart: {
+   position: "absolute",
+    top: 15,
     right: 10,
-    color: "red",
   },
 
   //modal style
@@ -583,7 +649,7 @@ const styles = StyleSheet.create({
   close: {
     position: "absolute",
     top: 10,
-    right: 10,
+    right: 20,
     color: "black",
   },
   heart: {
@@ -596,10 +662,11 @@ const styles = StyleSheet.create({
   //    backgroundColor: "white",
   //    alignItems: "center",
   // },
-  modalContainer: { flex: 1, width: "100%", backgroundColor: "#FFF4CF" },
+  modalContainer: { 
+    flex: 1, width: "100%", backgroundColor: "#FFF4CF" 
+  },
   scrollview: {
     flex: 1,
-
     backgroundColor: "#FFF4CF",
     paddingBottom: 20,
     alignItems: "center",

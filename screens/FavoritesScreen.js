@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorites, removeFavorites, removeAllFavorites } from "../reducers/favorites";
 import {
   StyleSheet,
   Platform,
@@ -15,56 +16,64 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Recettepage from "./Recettepage";
 
 export default function FavoritesScreen({ navigation }) {
-  const favorites = useSelector((state) => state.favorites.value);
 
+  const dispatch = useDispatch();
+
+  // ======= Bouton retour  =======//
+  const goBack = () => {
+    navigation.goBack();
+  };
+
+  // Récuperer les données stocker dans le stock favorrites
+  const favorites = useSelector((state) => state.favorites.value);
+  //console.log(favorites)
+
+  function handleFavoris(data) {
+    // Ajouter aux favoris
+   //dispatch(addFavorites(data));
+
+   //supprimer des Favoris 
+   dispatch(removeFavorites(data));
+
+    // Tout supprimer 
+   // dispatch(removeAllFavorites())
+  }
+
+  // Si y pas de recette au favoris un message, Si non afficher les recettes
   let listRecipes = <Text>Add recipes to your favorites</Text>;
-  if (listRecipes.length > 0) {
+  if (favorites.length >0) {
     listRecipes = favorites.map((data, i) => {
-      return <Recettepage key={i} {...data} isFavorites />;
+      return (
+                <View key={i} style={styles.cardRecipe}>
+                  <Image style={styles.imageRecipe} source={{ uri: data.image }} />
+                  <TouchableOpacity onPress={() => handleFavoris(data)} style={styles.iconContent}>
+            <FontAwesome name="heart" size={20} color={"red"} />
+          </TouchableOpacity>
+                  
+                  <Text style={styles.cardTitle}>{data.title}</Text>
+
+                  <View style={styles.cardInfo}>
+            <View style={styles.containerInfo}>
+              <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
+              <Text style={styles.textInfo}>{data.time}</Text>
+              
+            </View>
+            <View style={styles.containerInfo}>
+              <FontAwesome
+                name="calendar"
+                size={20}
+                color={"#83C5BC"}
+                onPress={() => addClick()}
+                style={styles.iconCalendar}
+              />
+            </View>
+          </View>
+                  
+                </View>
+      );
     });
   }
 
-  let listRecipe = [
-    {
-      id: 1,
-      image: require("../assets/plat-1.jpg"),
-      name: "Steak with Oriental vegeratien ",
-      time: "35 min",
-    },
-    {
-      id: 2,
-      image: require("../assets/plat-2.jpg"),
-      name: "Pizza with love",
-      time: "1h30",
-    },
-    {
-      id: 3,
-      image: require("../assets/plat-1.jpg"),
-      name: "Pate avec steak",
-      time: "65 min",
-    },
-  ];
-
-  const Recipes = listRecipe.map((data, i) => {
-    return (
-      <View key={i} style={styles.cardRecipe}>
-        <Image style={styles.imageRecipe} source={data.image} />
-        <FontAwesome
-          name="heart"
-          size={20}
-          color={"#000"}
-          style={styles.iconContent}
-        />
-        <Text style={styles.cardTitle}>{data.name}</Text>
-        <View style={styles.cardInfo}>
-          <View style={styles.containerInfo}>
-            <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
-            <Text style={styles.textInfo}>{data.time}</Text>
-          </View>
-        </View>
-      </View>
-    );
-  });
 
   return (
     <View style={styles.container}>
@@ -74,6 +83,7 @@ export default function FavoritesScreen({ navigation }) {
           size={20}
           color={"#92C3BC"}
           style={styles.buttonReturn}
+          onPress={goBack}
         />
 
         <View>
@@ -91,59 +101,13 @@ export default function FavoritesScreen({ navigation }) {
         <Text style={styles.subTitle}>What you want to cook today ?</Text>
       </View>
 
-      <View style={styles.containerFilter}>
-        <View>
-          <FontAwesome
-            name="filter"
-            size={25}
-            color={"#ffffff"}
-            style={styles.filterIcon}
-          />
-        </View>
-
-        <ScrollView
-          contentContainerStyle={styles.contentScroll}
-          horizontal={true}
-        >
-          <View style={styles.menu}>
-            <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>Breakfast</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>Starter</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>Lunch</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>Dinner</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>Dessert</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuBtn}>
-              <Text style={styles.menuBtnText}>Popular</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </View>
-
-      <View style={styles.containerHead}>
-        <Text style={styles.title}>Favorites recipes</Text>
-        <Text style={styles.subTitle}>What you want to cook today ?</Text>
-      </View>
 
       <View style={styles.containerNumberRecipes}>
         <Text style={styles.textNumberRecipes}>Number of recipes saved : </Text>
-        <Text style={styles.numberRecipe}>{Recipes.length}</Text>
+        <Text style={styles.numberRecipe}>{listRecipes.length}</Text>
       </View>
+      <ScrollView contentContainerStyle={styles.containerRecipes}>{listRecipes}</ScrollView>
 
-      <View style={styles.containerRecipes}>
-        {listRecipes}
-        {/* {Recipes} */}
-      </View>
-
-      <View style={styles.containerRecipes}>{Recipes}</View>
     </View>
   );
 }
@@ -193,7 +157,7 @@ const styles = StyleSheet.create({
   },
   containerFilter: {
     flexDirection: "row",
-    marginBottom: 30,
+    marginBottom: 20,
   },
   filterIcon: {
     backgroundColor: "#FFD87D",
@@ -267,6 +231,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    color: "red",
   },
 });

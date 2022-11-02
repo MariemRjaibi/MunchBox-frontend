@@ -21,6 +21,15 @@ export default function AllergiesScreen({ formData, setFormData }) {
   const [ingredient, setIngredient] = useState("");
   const [ingredientList, setIngredientList] = useState([]);
 
+
+  const deleteClick = () =>{
+    console.log("je supprime");
+
+      setIngredientList(ingredientList.filter(e => e !== ingredient));
+
+    
+  }
+
   // Récupérer et stocker les aliments écrit par l'utilisateur dans l'input
   const addPreferenceClick = () => {
     //Afficer les aliments taper par l'utilisateur
@@ -31,6 +40,8 @@ export default function AllergiesScreen({ formData, setFormData }) {
     const allergies = [...ingredientList, ingredient];
     setFormData({ ...formData, allergies });
   };
+
+
 
   // Ajouter des aliments à la liste des allergies
   const listPreference = ingredientList.map((data, i) => {
@@ -55,19 +66,11 @@ export default function AllergiesScreen({ formData, setFormData }) {
   // Liste par défaut des aliments pour les intollérances
   const optionsData = [
     { id: 1, name: "Grain", photo: require("../../assets/icon/grain.png") },
-    {
-      id: 2,
-      name: "Shellfish",
-      photo: require("../../assets/icon/shrimp.png"),
-    },
+    { id: 2, name: "Shellfish", photo: require("../../assets/icon/shrimp.png")},
     { id: 3, name: "Porc", photo: require("../../assets/icon/porc.png") },
-    {
-      id: 4,
-      name: "Gluten",
-      photo: require("../../assets/icon/watermelon.png"),
-    },
-    { id: 5, name: "Dairy", photo: require("../../assets/icon/mushroom.png") },
-    { id: 6, name: "Wheat", photo: require("../../assets/icon/salad.png") },
+    { id: 4, name: "Sesame", photo: require("../../assets/icon/sesame.png")},
+    { id: 5, name: "Dairy", photo: require("../../assets/icon/milk.png") },
+    { id: 6, name: "Soja", photo: require("../../assets/icon/graine-de-soja.png") },
     { id: 7, name: "Peanut", photo: require("../../assets/icon/peanut.png") },
     { id: 8, name: "Egg", photo: require("../../assets/icon/oeuf-dur.png") },
   ];
@@ -117,7 +120,7 @@ export default function AllergiesScreen({ formData, setFormData }) {
       >
         <TouchableOpacity onPress={() => preferenceClik(data)}>
           <Image source={data.photo} style={styles.photo} />
-          <Text style={styles.textOption}>{data.name}</Text>
+          <Text style={styles.textOptionDefaut}>{data.name}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -185,6 +188,7 @@ const styles = StyleSheet.create({
   textOption: {
     paddingRight: 10,
     color: "#fff",
+    fontWeight:"bold",
   },
   btnPlus: {
     backgroundColor: "#e8be4b",
@@ -242,7 +246,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  textOption: {
-    textAlign: "center",
-  },
+  textOptionDefaut:{
+    textAlign:"center",
+  }
 });

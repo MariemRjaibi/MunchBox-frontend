@@ -57,8 +57,8 @@ export default function Filter({ navigation }) {
   const [glutenFree, setGlutenFree] = useState(false);
 
   //switching colors in Diet
-  const inactivecColor = "rgba(146,195,188, 0.1)";
-  const activeColor = "rgba(146,195,188, 0.5)";
+  const inactivecColor = "#ffffff";
+  const activeColor = "#E8F4F5";
 
   //dispatch info to reducers (ingredients & allergies)
   function handleAddIngredients() {

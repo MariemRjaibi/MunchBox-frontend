@@ -71,7 +71,7 @@ export default function FormScreen({ navigation }) {
 
   // onPress={() => console.log("next")}
 
-  // Bouton suivant et soumettre 
+  // Bouton suivant et soumettre -> Si ce n'est pas la derniere page continuer à défilé les pages et Si c'est la derniere page afficher le bouton soumettre 
   function handlePress() {
     console.log("Info :", formData)
     if(screen === 3){
@@ -83,9 +83,13 @@ export default function FormScreen({ navigation }) {
     }           
   }
 
+  const handleSkip = () => {
+    navigation.navigate("SignupScreen")
+  }
+
   const iconBtnNext =  <FontAwesome name="chevron-circle-right" size={55} color={"#e8be4b"} style={styles.buttonNext}/>;
   const iconBtnReturn = <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>;
-  const textBtnSubmit = <Text style={styles.btnSubmit}>Let's cook</Text>;
+  const textBtnSubmit = <Text style={styles.btnSubmit}>Let's cook 👩🏽‍🍳</Text>;
   return (
     <View style={styles.container}>
 
@@ -95,7 +99,7 @@ export default function FormScreen({ navigation }) {
           <Pressable style={styles.btnNext} disabled={screen === 0} onPress={() => setscreen((currScreen) => currScreen - 1)}>
             <Text>{screen === 0  ? " " : iconBtnReturn}</Text>
           </Pressable>
-          <Text style={styles.textHeader}>kitchen preference</Text>
+          <Text style={styles.textHeader} onPress={handleSkip}>Skip</Text>
         </View>
        
 
@@ -106,8 +110,8 @@ export default function FormScreen({ navigation }) {
         </View>
 
       <View style={styles.btnContainer}>
-        <Pressable onPress={() => handlePress()}>
-          <Text >{screen === 3  ? textBtnSubmit : iconBtnNext}</Text> 
+        <Pressable onPress={() => handlePress()} style={styles.containerBtnNext}>
+          <View style={styles.containerTextBtnNext}>{screen === 3  ? textBtnSubmit : iconBtnNext}</View> 
         </Pressable>
       </View>
     </View>
@@ -132,13 +136,13 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     marginBottom: 20,
     //backgroundColor:"#FFD87D",
-    //justifyContent:"space-between",
+    justifyContent:"space-between",
   },
   btnNext:{
    //alignSelf:"flex-start",
   },
   textHeader:{
-   marginLeft:"30%",
+   //marginLeft:"30%",
    color:"#2E516A",
   },
   btnContainer: {
@@ -146,14 +150,23 @@ const styles = StyleSheet.create({
     // alignItems: "flex-end",
     marginBottom: 50,
   },
+  containerBtnNext:{
+    alignItems:"flex-end",
+  },
+  containerTextBtnNext:{
+   
+  },
   buttonNext: {
    justifyContent:'flex-end',
   },
   btnSubmit:{
     backgroundColor: "#e8be4b",
     color:"#fff",
-    fontSize: 30,
+    fontSize: 25,
+    padding:10,
     paddingHorizontal:40,
+    borderTopRightRadius:45,
+    borderBottomLeftRadius:45,
   },
   
 });

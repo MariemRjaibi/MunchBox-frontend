@@ -17,7 +17,7 @@ import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SwitchSelector from "react-native-switch-selector";
-import Filter from "./Filter";
+//import Filter from "./Filter";
 
 export default function Recettepage({ navigation }) {
   const ingredientsToDisplay = useSelector(
@@ -358,12 +358,11 @@ export default function Recettepage({ navigation }) {
         <View>
           <TouchableOpacity
             style={styles.containerIconUser}
-            onPress={() => handleFilter()}
           >
             {/* <FontAwesome name="user" size={20} color={"#fff"}  style={styles.iconUser}/> */}
             <Image
               style={styles.imageProfil}
-              source={require("../assets/filter.png")}
+              source={require("../assets/Etchebest.jpg")}
             />
           </TouchableOpacity>
         </View>
@@ -376,6 +375,7 @@ export default function Recettepage({ navigation }) {
             size={25}
             color={"#ffffff"}
             style={styles.filterIcon}
+            onPress={() => handleFilter()}
           />
         </View>
 
@@ -453,9 +453,9 @@ const styles = StyleSheet.create({
   imageProfil: {
     width: 50,
     height: 50,
-    //borderRadius: 100,
-    // borderWidth: 2,
-    // borderColor: "#83C5BC",
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: "#83C5BC",
   },
   containerNumberRecipes: {
     flexDirection: "row",

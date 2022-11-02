@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+//import Filter from "./Filter";
 import RecettepageFiltered from "./RecettepageFiltered";
 import { useDispatch, useSelector } from "react-redux";
 import {

@@ -12,10 +12,13 @@ export const calendarsSlice = createSlice({
       state.value.push(action.payload);
     },
     uncalendar: (state, action) => {
-      state.value = state.value.filter(e => e.id !== action.payload);
+      state.value = state.value.filter((calendar) => calendar.title !== action.payload.title);
+    },
+    removeAllBatch: (state) => {
+      state.value = [];
     },
    },
 });
 
-export const { calendar, uncalendar } = calendarsSlice.actions;
+export const { calendar, uncalendar, removeAllBatch } = calendarsSlice.actions;
 export default calendarsSlice.reducer;

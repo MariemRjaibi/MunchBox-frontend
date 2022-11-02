@@ -18,7 +18,13 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 
 
-export default function ShoppinglistScreen() {
+export default function ShoppinglistScreen({navigation}) {
+
+
+// ======= Bouton retour  =======//
+const goBack = () => {
+  navigation.goBack();
+}
  
 
 // ======= Liste des courses entrées manuellement par l'utilisateur ======= //
@@ -36,6 +42,7 @@ export default function ShoppinglistScreen() {
 
     // Ajouter des aliments à la liste des allergies
   const listCoursesUser = shoppingList.map((data, i) => {
+    // ===== CONFLIT AVEC L'AUTRE CHECKBOX
     //const [isCheckedUserList, setCheckedUserList] = useState(false);
     // value={isCheckedUserList}  onValueChange={ () => setCheckedUserList(current => !current)} color={isCheckedUserList ? "#92C3BC" : undefined}
     return (
@@ -77,7 +84,7 @@ export default function ShoppinglistScreen() {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} >
-      <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>
+      <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn} onPress={goBack}/>
       <View style={styles.containerHead}>
         <Text style={styles.title}>Shopping list</Text>
         <Text style={styles.subTitle}>What to buy for your next recipe?</Text>
@@ -108,7 +115,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    padding: 30,
+    paddingTop:30,
+    paddingHorizontal:20,
     backgroundColor: "#FBFBFB",
     //justifyContent: "space-between",
     //   width: Dimensions.get('window') .width,

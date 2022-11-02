@@ -17,17 +17,18 @@ export default function FamilynumberScreen({ formData, setFormData }) {
   // NumberAdult:"",
   // numberChildren: "",
 
-  // Compteur adulte
+  // ======= Compteur adulte =======//
   const [numberAdult, setnumberAdult] = useState(0);
 
   //const result = setFormData({...formData, numberAdult});
 
+  // Ajouter +1
   const counterClickPlus = () => {
     setnumberAdult(numberAdult + 1);
     setFormData({...formData, numberAdult : numberAdult + 1})
   };
 
-  
+  // Retirer -1
   const counterClickmoins = () => {
     if (numberAdult > 0) {
       setnumberAdult(numberAdult - 1);
@@ -35,33 +36,22 @@ export default function FamilynumberScreen({ formData, setFormData }) {
     }
   };
 
-   // Compteur enfant
+   // ======== Compteur enfant ======= //
   const [numberChildren, setnumberChildren] = useState(0);
 
-  
+  // Ajouter +1
   const counterPlusChildClick = () => {
     setnumberChildren(numberChildren + 1);
-    //setFormData((numberChildren))
-
-    // Manque +1 result -> -
     setFormData({...formData,  numberChildren : numberChildren+ 1})
   };
 
+  // Retirer -1
   const counterPlusChildMoins = () => {
     if (numberChildren > 0) {
       setnumberChildren(numberChildren - 1);
     }
    setFormData({...formData,  numberChildren : numberChildren -1})
   };
-
-//  hello =  setFormData({...formData, numberChildren});
-
-    
-//const counter = setFormData({...formData, numberChildren});
-  
-  //console.log(counter);
-
- //const test = setFormData({...formData, numberChildren});
  
   return (
     <View style={styles.container}>

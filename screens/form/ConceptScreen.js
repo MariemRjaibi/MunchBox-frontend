@@ -1,3 +1,4 @@
+import { useSelector, useDispatch } from "react-redux";
 import {
   Image,
   ImageBackground,
@@ -11,12 +12,30 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import FormScreen from "./FormScreen";
+import Homepage from "../Homepage";
+
+import { login } from "../../reducers/users";
 
 export default function ConceptScreen({ navigation }) {
-  // const nextClick = () => {
-  //   navigation.navigate( 'Familynumber');
 
-  // }
+  const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.users.value.token);
+
+  
+  const nextClick = () => {
+
+    if(!token){
+      navigation.navigate(FormScreen)
+    }else{
+      navigation.navigate(Homepage)
+    }
+   }
+
+   //Si il ya un token on passe directement à la home 
+   if(token){
+    navigation.navigate(Homepage)
+  }
 
   return (
     <ImageBackground
@@ -31,7 +50,6 @@ export default function ConceptScreen({ navigation }) {
           source={require("../../assets/Munchbox-logo.jpg")}
           style={styles.logo}
         />
-        <Text style={styles.logo}>LOGO</Text>
 
         <View>
           <Text style={styles.title}>
@@ -42,16 +60,12 @@ export default function ConceptScreen({ navigation }) {
             venenatis nec risus in laoreet. Pellentesque egestas porttitor
             elementum.
           </Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Familynumber")}
-            activeOpacity={0.8}
-          >
+          <TouchableOpacity activeOpacity={0.8} onPress={nextClick}>
             <FontAwesome
               name="chevron-circle-right"
               size={55}
               color={"#e8be4b"}
               style={styles.button}
-              onPress={() => navigation.navigate(FormScreen)}
             />
           </TouchableOpacity>
         </View>

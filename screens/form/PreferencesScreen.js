@@ -27,13 +27,13 @@ export default function PreferencesScreen({ formData, setFormData }) {
 
   // Liste par défaut des regime alimentaire
   const optionsData = [
-    { id: 1, name: "Vegan", photo: require("../../assets/icon/grain.png"), isActive: false, },
-    { id: 2, name: "Vegetarian", photo: require("../../assets/icon/shrimp.png"), isActive: false, },
-    { id: 3, name: "Pescatarian", photo: require("../../assets/icon/watermelon.png"), isActive: false, },
-    { id: 4, name: "Gluten Free", photo: require("../../assets/icon/mushroom.png"), isActive: false, },
-    { id: 5, name: "Lacto-vegetarian", photo: require("../../assets/icon/salad.png"), isActive: false, },
-    { id: 6, name: "Ovo-vegetarian", photo: require("../../assets/icon/peanut.png"), isActive: false, },
-    { id: 7, name: "Paleo", photo: require("../../assets/icon/oeuf-dur.png"), isActive: false, },
+    { id: 1, name: "Vegan", photo: require("../../assets/icon/vegan.png"), isActive: false, },
+    { id: 2, name: "Veggie", photo: require("../../assets/icon/broccoli.png"), isActive: false, },
+    { id: 3, name: "Pescatarian", photo: require("../../assets/icon/fish-food.png"), isActive: false, },
+    { id: 4, name: "Gluten Free", photo: require("../../assets/icon/grain.png"), isActive: false, },
+    { id: 5, name: "Lacto-vegetarian", photo: require("../../assets/icon/milk.png"), isActive: false, },
+    { id: 6, name: "Ovo-vegetarian", photo: require("../../assets/icon/oeuf-dur.png"), isActive: false, },
+    { id: 7, name: "Paleo", photo: require("../../assets/icon/chicken.png"), isActive: false, },
   ];
 
  

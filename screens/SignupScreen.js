@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import {
   Image,
   ImageBackground,
@@ -26,7 +26,7 @@ export default function SignupScreen({ navigation }) {
 
   //console.log(token);
   const handleRegister = () => {
-    fetch("http://192.168.10.169:3000/users/signup", {
+    fetch("http://192.168.10.180:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -49,7 +49,7 @@ export default function SignupScreen({ navigation }) {
   // console.log('token', token)
 
   const handleConnection = () => {
-    fetch("http://192.168.10.169:3000/users/signin", {
+    fetch("http://192.168.10.180:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
