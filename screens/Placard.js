@@ -23,11 +23,13 @@ import {
 
 export default function Placard({ navigation }) {
   const ingredientsToDisplay = useSelector((state) => {
-    console.log("looooog", state);
+    // console.log("looooog", state);
     //console.log(state.placardIngredients.value);
     return state.placardIngredients.value;
   });
-  console.log(ingredientsToDisplay);
+  const isFiltered = useSelector((state) => state.choosePaths.value);
+  console.log("placard", isFiltered);
+  // console.log(ingredientsToDisplay);
   const dispatch = useDispatch();
   const [littleIngredient, setIngredient] = useState("");
   //let [ingredientList, setIngredientList] = useState([]);
@@ -93,7 +95,7 @@ export default function Placard({ navigation }) {
         <TouchableOpacity
           style={styles.findBtn}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("RecettepageFiltered")}
+          onPress={() => navigation.navigate("TabNavigator")}
         >
           <Text style={styles.textButton}>Find a recipe</Text>
         </TouchableOpacity>
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   bigTextContent: {
+    marginTop: "10%",
     fontSize: 25,
   },
   findBtn: {

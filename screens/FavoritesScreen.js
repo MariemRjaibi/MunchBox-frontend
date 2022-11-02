@@ -13,8 +13,6 @@ import {
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import Recettepage from "./Recettepage";
-
 export default function FavoritesScreen({ navigation }) {
 
   const dispatch = useDispatch();
@@ -233,3 +231,24 @@ const styles = StyleSheet.create({
     right: 10,
   },
 });
+
+// let listRecipe = [
+//   {
+//     id: 1,
+//     image: require("../assets/plat-1.jpg"),
+//     name: "Steak with Oriental vegeratien ",
+//     time: "35 min",
+//   },
+//   {
+//     id: 2,
+//     image: require("../assets/plat-2.jpg"),
+//     name: "Pizza with love",
+//     time: "1h30",
+//   },
+//   {
+//     id: 3,
+//     image: require("../assets/plat-1.jpg"),
+//     name: "Pate avec steak",
+//     time: "65 min",
+//   },
+// ];

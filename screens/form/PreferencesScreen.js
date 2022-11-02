@@ -81,7 +81,7 @@ export default function PreferencesScreen({ formData, setFormData }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>🍉 Food preferences</Text>
-      <Text style={styles.text}>Avez-vous un régime alimentaire ? </Text>
+      <Text style={styles.text}>Do you follow any special diets ? </Text>
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.containerPreference}>{optionPreferences}</View>

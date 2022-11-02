@@ -19,11 +19,15 @@ import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
 import favorites, { addFavorites, removeAllFavorites, removeFavorites} from "../reducers/favorites";
+import {logout} from "../reducers/users";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ConceptScreen from "./form/ConceptScreen";
+import SignupScreen from "./SignupScreen";
 
 export default function Recettepage({ navigation }) {
 
-  const dispatch = useDispatch();
+
   
 
   // ======= Bouton retour  =======//
@@ -44,29 +48,68 @@ export default function Recettepage({ navigation }) {
   const [apikey, setApiKey] = useState("");
 
   
-  const user = useSelector((state) => state.users.value.token);
 
+  const [noResult, setNoResult] = useState(false);
+  //const [apikey, setApiKey] = useState("");
+
+
+  const user = useSelector((state) => state.users.value.token);
+  const isFiltered = useSelector((state) => state.choosePaths.value);
+  const ingredientsFromFilter = useSelector(
+    (state) => state.placardIngredients.value
+  );
+  const dispatch = useDispatch();
+  // console.log("recettespage", isFiltered);
+
+  console.log(ingredientsFromFilter);
   function handleFilter() {
     navigation.navigate(Filter);
   }
-
+  const handleLogOut = ()=> {
+    dispatch (logout());
+    navigation.navigate(SignupScreen)
+  } 
+  
+  let textToDisplay = "";
   useEffect(() => {
-    const _clearAll = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-      }
-    };
-     //_clearAll();
-    fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40"
-    )
+    // const _clearAll = async () => {
+    //   try {
+    //     await AsyncStorage.clear();
+    //     console.log("Done");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // _clearAll();
+
+    //structure of filter string on api
+
+    let newIngApi = "";
+    for (let i = 0; i < ingredientsFromFilter.length; i++) {
+      // console.log(ingredientsFromFilter[i]);
+      newIngApi += `${ingredientsFromFilter[i].toLowerCase()}+,`;
+      //console.log("===========", newIngApi);
+    }
+    console.log("isFiltered", isFiltered);
+    let apiKey = "";
+    //select which api key choose
+    if (isFiltered) {
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=${newIngApi}`;
+    } else {
+      apiKey =
+        "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40";
+    }
+    // console.log(apiKey);
+    fetch(apiKey)
       .then((response) => response.json())
       .then((data) => {
         //console.log(data);
-        setListRecipe(data.recipes);
+        if (data.recipes.length === 0) {
+          setNoResult(true);
+        } else {
+          setNoResult(false);
+          setListRecipe(data.recipes);
+        }
       });
   }, []);
 
@@ -74,7 +117,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -85,7 +128,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -96,7 +139,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -106,7 +149,6 @@ export default function Recettepage({ navigation }) {
   }
 
   //add a recipe in calendarscreen
-
   function handleCalendar(data) {
     // console.log(data);
     let calendarSteps = [];
@@ -145,20 +187,20 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.180:3000/calendarRecipes", requestOptions)
+    fetch("http://192.168.10.183:3000/calendarRecipes", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
       });
   }
 
-
   //display the description of the recipe
   function handleDescription(data) {
     setImage(data.image);
     setTitle(data.title);
     setModalVisible(true);
-    //console.log(data.readyInMinutes);
+    // console.log("========================", data.readyInMinutes);
+    // console.log(data);
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
         data.summary[data.summary.indexOf("calories") - 3] +
@@ -215,6 +257,51 @@ export default function Recettepage({ navigation }) {
       //dispatch(removeAllFavorites())
   }
 
+  //add a recipe in calendarscreen
+
+  function handleCalendar(data) {
+    let calendarSteps = [];
+    data.analyzedInstructions[0].steps.forEach(function (element) {
+      calendarSteps.push(element.step);
+    });
+    let calendarIngredients = [];
+    data.extendedIngredients.forEach(function (element) {
+      calendarIngredients.push(element.name);
+    });
+    //calories
+    let calendarCalories = "";
+    if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    } else {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 4] +
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    }
+
+const requestOptions = {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title: data.title,
+    image: data.image,
+    ingredients: calendarIngredients,
+    steps: calendarSteps,
+    calories: calendarCalories,
+    prepTime: data.readyInMinutes,
+    token: user,
+  }),
+};
+fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.result);
+  });
+  }
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
   //console.log(ingredientsList);
@@ -225,15 +312,15 @@ export default function Recettepage({ navigation }) {
 
   const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
     return (
-      <View key={i}>
-        <Text>{data}</Text>
+      <View key={i} >
+        <Text style={styles.ingredientsarray}>-{data}</Text>
       </View>
     );
   });
   const newStepsArray = displayedSteps.map((data, i) => {
     return (
-      <View key={i}>
-        <Text>{data}</Text>
+      <View key={i} >
+        <Text style= {styles.stepsarray}>-{data}</Text>
       </View>
     );
   });
@@ -268,19 +355,21 @@ export default function Recettepage({ navigation }) {
                 style={styles.iconCalendar}
               />
             </TouchableOpacity>
-            </View>
+            
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
+     </TouchableOpacity>
     );
   });
 
   //.log(Array.isArray(ingredientsList));
-
+console.log(prepTime)
   //console.log(isEnabled);
 
   // ======  MODAL RECIPE ====== //
   return (
+    // Start of Modal for individual recipe page
     <View style={styles.container}>
       <Modal
         visible={modalVisible}
@@ -292,7 +381,7 @@ export default function Recettepage({ navigation }) {
           <Image source={{ uri: image }} style={styles.chicken} />
           <Ionicons
             name="close"
-            size={24}
+            size={35}
             color="#dedede"
             style={styles.close}
             onPress={() => setModalVisible(false)}
@@ -320,7 +409,7 @@ export default function Recettepage({ navigation }) {
             />
             <Text>{calories} kcal</Text>
           </View>
-          <View style={styles.star}>
+          {/* <View style={styles.star}>
             <FontAwesome
               name="star-o"
               size={25}
@@ -346,7 +435,7 @@ export default function Recettepage({ navigation }) {
               style={styles.note}
             />
             <Text style={styles.starnote}> 4/5 (123 reviews)</Text>
-          </View>
+          </View> */}
           <SwitchSelector
             buttonColor={"#92C3BC"}
             ios_backgroundColor={"#92C3BC"}
@@ -413,8 +502,8 @@ export default function Recettepage({ navigation }) {
               style={styles.info}
             />
           </View>
-          <Text>Read Reviews</Text>
-          <Text>
+          <Text style={{fontWeight: 'bold'}}>Read Reviews</Text>
+          <Text style={{fontWeight: 'bold'}}>
             Rate this recipe:{" "}
             <FontAwesome
               name="star-o"
@@ -437,11 +526,13 @@ export default function Recettepage({ navigation }) {
               />
             </Pressable>
           </View>
-          <Text>Experiencing an issue with the mobile site?</Text>
+          <Text style={{fontWeight: 'bold'}}>Experiencing an issue with the mobile site?</Text>
           </ScrollView>
         </View>
       </Modal>
-      <View style={styles.containerHeader}>
+
+{/* Start of page that displays ALL Recipes */}
+      <View style={styles.containerHeader}> 
         <View>
           <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn} onPress={goBack}/>
           <Text style={styles.welcomeText}>Hello Phifi</Text>
@@ -449,7 +540,7 @@ export default function Recettepage({ navigation }) {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.containerIconUser}>
+          <TouchableOpacity style={styles.containerIconUser} onPress={() => handleLogOut()}>
             <Image
               style={styles.imageProfil}
               source={require("../assets/Etchebest.jpg")}
@@ -497,13 +588,19 @@ export default function Recettepage({ navigation }) {
       </View>
 
       <View style={styles.containerNumberRecipes}>
-        <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
-        <Text style={styles.numberRecipe}>12</Text>
+        <Text style={styles.textNumberRecipes}>
+          Pick one and start cooking now!
+        </Text>
       </View>
-      <ScrollView>
-        <View style={styles.containerRecipes}>{Recipes}</View>
-      </ScrollView>
+      {noResult ? (
+        <Text>Sorry, no recipe corresponds to your search</Text>
+      ) : (
+        <ScrollView>
+          <View style={styles.containerRecipes}>{Recipes}</View>
+        </ScrollView>
+      )}
     </View>
+    
   );
 }
 
@@ -570,8 +667,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFD87D",
     padding: 5,
     paddingHorizontal: 8,
-    borderRadius: 100,
+    borderRadius: 'width * 0.125*0.5',
     marginRight: 10,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
   },
   contentScroll: {
     //height: 25,
@@ -654,8 +755,8 @@ const styles = StyleSheet.create({
   },
   heart: {
     position: "absolute",
-    top: 40,
-    right: 50,
+    top: 50,
+    right: 60,
     color: "red",
   },
   // container: {
@@ -733,5 +834,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  stepsarray: {
+    fontWeight: 'bold',
+    paddingHorizontal: 10,
+    marginTop: 20,
+    paddingBottom: 30,
+  },
+  ingredientsarray: {
+    fontWeight: 'bold',
+    paddingBottom: 30,
+    paddingTop: 20,
+    marginRight: 70,
+    justifyContent: 'flex-start',
   },
 });

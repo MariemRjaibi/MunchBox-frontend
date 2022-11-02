@@ -129,11 +129,11 @@ export default function AllergiesScreen({ formData, setFormData }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Food Allergies</Text>
-      <Text style={styles.subTitle}>I don't like or can't to eat ...</Text>
+      <Text style={styles.subTitle}>I can't eat ...</Text>
 
       <View style={styles.containerInput}>
         <TextInput
-          placeholder="Tell me what you don’t eat"
+          placeholder="Tell me what you can’t eat"
           onChangeText={(value) => setIngredient(value)}
           value={ingredient}
           style={styles.input}

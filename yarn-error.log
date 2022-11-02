@@ -1,10 +1,8 @@
 Arguments: 
-<<<<<<< HEAD
   /usr/local/bin/node /usr/local/bin/yarn start
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin
-=======
   /usr/local/bin/node /usr/local/bin/yarn install
 
 PATH: 
@@ -13,7 +11,6 @@ PATH:
 
 PATH: 
   C:\Users\windows\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\windows\bin;C:\Python310\Scripts;C:\Python310;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\AOMEI\AOMEI Backupper\6.9.0;C:\Program Files (x86)\AOMEI\AOMEI Backupper\6.9.0(1);C:\Program Files (x86)\AOMEI\AOMEI Backupper\6.9.0(2);C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Users\windows\AppData\Local\Microsoft\WindowsApps;C:\Users\windows\.dotnet\tools;C:\Users\windows\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\windows\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 
 Yarn version: 
   1.22.19
@@ -22,7 +19,6 @@ Node version:
   16.17.0
 
 Platform: 
-<<<<<<< HEAD
   darwin arm64
 
 Trace: 
@@ -33,7 +29,6 @@ Trace:
       at Generator.next (<anonymous>)
       at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
       at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
-=======
   darwin x64
 
 Trace: 
@@ -50,7 +45,6 @@ Trace:
       at Generator.next (<anonymous>)
       at step (C:\Users\windows\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
       at C:\Users\windows\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
->>>>>>> f601dbb5a4fbefbcd01a2c03aab523901902089d
 
 npm manifest: 
   {

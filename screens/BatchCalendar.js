@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Image,
   Button,
+  TimePickerAndroid,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import Calendar from "../reducers/Calendar";
 import { removeAllBatch, uncalendar } from "../reducers/Calendar";
-
 
 // Exetension Date
 import moment from "moment";
@@ -117,39 +117,34 @@ function deleteRecipe(data) {
               <Text style={styles.titleRecipe}>{data.title}</Text>
              
               
-
               <TouchableOpacity
                 style={styles.btnAddDate}
                 onPress={() => showDatePicker(i)}
               >
-              <Text style={styles.TextBtnAddDate}>Select date</Text>
+                <Text style={styles.TextBtnAddDate}>Select date</Text>
               </TouchableOpacity>
               <View style={styles.containTime}>
-              <FontAwesome
-            name="clock-o"
-            size={20}
-            color={"#92C3BC"}
-            style={styles.iconInfoBatch}
-          />
-           <Text>{data.prepTime} mins</Text>
-
+                <FontAwesome
+                  name="clock-o"
+                  size={20}
+                  color={"#92C3BC"}
+                  style={styles.iconInfoBatch}
+                />
+                <Text>{data.prepTime} mins</Text>
               </View>
               <View style={styles.containTime}>
-              <FontAwesome
-                name="calendar"
-                size={18}
-                color={"#83C5BC"}
-                style={styles.iconInfoBatch}
-              />
-               <Text style={styles.textDate}>
-                    {`Date:  ${
-                      data.date
-                        ? moment(data.date).format("DD-MM-YYYY")
-                        : "🤷‍♂️"
-                    }`}
-                  </Text>
+                <FontAwesome
+                  name="calendar"
+                  size={18}
+                  color={"#83C5BC"}
+                  style={styles.iconInfoBatch}
+                />
+                <Text style={styles.textDate}>
+                  {`Date:  ${
+                    data.date ? moment(data.date).format("DD-MM-YYYY") : "🤷‍♂️"
+                  }`}
+                </Text>
               </View>
-              
             </View>
           </View>
         </View>
@@ -169,6 +164,9 @@ function deleteRecipe(data) {
       <Text style={styles.title}>Recipe list for the week</Text>
      
       <View style={styles.containerInfo}>
+      {/* <Text style={styles.dateBacth}>10 -17 septembre</Text> */}
+
+       <View style={styles.containerInfo}>
         <View style={styles.infoBacth}>
           <FontAwesome
             name="clock-o"
@@ -190,6 +188,7 @@ function deleteRecipe(data) {
           <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
         </View>
       </View>
+      </View> 
 
       <ScrollView contentContainerStyle={styles.containerRecipes}>
         {/* <Text style={styles.subTitle}>Lundi</Text> */}
@@ -201,7 +200,6 @@ function deleteRecipe(data) {
           <Text>Validate my batch 👩🏽‍🍳</Text>
         </TouchableOpacity>
       </View>
-
     </View>
   );
 }
@@ -307,42 +305,4 @@ const styles = StyleSheet.create({
     flexDirection:"row",
   },
 
-  // calendrier: {
-  //   backgroundColor: "red",
-  // },
-  // textDate: {
-  //   left: 10,
-  // },
-  // textChoixDate1: {
-  //   fontSize: 14,
-  //   top: -80,
-  //   justifyContent: "space-around",
-  //   right: 50,
-  // },
-  // container1: {
-  //   flex: 1,
-  //   padding: 30,
-  // },
-
-
-  // button2: {
-  //   borderWidth: 1,
-  //   borderColor: "rgba(0,0,0,0.2)",
-  //   paddingVertical: 40,
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   width: 150,
-  //   height: 10,
-  //   backgroundColor: "#fff",
-  //   borderRadius: 10,
-  //   position: "absolute",
-  //   top: 600,
-  //   right: 140,
-  // },
-  // textButton: {
-  //   color: "#DE45FF",
-  //   height: 30,
-  //   fontWeight: "600",
-  //   fontSize: 12,
-  // },
 });
