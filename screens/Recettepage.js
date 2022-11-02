@@ -24,29 +24,26 @@ export default function Recettepage({ navigation }) {
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const [modalFilterVisible, setModalFilterVisible] = useState(false);
+
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
+  const [apikey, setApiKey] = useState("");
 
   const favoris = useSelector((state) => {
     console.log(state);
     return state;
   });
+  const user = useSelector((state) => state.users.value.token);
+  const isFiltered = useSelector((state) => state.choosePaths.value);
+  const ingredientsFromFilter = useSelector(
+    (state) => state.modalFilters.value
+  );
   const dispatch = useDispatch();
-
-  //const ingredientList =[];
-
-  // const [startRecipe, setStartRecipe] = useState([]);
-  // const [mcRecipe, setMcRecipe] = useState([]);
-  // const [anyFilter, setAnyFilter] = useState(true);
-  // const [isStarter, setIsStarter] = useState(false);
-  // const [isMainCourse, setIsMainCourse] = useState(false);
-  // const [isDessert, setIsDessert] = useState(false);
-  // const [isSideDish, setIsSideDish] = useState(false);
+  console.log(user);
 
   function handleFilter() {
     navigation.navigate(Filter);
@@ -62,8 +59,26 @@ export default function Recettepage({ navigation }) {
       }
     };
     // _clearAll();
+    //  let newIngApi = "";
+
+    //structure of filter string on api
+    // for (let element of ingredientsFromFilter){
+    //   newIngApi= `${element}+,${element}`;
+    //  }
+
+    //   //select which api key choose
+    //   if (isFiltered) {
+    //     setApiKey(
+    //       `https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=${newIngApi}`
+    //     );
+    //   } else {
+    //     setApiKey(
+    //       "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
+    //     );
+    //   }
+
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -76,7 +91,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -106,7 +121,52 @@ export default function Recettepage({ navigation }) {
         setListRecipe(data.recipes);
       });
   }
+  //add a recipe in calendarscreen
 
+  function handleCalendar(data) {
+    // console.log(data);
+    let calendarSteps = [];
+    data.analyzedInstructions[0].steps.forEach(function (element) {
+      calendarSteps.push(element.step);
+    });
+    let calendarIngredients = [];
+    data.extendedIngredients.forEach(function (element) {
+      calendarIngredients.push(element.name);
+    });
+    //calories
+    let calendarCalories = "";
+    if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    } else {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 4] +
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    }
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: data.title,
+        image: data.image,
+        ingredients: calendarIngredients,
+        steps: calendarSteps,
+        calories: calendarCalories,
+        prepTime: data.readyInMinutes,
+        token: user,
+      }),
+    };
+    fetch("http://192.168.10.183:3000/calendarRecipes", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      });
+  }
   //display the description of the recipe
   function handleDescription(data) {
     setImage(data.image);
@@ -147,7 +207,7 @@ export default function Recettepage({ navigation }) {
   }
 
   function handleFavoris(data) {
-    dispatch(addFavorites(data.title));
+    dispatch(addFavorites(data));
   }
 
   //console.log(Array.isArray(ingredientsList));
@@ -175,35 +235,36 @@ export default function Recettepage({ navigation }) {
   // the array to display
   const Recipes = listRecipe.map((data, i) => {
     return (
-      <TouchableOpacity onPress={() => handleDescription(data)}>
-        <View key={i} style={styles.cardRecipe}>
-          <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <TouchableOpacity onPress={() => handleFavoris(data)}>
-            <FontAwesome
-              name="heart"
-              size={20}
-              color={"#000"}
-              style={styles.iconContent}
-            />
-          </TouchableOpacity>
+      <View key={i} style={styles.cardRecipe}>
+        <Image style={styles.imageRecipe} source={{ uri: data.image }} />
+        <TouchableOpacity onPress={() => handleFavoris(data)}>
+          <FontAwesome
+            name="heart"
+            size={20}
+            color={"#000"}
+            style={styles.iconContent}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDescription(data)}>
           <Text style={styles.cardTitle}>{data.title}</Text>
-          <View style={styles.cardInfo}>
-            <View style={styles.containerInfo}>
-              <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
-              <Text style={styles.textInfo}>{data.time}</Text>
-            </View>
-            <View style={styles.containerInfo}>
+        </TouchableOpacity>
+        <View style={styles.cardInfo}>
+          <View style={styles.containerInfo}>
+            <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
+            <Text style={styles.textInfo}>{data.time}</Text>
+          </View>
+          <View style={styles.containerInfo}>
+            <TouchableOpacity onPress={() => handleCalendar(data)}>
               <FontAwesome
                 name="calendar"
                 size={20}
                 color={"#83C5BC"}
-                onPress={() => addClick()}
                 style={styles.btnDelete}
               />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   });
 

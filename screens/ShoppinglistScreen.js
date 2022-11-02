@@ -11,62 +11,80 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView
+  ScrollView,
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
-
+import { useSelector } from "react-redux";
 
 export default function ShoppinglistScreen() {
- 
+  token = useSelector((state) => state.users.value.token);
+  const [optionsData, setOptionsData] = useState([]);
 
-// ======= Liste des courses entrées manuellement par l'utilisateur ======= //
+  // ======= Récuperer les recettes de calendar qui sont dans la base de données======= //
+
+  let tmp = [];
+  useEffect(() => {
+    fetch(`http://192.168.10.131:3000/calendarRecipes/${token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        for (let element of data.recipes) {
+          tmp.push(...element.ingredients);
+        }
+        let filtered = tmp.filter((item, index) => tmp.indexOf(item) === index);
+
+        setOptionsData(filtered);
+      });
+  }, []);
+
+  // ======= Liste des courses entrées manuellement par l'utilisateur ======= //
   const [shopping, setShopping] = useState("");
   const [shoppingList, setShoppingList] = useState([]);
 
   // Récupérer et stocker les aliments écrit par l'utilisateur dans l'input
   const addIngredientPress = () => {
-
     //Afficer les aliments taper par l'utilisateur
     setShoppingList([...shoppingList, shopping]);
     setShopping("");
-
   };
 
-    // Ajouter des aliments à la liste des allergies
+  // Ajouter des aliments à la liste des allergies
   const listCoursesUser = shoppingList.map((data, i) => {
     //const [isCheckedUserList, setCheckedUserList] = useState(false);
     // value={isCheckedUserList}  onValueChange={ () => setCheckedUserList(current => !current)} color={isCheckedUserList ? "#92C3BC" : undefined}
     return (
       <View key={i} style={styles.section}>
-        <Checkbox style={styles.checkbox}/>
+        <Checkbox style={styles.checkbox} />
         <Text style={styles.textOption}>{data}</Text>
       </View>
     );
   });
 
-
-// ======= Pour récupérer les données des ingrédients directement via les recettes ======= //
-  const optionsData = [
-    { id: 1, option: "Rice", quantity: "13g", isChecked: false },
-    { id: 2, option: "Chicken", quantity: "2kg", isChecked: false },
-    { id: 3, option: "Apple", quantity: "3qts", isChecked: false },
-    { id: 4, option: "Suggar", quantity: "123g", isChecked: false },
-    { id: 5, option: "Fish", quantity: "9kg", isChecked: false },
-  ];
+  // ======= Pour récupérer les données des ingrédients directement via les recettes ======= //
+  // const optionsData = [
+  //   { id: 1, option: "Rice", quantity: "13g", isChecked: false },
+  //   { id: 2, option: "Chicken", quantity: "2kg", isChecked: false },
+  //   { id: 3, option: "Apple", quantity: "3qts", isChecked: false },
+  //   { id: 4, option: "Suggar", quantity: "123g", isChecked: false },
+  //   { id: 5, option: "Fish", quantity: "9kg", isChecked: false },
+  // ];
 
   const option = optionsData.map((data, i) => {
     const [isChecked, setChecked] = useState(false);
 
-    const checkboxClick = () =>{
-      setChecked(current => !current);
-      console.log("coucou")
-    }
+    const checkboxClick = () => {
+      setChecked((current) => !current);
+      console.log("coucou");
+    };
 
     return (
       <View key={i} style={styles.section}>
-        <Checkbox style={styles.checkbox} value={isChecked}  onValueChange={checkboxClick} color={isChecked ? "#92C3BC" : undefined}/>
+        <Checkbox
+          style={styles.checkbox}
+          value={isChecked}
+          onValueChange={checkboxClick}
+          color={isChecked ? "#92C3BC" : undefined}
+        />
         <View style={styles.containeDescriptionOption}>
           <Text style={styles.textOption}>{data.option}</Text>
           <Text style={styles.textQuantity}>{data.quantity}</Text>
@@ -76,19 +94,38 @@ export default function ShoppinglistScreen() {
   });
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} >
-      <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn}/>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <FontAwesome
+        name="chevron-left"
+        size={20}
+        color={"#92C3BC"}
+        style={styles.buttonReturn}
+      />
       <View style={styles.containerHead}>
         <Text style={styles.title}>Shopping list</Text>
         <Text style={styles.subTitle}>What to buy for your next recipe?</Text>
       </View>
       <View style={styles.containerInput}>
-        <TextInput placeholder="What do you need?" onChangeText={(value) => setShopping(value)} value={shopping} style={styles.input}/>
+        <TextInput
+          placeholder="What do you need?"
+          onChangeText={(value) => setShopping(value)}
+          value={shopping}
+          style={styles.input}
+        />
         <View>
-          <FontAwesome name="plus" size={20} color={"#ffffff"} onPress={() => addIngredientPress()} style={styles.btnPlus} />
+          <FontAwesome
+            name="plus"
+            size={20}
+            color={"#ffffff"}
+            onPress={() => addIngredientPress()}
+            style={styles.btnPlus}
+          />
         </View>
       </View>
-      
+
       <ScrollView contentContainerStyle={styles.containerCheckbox}>
         <View>
           <Text style={styles.titleProduct}>Need for recipes</Text>
@@ -99,7 +136,6 @@ export default function ShoppinglistScreen() {
           {listCoursesUser}
         </View>
       </ScrollView>
-      
     </KeyboardAvoidingView>
   );
 }
@@ -113,13 +149,13 @@ const styles = StyleSheet.create({
     //justifyContent: "space-between",
     //   width: Dimensions.get('window') .width,
   },
-  containerHead:{
-    marginBottom:20,
+  containerHead: {
+    marginBottom: 20,
   },
   title: {
     fontSize: 30,
-    fontWeight:"bold",
-    color:"#92C3BC",
+    fontWeight: "bold",
+    color: "#92C3BC",
   },
   subTitle: {
     fontSize: 20,
@@ -142,23 +178,22 @@ const styles = StyleSheet.create({
   },
   btnPlus: {
     backgroundColor: "#e8be4b",
-    padding:10,
-    paddingHorizontal:12,
+    padding: 10,
+    paddingHorizontal: 12,
     borderRadius: 100,
-    right:50,
-    top:3,
+    right: 50,
+    top: 3,
   },
-  titleProduct:{
-    backgroundColor:"#FFD87D",
-    padding:6,
-    paddingHorizontal:20,
+  titleProduct: {
+    backgroundColor: "#FFD87D",
+    padding: 6,
+    paddingHorizontal: 20,
     width: "auto",
     borderRadius: 100,
-    fontSize:16, 
-    fontWeight:"bold",
+    fontSize: 16,
+    fontWeight: "bold",
     marginBottom: 20,
-    marginTop:20,
-    
+    marginTop: 20,
   },
   containerCheckbox: {
     marginBottom: 40,
@@ -172,18 +207,15 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  containeDescriptionOption:{
-    flexDirection:"row",
-    alignItems:"center",
-    justifyContent:"space-between",
-    width:"80%"
+  containeDescriptionOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "80%",
   },
   textOption: {
     fontSize: 16,
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
-  textQuantity:{
-     
-  },
-
+  textQuantity: {},
 });
