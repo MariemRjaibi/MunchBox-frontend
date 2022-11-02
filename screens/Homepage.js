@@ -14,7 +14,7 @@ import React from "react";
 import Recettepage from "./Recettepage";
 import Placard from "./Placard";
 import { useDispatch } from "react-redux";
-import { updateIsFiltered } from "../reducers/choosePaths";
+import { updateIsFiltered, removeIsFiltered } from "../reducers/choosePaths";
 
 export default function Homepage({ navigation }) {
   const dispatch = useDispatch();
@@ -28,7 +28,10 @@ export default function Homepage({ navigation }) {
           source={require("../assets/recipes.png")}
         />
         <TouchableOpacity
-          onPress={() => navigation.navigate("TabNavigator")}
+          onPress={() => {
+            dispatch(removeIsFiltered());
+            navigation.navigate("TabNavigator");
+          }}
           style={styles.button1}
           activeOpacity={0.8}
         >
@@ -43,8 +46,8 @@ export default function Homepage({ navigation }) {
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Placard");
             dispatch(updateIsFiltered());
+            navigation.navigate("Placard");
           }}
           style={styles.button1}
           activeOpacity={0.8}
