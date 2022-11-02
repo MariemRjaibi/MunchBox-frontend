@@ -241,15 +241,16 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Homepage" component={Homepage} />
+            <Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
             <Stack.Screen name="batchCalendar" component={BatchCalendar} />
-
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
-            <Stack.Screen name="Recettepage" component={Recettepage} />
+
             <Stack.Screen name="Filter" component={Filter} />
 
-            <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
             <Stack.Screen
@@ -257,8 +258,6 @@ export default function App() {
               component={ShoppinglistScreen}
             />
             <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
-
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

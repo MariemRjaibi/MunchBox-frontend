@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checkbox from "expo-checkbox";
 import {
   KeyboardAvoidingView,
@@ -18,25 +18,27 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 
 export default function ShoppinglistScreen() {
-  token = useSelector((state) => state.users.value.token);
+  const token = useSelector((state) => state.users.value.token);
   const [optionsData, setOptionsData] = useState([]);
 
   // ======= Récuperer les recettes de calendar qui sont dans la base de données======= //
 
   let tmp = [];
   useEffect(() => {
-    fetch(`http://192.168.10.131:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.183:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         for (let element of data.recipes) {
+          // console.log(element.ingredients);
           tmp.push(...element.ingredients);
         }
+        // console.log( tmp);
         let filtered = tmp.filter((item, index) => tmp.indexOf(item) === index);
 
         setOptionsData(filtered);
       });
   }, []);
-
+  //console.log(optionsData);
   // ======= Liste des courses entrées manuellement par l'utilisateur ======= //
   const [shopping, setShopping] = useState("");
   const [shoppingList, setShoppingList] = useState([]);
@@ -48,10 +50,11 @@ export default function ShoppinglistScreen() {
     setShopping("");
   };
 
-  // Ajouter des aliments à la liste des allergies
+  // Ajouter des aliments à la liste
   const listCoursesUser = shoppingList.map((data, i) => {
     //const [isCheckedUserList, setCheckedUserList] = useState(false);
     // value={isCheckedUserList}  onValueChange={ () => setCheckedUserList(current => !current)} color={isCheckedUserList ? "#92C3BC" : undefined}
+    // console.log("========", data);
     return (
       <View key={i} style={styles.section}>
         <Checkbox style={styles.checkbox} />
@@ -61,33 +64,25 @@ export default function ShoppinglistScreen() {
   });
 
   // ======= Pour récupérer les données des ingrédients directement via les recettes ======= //
-  // const optionsData = [
-  //   { id: 1, option: "Rice", quantity: "13g", isChecked: false },
-  //   { id: 2, option: "Chicken", quantity: "2kg", isChecked: false },
-  //   { id: 3, option: "Apple", quantity: "3qts", isChecked: false },
-  //   { id: 4, option: "Suggar", quantity: "123g", isChecked: false },
-  //   { id: 5, option: "Fish", quantity: "9kg", isChecked: false },
-  // ];
+  const [isChecked, setChecked] = useState(false);
 
+  const checkboxClick = (e) => {
+    console.log(e);
+    setChecked((current) => !current);
+    //console.log("coucou");
+  };
+  console.log(isChecked);
   const option = optionsData.map((data, i) => {
-    const [isChecked, setChecked] = useState(false);
-
-    const checkboxClick = () => {
-      setChecked((current) => !current);
-      console.log("coucou");
-    };
-
     return (
       <View key={i} style={styles.section}>
         <Checkbox
           style={styles.checkbox}
           value={isChecked}
-          onValueChange={checkboxClick}
+          onValueChange={() => checkboxClick(data)}
           color={isChecked ? "#92C3BC" : undefined}
         />
         <View style={styles.containeDescriptionOption}>
-          <Text style={styles.textOption}>{data.option}</Text>
-          <Text style={styles.textQuantity}>{data.quantity}</Text>
+          <Text style={styles.textOption}>{data}</Text>
         </View>
       </View>
     );
@@ -106,7 +101,7 @@ export default function ShoppinglistScreen() {
       />
       <View style={styles.containerHead}>
         <Text style={styles.title}>Shopping list</Text>
-        <Text style={styles.subTitle}>What to buy for your next recipe?</Text>
+        <Text style={styles.subTitle}>What to buy for your next batch?</Text>
       </View>
       <View style={styles.containerInput}>
         <TextInput
@@ -128,7 +123,7 @@ export default function ShoppinglistScreen() {
 
       <ScrollView contentContainerStyle={styles.containerCheckbox}>
         <View>
-          <Text style={styles.titleProduct}>Need for recipes</Text>
+          <Text style={styles.titleProduct}>Ingredients of the batch</Text>
           {option}
         </View>
         <View>

@@ -31,59 +31,65 @@ export default function Recettepage({ navigation }) {
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
-  const [apikey, setApiKey] = useState("");
+  const [noResult, setNoResult] = useState(false);
+  //const [apikey, setApiKey] = useState("");
 
   const favoris = useSelector((state) => {
-    console.log(state);
+    // console.log(state);
     return state;
   });
   const user = useSelector((state) => state.users.value.token);
   const isFiltered = useSelector((state) => state.choosePaths.value);
   const ingredientsFromFilter = useSelector(
-    (state) => state.modalFilters.value
+    (state) => state.placardIngredients.value
   );
   const dispatch = useDispatch();
-  console.log(user);
+  // console.log("recettespage", isFiltered);
 
+  console.log(ingredientsFromFilter);
   function handleFilter() {
     navigation.navigate(Filter);
   }
-
+  let textToDisplay = "";
   useEffect(() => {
-    const _clearAll = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const _clearAll = async () => {
+    //   try {
+    //     await AsyncStorage.clear();
+    //     console.log("Done");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
     // _clearAll();
-    //  let newIngApi = "";
 
     //structure of filter string on api
-    // for (let element of ingredientsFromFilter){
-    //   newIngApi= `${element}+,${element}`;
-    //  }
 
-    //   //select which api key choose
-    //   if (isFiltered) {
-    //     setApiKey(
-    //       `https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=${newIngApi}`
-    //     );
-    //   } else {
-    //     setApiKey(
-    //       "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
-    //     );
-    //   }
-
-    fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40"
-    )
+    let newIngApi = "";
+    for (let i = 0; i < ingredientsFromFilter.length; i++) {
+      // console.log(ingredientsFromFilter[i]);
+      newIngApi += `${ingredientsFromFilter[i].toLowerCase()}+,`;
+      //console.log("===========", newIngApi);
+    }
+    console.log("isFiltered", isFiltered);
+    let apiKey = "";
+    //select which api key choose
+    if (isFiltered) {
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=${newIngApi}`;
+    } else {
+      apiKey =
+        "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40";
+    }
+    // console.log(apiKey);
+    fetch(apiKey)
       .then((response) => response.json())
       .then((data) => {
         //console.log(data);
-        setListRecipe(data.recipes);
+        if (data.recipes.length === 0) {
+          setNoResult(true);
+        } else {
+          setNoResult(false);
+          setListRecipe(data.recipes);
+        }
       });
   }, []);
 
@@ -172,7 +178,8 @@ export default function Recettepage({ navigation }) {
     setImage(data.image);
     setTitle(data.title);
     setModalVisible(true);
-    //console.log(data.readyInMinutes);
+    // console.log("========================", data.readyInMinutes);
+    // console.log(data);
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
         data.summary[data.summary.indexOf("calories") - 3] +
@@ -488,12 +495,17 @@ export default function Recettepage({ navigation }) {
       </View>
 
       <View style={styles.containerNumberRecipes}>
-        <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
-        <Text style={styles.numberRecipe}>12</Text>
+        <Text style={styles.textNumberRecipes}>
+          Pick one and start cooking now!
+        </Text>
       </View>
-      <ScrollView>
-        <View style={styles.containerRecipes}>{Recipes}</View>
-      </ScrollView>
+      {noResult ? (
+        <Text>Sorry, no recipe corresponds to your search</Text>
+      ) : (
+        <ScrollView>
+          <View style={styles.containerRecipes}>{Recipes}</View>
+        </ScrollView>
+      )}
     </View>
   );
 }
