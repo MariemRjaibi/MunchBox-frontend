@@ -39,6 +39,7 @@ import Filter from "./screens/Filter";
 import RecettepageFiltered from "./screens/RecettepageFiltered";
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
+import SigninScreen from "./screens/SigninScreen";
 import ShoppinglistScreen from "./screens/ShoppinglistScreen";
 import BatchweekScreen from "./screens/BatchweekScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
@@ -137,6 +138,7 @@ export default function App() {
             <Stack.Screen name="Recettepage" component={Recettepage} />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
+            <Stack.Screen name="SigninScreen" component={SigninScreen}/>
             <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />

@@ -66,8 +66,8 @@ export default function FamilynumberScreen({ formData, setFormData }) {
   return (
     <View style={styles.container}>
       <View style={styles.head}>
-        <Text style={styles.title}>Family Numbers</Text>
-        <Text style={styles.subTitle}>How many family members?</Text>
+        <Text style={styles.title}>Family Size</Text>
+        <Text style={styles.subTitle}>How many persons are eating?</Text>
       </View>
       <View style={styles.mainChoise}>
         <View style={[styles.containerChoice, styles.FirstcontainerChoice]}>

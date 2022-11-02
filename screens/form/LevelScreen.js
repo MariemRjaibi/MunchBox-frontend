@@ -29,13 +29,13 @@ export default function LevelScreen({ navigation }) {
       <View>
         <Text style={styles.title}>🧑‍🍳Kitchen level</Text>
         <Text style={styles.text}>
-          Quel est ton degré de maitrise en cuisine ?{" "}
+          How do you rate yourself in the kitchen ?{" "}
         </Text>
         <SliderPicker
          
-          minLabel={"Débutant"}
-          midLabel={"Commis"}
-          maxLabel={"Etchebest"}
+          minLabel={"Beginner"}
+          midLabel={"Experienced"}
+          maxLabel={"Michelin-level"}
           defaultValue={1}
           maxValue={2}
           callback={levelClick}
@@ -57,12 +57,12 @@ export default function LevelScreen({ navigation }) {
       </View>
 
       <View>
-        <Text style={styles.title}>🍲 cooking time</Text>
+        <Text style={styles.title}>🍲 Cooking time</Text>
         <Text style={styles.text}>Do you have time to cook?</Text>
         <SliderPicker
-          minLabel={"Bof"}
-          midLabel={"Moyen"}
-          maxLabel={"Carrément"}
+          minLabel={"Not really"}
+          midLabel={"Not too long"}
+          maxLabel={"Absolutely"}
           defaultValue={1}
           maxValue={2}
           //   callback={position => {

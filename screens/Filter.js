@@ -14,6 +14,7 @@ import {
   Keyboard,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { SliderPicker } from "react-native-slider-picker";
 //Reducer imports
 
@@ -31,7 +32,7 @@ import {
 } from "../reducers/modalFilters";
 import Recettepage from "./Recettepage";
 import Placard from "./Placard";
-//import Homepage from "./Homepage";
+import Homepage from "./Homepage";
 
 export default function Filter({ navigation }) {
   //Dispatch info to reducer
@@ -134,6 +135,14 @@ export default function Filter({ navigation }) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
+         
+          <Ionicons // closes the filter and return to Recettepage
+            name="close"
+            size={35}
+            color="#dedede"
+            style={styles.close}
+            onPress={() => navigation.navigate("TabNavigator")}
+          />
           <View style={styles.inputContainer}>
             {displayedItems.length === 0 ? (
               <Text style={styles.textTitle}>Ingredients</Text>
@@ -309,6 +318,12 @@ export default function Filter({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  close: {
+    position: "absolute",
+    top: 50,
+    right: 50,
+    color: "black",
+  },
   container: {
     flex: 1,
     backgroundColor: "#ffff",

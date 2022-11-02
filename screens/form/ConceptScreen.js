@@ -31,16 +31,15 @@ export default function ConceptScreen({ navigation }) {
           source={require("../../assets/Munchbox-logo.jpg")}
           style={styles.logo}
         />
-        <Text style={styles.logo}>LOGO</Text>
-
         <View>
           <Text style={styles.title}>
             No time to search for your next meal idea?
           </Text>
           <Text style={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            venenatis nec risus in laoreet. Pellentesque egestas porttitor
-            elementum.
+          Get free access to Munchbox’s library
+          of over 100, 000 recipes !  </Text>
+          <Text style={styles.text}>Batch-cooking has never been easier
+          with our  monthly meal planner!
           </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate("Familynumber")}
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
     fontSize: 16,
-    marginBottom: 50,
+    marginBottom: 60,
   },
   button: {
     alignSelf: "flex-end",

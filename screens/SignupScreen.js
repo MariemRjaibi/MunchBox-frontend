@@ -14,19 +14,22 @@ import {
 import Homepage from "./Homepage";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../reducers/users";
+import { LinearGradient } from "expo-linear-gradient";
+import SigninScreen from "./SigninScreen";
 export default function SignupScreen({ navigation }) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [emailValidError, setEmailValidError] = useState(false);
   const [password, setPassword] = useState("");
-  // const token = useSelector((state) => state?.user?.value?.token ?? null); // s'il trouve pas une valeur il retourne null sans descendre plus bas; null=valeur par défaut
   const token = useSelector((state) => state.users.value.token);
   const [signInUsername, setSignInUsername] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
 
   //console.log(token);
+  //function that directs new users to signup page
   const handleRegister = () => {
-    fetch("http://192.168.10.169:3000/users/signup", {
+    fetch("http://192.168.10.174:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -43,13 +46,17 @@ export default function SignupScreen({ navigation }) {
           setPassword("");
         }
       });
-    navigation.navigate(Homepage);
+      if (username&&email&&password) {
+        navigation.navigate(Homepage);
+      }
+ 
   };
 
   // console.log('token', token)
 
+  //function that directs registered users to sign in page 
   const handleConnection = () => {
-    fetch("http://192.168.10.169:3000/users/signin", {
+    fetch("http://192.168.10.174:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -65,20 +72,39 @@ export default function SignupScreen({ navigation }) {
           setSignInPassword("");
         }
       });
-    navigation.navigate(Homepage);
+      if (token) {
+        navigation.navigate(Homepage);
+      }
+ 
+ };
+
+ const handleValidEmail = (value) => {
+  let reg =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  
+if (reg.test(value)) {
+    setEmailValidError(false);
+  } else {
+    setEmailValidError(true);
+  }
   };
 
+  //if token is not identified, sign up page appears
   if (!token) {
     return (
       <ImageBackground
         source={require("../assets/background-concept.jpg")}
         style={styles.background}
       >
+       
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
           >
+            <LinearGradient
+        colors={["transparent", "rgba(0,0,0,0.8)"]}
+        style={styles.container}
+      >
             <Image
               source={require("../assets/Munchbox-logo.jpg")}
               style={styles.logo}
@@ -94,17 +120,23 @@ export default function SignupScreen({ navigation }) {
                 value={username}
                 style={styles.inputContent}
               />
+
               <Text style={{ color: "white", fontSize: 20 }}>Email</Text>
               <TextInput
                 placeholder="Email"
-                onChangeText={(value) => setEmail(value)}
-                value={email}
+                value={email} 
+                onChangeText= {value => {setEmail(value); handleValidEmail(value)}}
                 style={styles.inputContent}
               />
+              {emailValidError ? (<Text style={{color: 'red', marginLeft: 200}}>*Wrong format</Text>) : 
+              (<Text></Text>)} 
+              
+
               <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
               <TextInput
                 placeholder="Password"
                 onChangeText={(value) => setPassword(value)}
+                secureTextEntry={true}
                 value={password}
                 style={styles.inputContent}
               />
@@ -113,7 +145,7 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}
-              onPress={() => handleRegister()} //navigation.navigate(Homepage)
+              onPress={() => handleRegister()} 
             >
               <Text style={styles.register}>Register</Text>
             </TouchableOpacity>
@@ -123,20 +155,27 @@ export default function SignupScreen({ navigation }) {
                 style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
               />
               <View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(SigninScreen)} 
+                  >
                 <Text
-                  style={{ width: 150, textAlign: "center", color: "white" }}
-                >
-                  or sign up with
+                  style={{ width: 150, textAlign: "center", color: "white" }}>
+                  Already registered? Sign In Here
                 </Text>
+                </TouchableOpacity>
               </View>
               <View
                 style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
               />
             </View>
+            </LinearGradient>
           </KeyboardAvoidingView>
+          
         </TouchableWithoutFeedback>
+       
       </ImageBackground>
     );
+    //if token is identified, user already exists and sign in page appears
   } else {
     return (
       <ImageBackground
@@ -146,8 +185,12 @@ export default function SignupScreen({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.container}
+            style={styles.background}
           >
+            <LinearGradient
+        colors={["transparent", "rgba(0,0,0,0.8)"]}
+        style={styles.background}
+      >
             <Image
               source={require("../assets/Munchbox-logo.jpg")}
               style={styles.logo}
@@ -166,6 +209,7 @@ export default function SignupScreen({ navigation }) {
               <TextInput
                 placeholder="Password"
                 onChangeText={(value) => setPassword(value)}
+                secureTextEntry={true}
                 value={password}
                 style={styles.inputContent}
               />
@@ -173,7 +217,7 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}
-              onPress={() => handleConnection()} //navigation.navigate(Homepage)
+              onPress={() => handleConnection()} 
             >
               <Text style={styles.register}>Let's Cook!</Text>
             </TouchableOpacity>
@@ -193,8 +237,10 @@ export default function SignupScreen({ navigation }) {
                 style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
               />
             </View>
-          </KeyboardAvoidingView>
+            </LinearGradient>
+          </KeyboardAvoidingView> 
         </TouchableWithoutFeedback>
+        
       </ImageBackground>
     );
   }
@@ -204,9 +250,11 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   container: {
-    marginTop: 50,
+    flex: 1,
+    marginTop: 30,
     width: "100%",
     height: "80%",
     justifyContent: "center",

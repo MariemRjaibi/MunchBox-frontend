@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.9,
     backgroundColor: "#DEDfDE",
-    justifyContent: "top",
     padding: 8,
     borderRadius: 15,
     height: "auto",

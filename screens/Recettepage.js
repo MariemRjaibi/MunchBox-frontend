@@ -19,8 +19,12 @@ import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorites } from "../reducers/favorites";
+import {logout} from "../reducers/users";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ConceptScreen from "./form/ConceptScreen";
+import SignupScreen from "./SignupScreen";
+
 export default function Recettepage({ navigation }) {
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,8 +41,11 @@ export default function Recettepage({ navigation }) {
     console.log(state);
     return state;
   });
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  
+  //const user = useSelector((state) => state.user.value);
+  
   //const ingredientList =[];
 
   // const [startRecipe, setStartRecipe] = useState([]);
@@ -49,9 +56,16 @@ export default function Recettepage({ navigation }) {
   // const [isDessert, setIsDessert] = useState(false);
   // const [isSideDish, setIsSideDish] = useState(false);
 
-  function handleFilter() {
-    navigation.navigate(Filter);
-  }
+  // Function to go to Filter page
+  // function handleFilter() {
+  //   navigation.navigate(Filter);
+  // }
+
+  const handleLogOut = ()=> {
+    dispatch (logout());
+    navigation.navigate(SignupScreen)
+  } 
+ 
 
   useEffect(() => {
     const _clearAll = async () => {
@@ -64,7 +78,7 @@ export default function Recettepage({ navigation }) {
     };
     // _clearAll();
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -77,7 +91,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -88,7 +102,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -99,7 +113,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=72bac735f371483eb61e325797c3c6f6&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -108,7 +122,7 @@ export default function Recettepage({ navigation }) {
       });
   }
 
-  //display the description of the recipe
+  //display the description of the recipe: Calories and Preptime
   function handleDescription(data) {
     setImage(data.image);
     setTitle(data.title);
@@ -160,15 +174,15 @@ export default function Recettepage({ navigation }) {
 
   const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
     return (
-      <View key={i}>
-        <Text>{data}</Text>
+      <View key={i} >
+        <Text style={styles.ingredientsarray}>-{data}</Text>
       </View>
     );
   });
   const newStepsArray = displayedSteps.map((data, i) => {
     return (
-      <View key={i}>
-        <Text>{data}</Text>
+      <View key={i} >
+        <Text style= {styles.stepsarray}>-{data}</Text>
       </View>
     );
   });
@@ -212,6 +226,7 @@ export default function Recettepage({ navigation }) {
 
   //console.log(isEnabled);
   return (
+    // Start of Modal for individual recipe page
     <SafeAreaView style={styles.container}>
       <Modal
         visible={modalVisible}
@@ -219,11 +234,11 @@ export default function Recettepage({ navigation }) {
         transparent
         style={styles.modalContainer}
       >
-        <ScrollView contentContainerStyle={styles.scrollview}>
+        <View style={styles.scrollview}>
           <Image source={{ uri: image }} style={styles.chicken} />
           <Ionicons
             name="close"
-            size={24}
+            size={35}
             color="#dedede"
             style={styles.close}
             onPress={() => setModalVisible(false)}
@@ -251,7 +266,7 @@ export default function Recettepage({ navigation }) {
             />
             <Text>{calories} kcal</Text>
           </View>
-          <View style={styles.star}>
+          {/* <View style={styles.star}>
             <FontAwesome
               name="star-o"
               size={25}
@@ -277,7 +292,7 @@ export default function Recettepage({ navigation }) {
               style={styles.note}
             />
             <Text style={styles.starnote}> 4/5 (123 reviews)</Text>
-          </View>
+          </View> */}
           <SwitchSelector
             buttonColor={"#92C3BC"}
             ios_backgroundColor={"#92C3BC"}
@@ -290,6 +305,7 @@ export default function Recettepage({ navigation }) {
               { label: "Steps", value: "steps" },
             ]}
           />
+          <ScrollView>
           {isActive ? newIngredientsArray : newStepsArray}
 
           <Text
@@ -343,8 +359,8 @@ export default function Recettepage({ navigation }) {
               style={styles.info}
             />
           </View>
-          <Text>Read Reviews</Text>
-          <Text>
+          <Text style={{fontWeight: 'bold'}}>Read Reviews</Text>
+          <Text style={{fontWeight: 'bold'}}>
             Rate this recipe:{" "}
             <FontAwesome
               name="star-o"
@@ -367,25 +383,28 @@ export default function Recettepage({ navigation }) {
               />
             </Pressable>
           </View>
-          <Text>Experiencing an issue with the mobile site?</Text>
-        </ScrollView>
+          <Text style={{fontWeight: 'bold'}}>Experiencing an issue with the mobile site?</Text>
+          </ScrollView>
+        </View>
       </Modal>
-      <View style={styles.containerHeader}>
+
+{/* Start of page that displays ALL Recipes */}
+      <View style={styles.containerHeader}> 
         <View>
-          <Text style={styles.welcomeText}>Hello Phifi</Text>
+          <Text style={styles.welcomeText}>Hello User</Text>
           <Text style={styles.tagline}>What you want to cook today ? </Text>
         </View>
 
         <View>
           <TouchableOpacity
             style={styles.containerIconUser}
-            onPress={() => handleFilter()}
+            onPress={() => handleLogOut()}
           >
-            {/* <FontAwesome name="user" size={20} color={"#fff"}  style={styles.iconUser}/> */}
-            <Image
+            <FontAwesome name="user" size={50} color={"red"}  style={styles.iconUser}/>
+            {/* <Image
               style={styles.imageProfil}
               source={require("../assets/filter.png")}
-            />
+            /> */}
           </TouchableOpacity>
         </View>
       </View>
@@ -584,13 +603,13 @@ const styles = StyleSheet.create({
   close: {
     position: "absolute",
     top: 10,
-    right: 10,
+    right: 20,
     color: "black",
   },
   heart: {
     position: "absolute",
-    top: 40,
-    right: 50,
+    top: 50,
+    right: 60,
     color: "red",
   },
   // container: {
@@ -667,5 +686,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  stepsarray: {
+    fontWeight: 'bold',
+    paddingHorizontal: 10,
+    marginTop: 20,
+    paddingBottom: 30,
+  },
+  ingredientsarray: {
+    fontWeight: 'bold',
+    paddingBottom: 30,
+    paddingTop: 20,
+    marginRight: 70,
+    justifyContent: 'flex-start',
   },
 });
