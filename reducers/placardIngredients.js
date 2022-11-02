@@ -9,7 +9,7 @@ export const placardIngredientsSlice = createSlice({
   initialState,
   reducers: {
     addPlacardIngredients: (state, action) => {
-      console.log(state.value);
+      // console.log(state.value);
       state.value.push(action.payload);
     },
     removePlacardIngredients: (state, action) => {

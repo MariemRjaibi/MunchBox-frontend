@@ -26,7 +26,7 @@ export default function SignupScreen({ navigation }) {
 
   //console.log(token);
   const handleRegister = () => {
-    fetch("http://192.168.10.204:3000/users/signup", {
+    fetch("http://192.168.10.183:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -37,6 +37,7 @@ export default function SignupScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data);
         if (data.result) {
           dispatch(login({ username: username, token: data.token }));
           setUsername("");
@@ -49,7 +50,7 @@ export default function SignupScreen({ navigation }) {
   // console.log('token', token)
 
   const handleConnection = () => {
-    fetch("http://192.168.10.204:3000/users/signin", {
+    fetch("http://192.168.10.131:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -109,7 +110,6 @@ export default function SignupScreen({ navigation }) {
                 style={styles.inputContent}
               />
             </View>
-
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}

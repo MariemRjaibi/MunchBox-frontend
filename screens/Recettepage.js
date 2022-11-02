@@ -24,52 +24,72 @@ export default function Recettepage({ navigation }) {
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const [modalFilterVisible, setModalFilterVisible] = useState(false);
+
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
-  const [apikey, setApiKey] = useState("");
-  const user = useSelector((state) => state.users.value.token);
-  const dispatch = useDispatch();
+  const [noResult, setNoResult] = useState(false);
+  //const [apikey, setApiKey] = useState("");
+
   const favoris = useSelector((state) => {
-    console.log(state);
+    // console.log(state);
     return state;
   });
+  const user = useSelector((state) => state.users.value.token);
+  const isFiltered = useSelector((state) => state.choosePaths.value);
+  const ingredientsFromFilter = useSelector(
+    (state) => state.placardIngredients.value
+  );
+  const dispatch = useDispatch();
+  // console.log("recettespage", isFiltered);
 
-
-
-  // const [startRecipe, setStartRecipe] = useState([]);
-  // const [mcRecipe, setMcRecipe] = useState([]);
-  // const [anyFilter, setAnyFilter] = useState(true);
-  // const [isStarter, setIsStarter] = useState(false);
-  // const [isMainCourse, setIsMainCourse] = useState(false);
-  // const [isDessert, setIsDessert] = useState(false);
-  // const [isSideDish, setIsSideDish] = useState(false);
-
+  console.log(ingredientsFromFilter);
   function handleFilter() {
     navigation.navigate(Filter);
   }
-
+  let textToDisplay = "";
   useEffect(() => {
-    const _clearAll = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const _clearAll = async () => {
+    //   try {
+    //     await AsyncStorage.clear();
+    //     console.log("Done");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
     // _clearAll();
-    fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40"
-    )
+
+    //structure of filter string on api
+
+    let newIngApi = "";
+    for (let i = 0; i < ingredientsFromFilter.length; i++) {
+      // console.log(ingredientsFromFilter[i]);
+      newIngApi += `${ingredientsFromFilter[i].toLowerCase()}+,`;
+      //console.log("===========", newIngApi);
+    }
+    console.log("isFiltered", isFiltered);
+    let apiKey = "";
+    //select which api key choose
+    if (isFiltered) {
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=${newIngApi}`;
+    } else {
+      apiKey =
+        "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40";
+    }
+    // console.log(apiKey);
+    fetch(apiKey)
       .then((response) => response.json())
       .then((data) => {
         //console.log(data);
-        setListRecipe(data.recipes);
+        if (data.recipes.length === 0) {
+          setNoResult(true);
+        } else {
+          setNoResult(false);
+          setListRecipe(data.recipes);
+        }
       });
   }, []);
 
@@ -77,7 +97,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -107,13 +127,59 @@ export default function Recettepage({ navigation }) {
         setListRecipe(data.recipes);
       });
   }
+  //add a recipe in calendarscreen
 
+  function handleCalendar(data) {
+    // console.log(data);
+    let calendarSteps = [];
+    data.analyzedInstructions[0].steps.forEach(function (element) {
+      calendarSteps.push(element.step);
+    });
+    let calendarIngredients = [];
+    data.extendedIngredients.forEach(function (element) {
+      calendarIngredients.push(element.name);
+    });
+    //calories
+    let calendarCalories = "";
+    if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    } else {
+      calendarCalories =
+        data.summary[data.summary.indexOf("calories") - 4] +
+        data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 2] +
+        data.summary[data.summary.indexOf("calories") - 1];
+    }
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: data.title,
+        image: data.image,
+        ingredients: calendarIngredients,
+        steps: calendarSteps,
+        calories: calendarCalories,
+        prepTime: data.readyInMinutes,
+        token: user,
+      }),
+    };
+    fetch("http://192.168.10.183:3000/calendarRecipes", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      });
+  }
   //display the description of the recipe
   function handleDescription(data) {
     setImage(data.image);
     setTitle(data.title);
     setModalVisible(true);
-    //console.log(data.readyInMinutes);
+    // console.log("========================", data.readyInMinutes);
+    // console.log(data);
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
         data.summary[data.summary.indexOf("calories") - 3] +
@@ -148,7 +214,7 @@ export default function Recettepage({ navigation }) {
   }
 
   function handleFavoris(data) {
-    dispatch(addFavorites(data.title));
+    dispatch(addFavorites(data));
   }
 
   //add a recipe in calendarscreen
@@ -221,24 +287,25 @@ fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
   // the array to display
   const Recipes = listRecipe.map((data, i) => {
     return (
-      <TouchableOpacity onPress={() => handleDescription(data)}>
-        <View key={i} style={styles.cardRecipe}>
-          <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <TouchableOpacity onPress={() => handleFavoris(data)}>
-            <FontAwesome
-              name="heart"
-              size={20}
-              color={"#000"}
-              style={styles.iconContent}
-            />
-          </TouchableOpacity>
+      <View key={i} style={styles.cardRecipe}>
+        <Image style={styles.imageRecipe} source={{ uri: data.image }} />
+        <TouchableOpacity onPress={() => handleFavoris(data)}>
+          <FontAwesome
+            name="heart"
+            size={20}
+            color={"#000"}
+            style={styles.iconContent}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDescription(data)}>
           <Text style={styles.cardTitle}>{data.title}</Text>
-          <View style={styles.cardInfo}>
-            <View style={styles.containerInfo}>
-              <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
-              <Text style={styles.textInfo}>{data.time}</Text>
-            </View>
-            <View style={styles.containerInfo}>
+        </TouchableOpacity>
+        <View style={styles.cardInfo}>
+          <View style={styles.containerInfo}>
+            <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
+            <Text style={styles.textInfo}>{data.time}</Text>
+          </View>
+          <View style={styles.containerInfo}>
             <TouchableOpacity onPress={() => handleCalendar(data)}>
               <FontAwesome
                 name="calendar"
@@ -247,10 +314,9 @@ fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
                 style={styles.btnDelete}
               />
             </TouchableOpacity>
-            </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   });
 
@@ -474,12 +540,17 @@ console.log(prepTime)
       </View>
 
       <View style={styles.containerNumberRecipes}>
-        <Text style={styles.textNumberRecipes}>Selected recipes : </Text>
-        <Text style={styles.numberRecipe}>12</Text>
+        <Text style={styles.textNumberRecipes}>
+          Pick one and start cooking now!
+        </Text>
       </View>
-      <ScrollView>
-        <View style={styles.containerRecipes}>{Recipes}</View>
-      </ScrollView>
+      {noResult ? (
+        <Text>Sorry, no recipe corresponds to your search</Text>
+      ) : (
+        <ScrollView>
+          <View style={styles.containerRecipes}>{Recipes}</View>
+        </ScrollView>
+      )}
     </View>
   );
 }

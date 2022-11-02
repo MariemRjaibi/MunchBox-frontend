@@ -12,50 +12,20 @@ import {
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import Recettepage from "./Recettepage";
-
 export default function FavoritesScreen({ navigation }) {
   const favorites = useSelector((state) => state.favorites.value);
 
-  let listRecipes = <Text>Add recipes to your favorites</Text>;
-  if (listRecipes.length > 0) {
-    listRecipes = favorites.map((data, i) => {
-      return <Recettepage key={i} {...data} isFavorites />;
-    });
-  }
-
-  let listRecipe = [
-    {
-      id: 1,
-      image: require("../assets/plat-1.jpg"),
-      name: "Steak with Oriental vegeratien ",
-      time: "35 min",
-    },
-    {
-      id: 2,
-      image: require("../assets/plat-2.jpg"),
-      name: "Pizza with love",
-      time: "1h30",
-    },
-    {
-      id: 3,
-      image: require("../assets/plat-1.jpg"),
-      name: "Pate avec steak",
-      time: "65 min",
-    },
-  ];
-
-  const Recipes = listRecipe.map((data, i) => {
+  listRecipes = favorites.map((data, i) => {
     return (
       <View key={i} style={styles.cardRecipe}>
-        <Image style={styles.imageRecipe} source={data.image} />
+        <Image style={styles.imageRecipe} source={{ uri: data.image }} />
         <FontAwesome
           name="heart"
           size={20}
           color={"#000"}
           style={styles.iconContent}
         />
-        <Text style={styles.cardTitle}>{data.name}</Text>
+        <Text style={styles.cardTitle}>{data.title}</Text>
         <View style={styles.cardInfo}>
           <View style={styles.containerInfo}>
             <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
@@ -270,3 +240,24 @@ const styles = StyleSheet.create({
     color: "red",
   },
 });
+
+// let listRecipe = [
+//   {
+//     id: 1,
+//     image: require("../assets/plat-1.jpg"),
+//     name: "Steak with Oriental vegeratien ",
+//     time: "35 min",
+//   },
+//   {
+//     id: 2,
+//     image: require("../assets/plat-2.jpg"),
+//     name: "Pizza with love",
+//     time: "1h30",
+//   },
+//   {
+//     id: 3,
+//     image: require("../assets/plat-1.jpg"),
+//     name: "Pate avec steak",
+//     time: "65 min",
+//   },
+// ];
