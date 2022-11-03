@@ -20,7 +20,7 @@ export default function Homepage({ navigation }) {
   const dispatch = useDispatch();
   return (
     <ImageBackground
-      source={require("../assets/fondecran4.png")}
+      source={require("../assets/background-concept.jpg")}
       imageStyle={{ borderRadius: 20 }}
       style={styles.mainContainer}
     >
@@ -28,39 +28,51 @@ export default function Homepage({ navigation }) {
         colors={["transparent", "rgba(0,0,0,0.8)"]}
         style={styles.containDescription}
       >
-        <Text style={styles.title}>Need inspiration</Text>
-        <Text style={styles.tagline}>Trouver une recette ? </Text>
-        
-        <View>
-        <Text style={styles.textChoice}>
-          Avec les ingredients de votre placart
-        </Text>
+        <View style={styles.containerOption}>
+          <Text style={styles.title}>
+            You lack inspiration? {"\n"}Find a recipe and get your shopping list
+          </Text>
 
-        <View style={styles.containerButton}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(removeIsFiltered());
-              navigation.navigate("TabNavigator");
-            }}
-            style={styles.button}
-            activeOpacity={0.8}
-          >
-            <Text>Ok, great!</Text>
-          </TouchableOpacity>
-        </View>
-        
-        </View>
+          <View style={styles.containerButton}>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(removeIsFiltered());
+                  navigation.navigate("TabNavigator");
+                }}
+                style={styles.button}
+                activeOpacity={0.8}
+              >
+                <Text>Oh, yes!</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
-        {/* <TouchableOpacity
-              onPress={() => {
-                dispatch(updateIsFiltered());
-                navigation.navigate("Placard");
-              }}
-              style={styles.button}
-              activeOpacity={0.8}
-            >
-              <Text>Ok, great!</Text>
-            </TouchableOpacity> */}
+          
+
+          
+
+            <View style={styles.containerOption}>
+              <Text style={styles.title}>
+                Find recipes based on ingredients that you have on hand
+              </Text>
+              <View style={styles.containerButton}>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(removeIsFiltered());
+                  navigation.navigate("Placard");
+                }}
+                style={styles.button}
+                activeOpacity={0.8}
+              >
+              
+                <Text>Ok, great!</Text>
+              </TouchableOpacity>
+              </View>
+            </View>
+          
+      
+
+        
       </LinearGradient>
     </ImageBackground>
   );
@@ -70,14 +82,24 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingTop: 50,
-    //paddingHorizontal: 20,
-    //justifyContent: "space-between",
-    //alignItems: "center",
+  },
+  containDescription: {
+    flex: 1,
+    paddingHorizontal: 20,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  containerOption:{
+      backgroundColor:"rgba(0,0,0, 0.6)",
+      borderRadius:20,
+      padding:30,
   },
   title: {
     color: "#ffffff",
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 20,
+    textAlign:"center",
+    paddingBottom:15,
   },
   tagline: {
     color: "#ABAEB1",
@@ -94,10 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     //padding: 20,
     //paddingBottom:50,
-  },
-  containDescription: {
-    flex: 1,
-    paddingHorizontal: 20,
   },
   textChoice: {
     color: "#ffffff",

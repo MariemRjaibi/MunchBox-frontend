@@ -200,13 +200,13 @@ export default function Recettepage({ navigation }) {
     // console.log(data);
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
-          data.summary[data.summary.indexOf("calories") - 3] +
+        data.summary[data.summary.indexOf("calories") - 3] +
           data.summary[data.summary.indexOf("calories") - 2] +
           data.summary[data.summary.indexOf("calories") - 1]
       );
     } else {
       setCalories(
-          data.summary[data.summary.indexOf("calories") - 4] +
+        data.summary[data.summary.indexOf("calories") - 4] +
           data.summary[data.summary.indexOf("calories") - 3] +
           data.summary[data.summary.indexOf("calories") - 2] +
           data.summary[data.summary.indexOf("calories") - 1]
@@ -275,24 +275,24 @@ export default function Recettepage({ navigation }) {
         data.summary[data.summary.indexOf("calories") - 1];
     }
 
-const requestOptions = {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    title: data.title,
-    image: data.image,
-    ingredients: calendarIngredients,
-    steps: calendarSteps,
-    calories: calendarCalories,
-    prepTime: data.readyInMinutes,
-    token: user,
-  }),
-};
-fetch("http://192.168.10.124:3000/calendarRecipes/", requestOptions)
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data.result);
-  });
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: data.title,
+        image: data.image,
+        ingredients: calendarIngredients,
+        steps: calendarSteps,
+        calories: calendarCalories,
+        prepTime: data.readyInMinutes,
+        token: user,
+      }),
+    };
+    fetch("http://192.168.10.124:3000/calendarRecipes/", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      });
   }
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
@@ -365,7 +365,6 @@ fetch("http://192.168.10.124:3000/calendarRecipes/", requestOptions)
 
   // ======  MODAL RECIPE ====== //
   return (
-  
     <View style={styles.container}>
       <Modal
         visible={modalVisible}
@@ -571,7 +570,8 @@ fetch("http://192.168.10.124:3000/calendarRecipes/", requestOptions)
         <ScrollView
           contentContainerStyle={styles.contentScroll}
           horizontal={true}
-          showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
           <View style={styles.menu}>
             <TouchableOpacity
@@ -628,10 +628,8 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: "#83C5BC",
     fontWeight: "bold",
-    fontSize: 50,
-    
-    
-      },
+    fontSize: 30,
+  },
   tagline: {
     color: "#ABAEB1",
     fontSize: 16,
@@ -678,9 +676,9 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingHorizontal: 8,
     marginRight: 10,
-    borderRadius:100,
-   // borderBottomLeftRadius: 30,
-   // borderBottomRightRadius: 30,
+    borderRadius: 100,
+    // borderBottomLeftRadius: 30,
+    // borderBottomRightRadius: 30,
     //borderTopRightRadius: 30,
     //borderTopLeftRadius: 30,
   },
@@ -762,10 +760,10 @@ const styles = StyleSheet.create({
     top: 40,
     right: 40,
     color: "white",
-    backgroundColor:"rgba(0,0,0, 0.3)",
+    backgroundColor: "rgba(0,0,0, 0.3)",
     padding: 7,
     paddingHorizontal: 10,
-    borderRadius:100,
+    borderRadius: 100,
   },
   heart: {
     position: "absolute",
@@ -858,7 +856,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   ingredientsarray: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     paddingBottom: 10,
     paddingTop: 10,
     marginRight: 70,
