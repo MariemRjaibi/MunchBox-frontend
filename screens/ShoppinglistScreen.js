@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 
  
 
-export default function ShoppinglistScreen() {
+export default function ShoppinglistScreen({navigation}) {
 
   // ======= Bouton retour  =======//
 const goBack = () => {
@@ -35,7 +35,7 @@ const goBack = () => {
 
   let tmp = [];
   useEffect(() => {
-    fetch(`http://192.168.10.183:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.124:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         for (let element of data.recipes) {
@@ -49,6 +49,9 @@ const goBack = () => {
       });
   }, []);
   //console.log(optionsData);
+
+
+  
   // ======= Liste des courses entrées manuellement par l'utilisateur ======= //
   const [shopping, setShopping] = useState("");
   const [shoppingList, setShoppingList] = useState([]);
@@ -60,40 +63,76 @@ const goBack = () => {
     setShopping("");
   };
 
+  const [isCheckedUserList, setCheckedUserList] = useState(false);
+
+  const checkBoxNewclick = (data) => {
+    
+    if(checkedList.includes(data) ){
+      setShoppingList(current => !current.data)
+    }
+    
+    console.log("New ingredient selectioné:", data)
+  }
+ 
+
   // Ajouter des aliments à la liste
   const listCoursesUser = shoppingList.map((data, i) => {
-    // ===== CONFLIT AVEC L'AUTRE CHECKBOX
-    //const [isCheckedUserList, setCheckedUserList] = useState(false);
-    // value={isCheckedUserList}  onValueChange={ () => setCheckedUserList(current => !current)} color={isCheckedUserList ? "#92C3BC" : undefined}
-    // console.log("========", data);
+    
+
+    let isCheckedUserList = shoppingList.some((e) => {
+      //console.log('debug',data.name,e);
+      return e !== data;
+    })
+
     return (
       <View key={i} style={styles.section}>
-        <Checkbox style={styles.checkbox} />
+        <Checkbox 
+        style={styles.checkbox}  
+        value={isCheckedUserList}
+         onValueChange={() => checkBoxNewclick(data)}
+         color={isCheckedUserList ? "#92C3BC" : undefined}
+        />
         <Text style={styles.textOption}>{data}</Text>
       </View>
     );
   });
 
   // ======= Pour récupérer les données des ingrédients directement via les recettes ======= //
-  const [isChecked, setChecked] = useState(false);
+  const [checkedList, setCheckedList] = useState([]);
 
-  const checkboxClick = (e) => {
-    console.log(e);
-    setChecked((current) => !current);
-    //console.log("coucou");
+
+// Check les aliments achetés
+  const checkboxClick = (data) => {
+    if (checkedList.includes(data)) {
+      // Filter si le nom existe déja dans le tableau
+      setCheckedList(checkedList.filter((e) => e !== data));
+    } else {
+      // push
+      setCheckedList([...checkedList, data]); 
+    }
+    console.log("Ingredient selectionné:", data);
   };
-  console.log(isChecked);
+
+
   const option = optionsData.map((data, i) => {
+  
+    // Check si c'est dans le tableau
+    let isChecked = checkedList.some((e) => {
+      //console.log('debug',data.name,e);
+      return e === data;
+    })
+
     return (
       <View key={i} style={styles.section}>
-        <Checkbox
+       <Checkbox
           style={styles.checkbox}
           value={isChecked}
           onValueChange={() => checkboxClick(data)}
           color={isChecked ? "#92C3BC" : undefined}
-        />
+        /> 
+        
         <View style={styles.containeDescriptionOption}>
-          <Text style={styles.textOption}>{data}</Text>
+          <Text style={styles.textOption} value={isChecked} >{data}</Text>
         </View>
       </View>
     );
@@ -203,6 +242,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   checkbox: {
+    borderColor:"#92C3BC",
     margin: 8,
     width: 20,
     height: 20,

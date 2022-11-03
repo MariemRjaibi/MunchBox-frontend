@@ -94,10 +94,10 @@ export default function Recettepage({ navigation }) {
     let apiKey = "";
     //select which api key choose
     if (isFiltered) {
-      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=${newIngApi}`;
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=138de8a9dfa441a78a7f487e72211ff8&number=40&tags=${newIngApi}`;
     } else {
       apiKey =
-        "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40";
+        "https://api.spoonacular.com/recipes/random?apiKey=138de8a9dfa441a78a7f487e72211ff8&number=40";
     }
     // console.log(apiKey);
     fetch(apiKey)
@@ -117,7 +117,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=138de8a9dfa441a78a7f487e72211ff8&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -128,7 +128,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=138de8a9dfa441a78a7f487e72211ff8&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -139,7 +139,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=138de8a9dfa441a78a7f487e72211ff8&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -187,7 +187,7 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.183:3000/calendarRecipes", requestOptions)
+    fetch("http://192.168.10.124:3000/calendarRecipes", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -296,7 +296,7 @@ const requestOptions = {
     token: user,
   }),
 };
-fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
+fetch("http://192.168.10.124:3000/calendarRecipes/", requestOptions)
   .then((response) => response.json())
   .then((data) => {
     console.log(data.result);
@@ -563,6 +563,7 @@ console.log(prepTime)
         <ScrollView
           contentContainerStyle={styles.contentScroll}
           horizontal={true}
+          showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}
         >
           <View style={styles.menu}>
             <TouchableOpacity
@@ -587,11 +588,11 @@ console.log(prepTime)
         </ScrollView>
       </View>
 
-      <View style={styles.containerNumberRecipes}>
+      {/* <View style={styles.containerNumberRecipes}>
         <Text style={styles.textNumberRecipes}>
           Pick one and start cooking now!
         </Text>
-      </View>
+      </View> */}
       {noResult ? (
         <Text>Sorry, no recipe corresponds to your search</Text>
       ) : (
@@ -667,12 +668,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFD87D",
     padding: 5,
     paddingHorizontal: 8,
-    borderRadius: 'width * 0.125*0.5',
     marginRight: 10,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
+    borderRadius:100,
+   // borderBottomLeftRadius: 30,
+   // borderBottomRightRadius: 30,
+    //borderTopRightRadius: 30,
+    //borderTopLeftRadius: 30,
   },
   contentScroll: {
     //height: 25,

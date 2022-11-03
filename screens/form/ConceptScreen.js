@@ -57,8 +57,8 @@ export default function ConceptScreen({ navigation }) {
           </Text>
           <Text style={styles.text}>
           Get free access to Munchbox’s library
-          of over 100, 000 recipes !  </Text>
-          <Text style={styles.text}>Batch-cooking has never been easier
+          of over 100, 000 recipes !
+          Batch-cooking has never been easier
           with our  monthly meal planner!
           </Text>
           <TouchableOpacity activeOpacity={0.8} onPress={nextClick}>

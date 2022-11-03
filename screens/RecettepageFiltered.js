@@ -575,7 +575,7 @@ const styles = StyleSheet.create({
   //    backgroundColor: "white",
   //    alignItems: "center",
   // },
-  modalContainer: { flex: 1, width: "100%", backgroundColor: "#FFF4CF" },
+  //modalContainer: { flex: 1, width: "100%", backgroundColor: "#FFF4CF" },
   scrollview: {
     flex: 1,
 

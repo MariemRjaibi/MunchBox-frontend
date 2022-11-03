@@ -45,7 +45,7 @@ export default function BatchCalendar({ navigation }) {
 
   // ==== Récuperer les recettes en base de donnée ajouter par l'utilisateur ==== //
   useEffect(() => {
-    fetch(`http://192.168.10.180:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.124:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         setCalendarRecipesToDisplay(data.recipes);
@@ -79,7 +79,7 @@ export default function BatchCalendar({ navigation }) {
 // Supprimer une recette du batch
 function deleteRecipe(data) {
   console.log("Je supprime :", data._id)
-  fetch(`http://192.168.10.180:3000/calendarRecipes/${data._id}`, {
+  fetch(`http://192.168.10.1243000/calendarRecipes/${data._id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ recipes: data._id }),
@@ -163,32 +163,26 @@ function deleteRecipe(data) {
       />
       <Text style={styles.title}>Recipe list for the week</Text>
      
-      <View style={styles.containerInfo}>
-      {/* <Text style={styles.dateBacth}>10 -17 septembre</Text> */}
 
        <View style={styles.containerInfo}>
         <View style={styles.infoBacth}>
-          <FontAwesome
+        <Image style={styles.iconCooktime} source={require("../assets/icon/cooking-time.png")}/>
+          {/* <FontAwesome
             name="clock-o"
             size={20}
             color={"#92C3BC"}
             style={styles.iconInfoBatch}
-          />
+          /> */}
           <Text style={styles.titleInfoBacth}>Total duration : </Text>
           <Text style={styles.dataInfoBacth}>2h30</Text>
         </View>
         <View style={styles.infoBacth}>
-          <FontAwesome
-            name="clock-o"
-            size={20}
-            color={"#92C3BC"}
-            style={styles.iconInfoBatch}
-          />
+        <Image style={styles.iconChef} source={require("../assets/icon/chef.png")}/>
           <Text style={styles.titleInfoBacth}>Number of recipes : </Text>
           <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
         </View>
       </View>
-      </View> 
+     
 
       <ScrollView contentContainerStyle={styles.containerRecipes}>
         {/* <Text style={styles.subTitle}>Lundi</Text> */}
@@ -232,6 +226,18 @@ const styles = StyleSheet.create({
   },
   iconInfoBatch: {
     paddingRight: 5,
+  },
+  iconCooktime:{
+    paddingRight: 10,
+    width:22,
+    height:22,
+  },
+  iconChef:{
+    width:20,
+    height:20,
+  },
+  titleInfoBacth:{
+    paddingLeft: 4,
   },
   dataInfoBacth: {
     color: "#92C3BC",
