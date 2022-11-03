@@ -112,7 +112,10 @@ const TabNavigator = () => {
 
 export default function App({navigation}) {
   // const [fontsLoaded] = useFonts({
-  //   Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
+  //   Grandhotel: require("./assets/fonts/Hotel.ttf"),
+  //   Spirax: require("./assets/fonts/Spirax.ttf"),
+  //   Pacifico: require("./assets/fonts/Pacifico.ttf"),
+
   // });
   // //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
   // useEffect(() => {
@@ -138,13 +141,13 @@ export default function App({navigation}) {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Homepage" component={Homepage} />
-            <Stack.Screen name="Recettepage" component={Recettepage} />
-            <Stack.Screen name="SignupScreen" component={SignupScreen} />
-            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
             <Stack.Screen name="FormScreen" component={FormScreen} />
+            <Stack.Screen name="SignupScreen" component={SignupScreen} />
+            <Stack.Screen name="Homepage" component={Homepage} />
+            <Stack.Screen name="Recettepage" component={Recettepage} />
+            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="SigninScreen" component={SigninScreen}/>
             <Stack.Screen name="Placard" component={Placard} />

@@ -20,7 +20,11 @@ export default function Homepage({ navigation }) {
   const dispatch = useDispatch();
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.upContainer}>
+      {/* <View style={styles.upContainer} > */}
+      <ImageBackground
+          style={styles.imageFond}
+          source={require("../assets/fondecran2.png")}
+        >
         <Text>You lack inspiration?</Text>
         <Text>Find a recipe and get your shopping list</Text>
         <Image
@@ -37,7 +41,8 @@ export default function Homepage({ navigation }) {
         >
           <Text>Ok, great!</Text>
         </TouchableOpacity>
-      </View>
+        </ImageBackground>
+      {/* </View> */}
       <View style={styles.bottomContainer}>
         <Text>Find recipes based on ingredients that you have on hand</Text>
         <Image
@@ -89,6 +94,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  imageFond:{
+    width:"100%",
+    height:"80%"
+  },
   upContainer: {
     width: "100%",
     flex: 1,
@@ -99,17 +108,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "10%",
     borderRadius: 15,
-    // borderColor: "#F9D77E",
-    // borderWidth: 2,
     marginTop: "10%",
     shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 3,
-    // },
-    // shadowOpacity: 0.0,
-    // shadowRadius: 4.84,
-    // elevation: 5,
+ 
   },
   bottomContainer: {
     width: "100%",

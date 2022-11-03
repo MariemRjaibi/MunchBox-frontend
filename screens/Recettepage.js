@@ -117,7 +117,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -128,7 +128,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -139,7 +139,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -203,13 +203,13 @@ export default function Recettepage({ navigation }) {
     // console.log(data);
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
-        data.summary[data.summary.indexOf("calories") - 3] +
+          data.summary[data.summary.indexOf("calories") - 3] +
           data.summary[data.summary.indexOf("calories") - 2] +
           data.summary[data.summary.indexOf("calories") - 1]
       );
     } else {
       setCalories(
-        data.summary[data.summary.indexOf("calories") - 4] +
+          data.summary[data.summary.indexOf("calories") - 4] +
           data.summary[data.summary.indexOf("calories") - 3] +
           data.summary[data.summary.indexOf("calories") - 2] +
           data.summary[data.summary.indexOf("calories") - 1]
@@ -535,7 +535,7 @@ console.log(prepTime)
       <View style={styles.containerHeader}> 
         <View>
           <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn} onPress={goBack}/>
-          <Text style={styles.welcomeText}>Hello Phifi</Text>
+          <Text style={styles.welcomeText}>Hello {user.username}</Text>
           <Text style={styles.tagline}>What you want to cook today ? </Text>
         </View>
 
@@ -620,8 +620,10 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: "#83C5BC",
     fontWeight: "bold",
-    fontSize: 30,
-  },
+    fontSize: 50,
+    
+    
+      },
   tagline: {
     color: "#ABAEB1",
     fontSize: 16,

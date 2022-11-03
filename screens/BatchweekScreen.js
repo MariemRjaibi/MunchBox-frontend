@@ -16,7 +16,7 @@ export default function BatchweekScreen() {
   const [calendarRecipesToDisplay, setCalendarRecipesToDisplay] = useState([]);
 
   useEffect(() => {
-    fetch(`http://192.168.10.158:3000/calendarRecipes`)
+    fetch(`http://192.168.10.183:3000/calendarRecipes`)
       .then((response) => response.json())
       .then((data) => {
         // console.log(data.places);

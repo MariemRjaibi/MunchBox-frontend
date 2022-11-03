@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   Image,
   Button,
-  TimePickerAndroid,
+  
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
 
 import Calendar from "../reducers/Calendar";
 import { removeAllBatch, uncalendar } from "../reducers/Calendar";
@@ -18,12 +19,14 @@ import { removeAllBatch, uncalendar } from "../reducers/Calendar";
 // Exetension Date
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { faGrinAlt } from "@fortawesome/free-solid-svg-icons";
 //import DateTimePicker from "@react-native-community/datetimepicker";
 //import font from "expo-font";
 
 
 export default function BatchCalendar({ navigation }) {
 
+  
   const dispatch = useDispatch();
 
   //const calendars = useSelector((state) => state.calendars.value);
@@ -45,7 +48,7 @@ export default function BatchCalendar({ navigation }) {
 
   // ==== Récuperer les recettes en base de donnée ajouter par l'utilisateur ==== //
   useEffect(() => {
-    fetch(`http://192.168.10.180:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.183:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         setCalendarRecipesToDisplay(data.recipes);
@@ -79,7 +82,7 @@ export default function BatchCalendar({ navigation }) {
 // Supprimer une recette du batch
 function deleteRecipe(data) {
   console.log("Je supprime :", data._id)
-  fetch(`http://192.168.10.180:3000/calendarRecipes/${data._id}`, {
+  fetch(`http://192.168.10.183:3000/calendarRecipes/${data._id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ recipes: data._id }),
@@ -152,6 +155,8 @@ function deleteRecipe(data) {
     );
   });
 
+ 
+
   return (
     <View style={styles.container}>
       <FontAwesome
@@ -164,7 +169,7 @@ function deleteRecipe(data) {
       <Text style={styles.title}>Recipe list for the week</Text>
      
       <View style={styles.containerInfo}>
-      {/* <Text style={styles.dateBacth}>10 -17 septembre</Text> */}
+      
 
        <View style={styles.containerInfo}>
         <View style={styles.infoBacth}>
@@ -213,10 +218,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
+    fontSize: 50,
     color: "#92C3BC",
     textAlign: "center",
+    fontFamily:"Grandhotel",
   },
   dateBacth: {
     textAlign: "center",
@@ -303,6 +308,10 @@ const styles = StyleSheet.create({
   },
   containTime:{
     flexDirection:"row",
+  },
+  calendrier: {
+    backgroundColor: "#774400"
+   
   },
 
 });
