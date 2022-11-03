@@ -28,7 +28,7 @@ export default function SigninScreen({ navigation }) {
      //function that directs registered users to sign in page 
   const handleConnection = () => {
     //console.log("clicked")
-    fetch("http://192.168.10.174:3000/users/signin", {
+    fetch("http://192.168.10.159:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -98,7 +98,7 @@ export default function SigninScreen({ navigation }) {
                     <Text style={styles.register}>Let's Cook!</Text>
                   </TouchableOpacity>
         
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View
                       style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
                     />
@@ -112,7 +112,8 @@ export default function SigninScreen({ navigation }) {
                     <View
                       style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
                     />
-                  </View>
+                  </View> */}
+
                   </LinearGradient>
                 </KeyboardAvoidingView> 
               </TouchableWithoutFeedback>

@@ -29,7 +29,7 @@ export default function SignupScreen({ navigation }) {
   //console.log(token);
   //function that directs new users to signup page
   const handleRegister = () => {
-    fetch("http://192.168.10.180:3000/users/signup", {
+    fetch("http://192.168.10.159:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -57,7 +57,7 @@ export default function SignupScreen({ navigation }) {
 
   //function that directs registered users to sign in page 
   const handleConnection = () => {
-    fetch("http://192.168.10.180:3000/users/signin", {
+    fetch("http://192.168.10.159:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -160,8 +160,11 @@ if (reg.test(value)) {
                   >
                 <Text
                   style={{ width: 150, textAlign: "center", color: "white" }}>
-                  Already registered? Sign In Here
+                  Already registered? 
                 </Text>
+                <Text style={{ width: 150, textAlign: "center", color: "white" }}>
+                  Sign In Here
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View
@@ -222,7 +225,7 @@ if (reg.test(value)) {
               <Text style={styles.register}>Let's Cook!</Text>
             </TouchableOpacity>
 
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
               <View
                 style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
               />
@@ -236,7 +239,7 @@ if (reg.test(value)) {
               <View
                 style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
               />
-            </View>
+            </View> */}
             </LinearGradient>
           </KeyboardAvoidingView> 
         </TouchableWithoutFeedback>

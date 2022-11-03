@@ -138,19 +138,20 @@ export default function App({navigation}) {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Homepage" component={Homepage} />
-            <Stack.Screen name="Recettepage" component={Recettepage} />
+          <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
+          <Stack.Screen name="FormScreen" component={FormScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
-            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
-            <Stack.Screen name="FormScreen" component={FormScreen} />
-            <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="SigninScreen" component={SigninScreen}/>
+            <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Placard" component={Placard} />
+            <Stack.Screen name="Recettepage" component={Recettepage} />
+        
+            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
+            <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
             <Stack.Screen  name="ShoppinglistScreen" component={ShoppinglistScreen}/>
-            <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} />
+            {/* <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} /> */}
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
