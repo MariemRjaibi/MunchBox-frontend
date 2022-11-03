@@ -64,23 +64,26 @@ export default function ShoppinglistScreen() {
   });
 
   // ======= Pour récupérer les données des ingrédients directement via les recettes ======= //
-  const [isChecked, setChecked] = useState(false);
+  // const [isChecked, setChecked] = useState(false);
 
-  const checkboxClick = (e) => {
-    console.log(e);
-    setChecked((current) => !current);
-    //console.log("coucou");
-  };
-  console.log(isChecked);
+  // const checkboxClick = (e) => {
+  //   console.log(e);
+  //   setChecked((current) => !current);
+  //   //console.log("coucou");
+  // };
+  // console.log(isChecked);
   const option = optionsData.map((data, i) => {
+    // let newArray = [];
+    // newArray.push({ ingredient: data, checked: false });
+    // console.log(newArray);
     return (
       <View key={i} style={styles.section}>
-        <Checkbox
+        {/* <Checkbox
           style={styles.checkbox}
           value={isChecked}
           onValueChange={() => checkboxClick(data)}
           color={isChecked ? "#92C3BC" : undefined}
-        />
+        /> */}
         <View style={styles.containeDescriptionOption}>
           <Text style={styles.textOption}>{data}</Text>
         </View>
