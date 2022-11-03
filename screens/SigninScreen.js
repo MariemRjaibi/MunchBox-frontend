@@ -28,7 +28,7 @@ export default function SigninScreen({ navigation }) {
      //function that directs registered users to sign in page 
   const handleConnection = () => {
     //console.log("clicked")
-    fetch("http://192.168.10.124:3000/users/signin", {
+    fetch("http://192.168.10.183:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -68,7 +68,7 @@ export default function SigninScreen({ navigation }) {
               style={styles.container}
             >
                   <Image
-                    source={require("../assets/Munchbox-logo.jpg")}
+                    source={require("../assets/logo2blanc.png")}
                     style={styles.logo}
                   />
                   <Text style={styles.title}>Join us today!</Text>

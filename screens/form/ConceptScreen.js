@@ -17,24 +17,21 @@ import Homepage from "../Homepage";
 import { login } from "../../reducers/users";
 
 export default function ConceptScreen({ navigation }) {
-
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.users.value.token);
 
-  
   const nextClick = () => {
-
-    if(!token){
-      navigation.navigate(FormScreen)
-    }else{
-      navigation.navigate(Homepage)
+    if (!token) {
+      navigation.navigate(FormScreen);
+    } else {
+      navigation.navigate(Homepage);
     }
-   }
+  };
 
-   //Si il ya un token on passe directement à la home 
-   if(token){
-    navigation.navigate(Homepage)
+  //Si il ya un token on passe directement à la home
+  if (token) {
+    navigation.navigate(Homepage);
   }
 
   return (
@@ -47,7 +44,7 @@ export default function ConceptScreen({ navigation }) {
         style={styles.container}
       >
         <Image
-          source={require("../../assets/Munchbox-logo.jpg")}
+          source={require("../../assets/logo2blanc.png")}
           style={styles.logo}
         />
 
@@ -56,10 +53,10 @@ export default function ConceptScreen({ navigation }) {
             No time to search for your next meal idea?
           </Text>
           <Text style={styles.text}>
-          Get free access to Munchbox’s library
-          of over 100, 000 recipes !
-          Batch-cooking has never been easier
-          with our  monthly meal planner!
+            Get free access to Munchbox’s library of over {"\n"}100, 000 recipes !{" "}
+          
+            {"\n"}
+            {"\n"}Batch-cooking has never been easier with our monthly meal planner!
           </Text>
           <TouchableOpacity activeOpacity={0.8} onPress={nextClick}>
             <FontAwesome
@@ -86,13 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingHorizontal: 20,
   },
-  logo: {
-    color: "#ffffff",
-    fontSize: 30,
-    backgroundColor: "#92C3BC",
-    padding: 50,
-    borderRadius: 100,
-  },
+
   title: {
     color: "#ffffff",
     fontSize: 25,
@@ -109,9 +100,7 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: "50%",
+    width: "80%",
     height: "20%",
-    borderRadius: 50,
-    opacity: 0.9,
   },
 });

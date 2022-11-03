@@ -111,7 +111,10 @@ const TabNavigator = () => {
 
 export default function App({ navigation }) {
   // const [fontsLoaded] = useFonts({
-  //   Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
+  //   Grandhotel: require("./assets/fonts/Hotel.ttf"),
+  //   Spirax: require("./assets/fonts/Spirax.ttf"),
+  //   Pacifico: require("./assets/fonts/Pacifico.ttf"),
+
   // });
   // //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
   // useEffect(() => {

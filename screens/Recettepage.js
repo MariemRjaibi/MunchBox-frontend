@@ -200,13 +200,13 @@ export default function Recettepage({ navigation }) {
     // console.log(data);
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
-        data.summary[data.summary.indexOf("calories") - 3] +
+          data.summary[data.summary.indexOf("calories") - 3] +
           data.summary[data.summary.indexOf("calories") - 2] +
           data.summary[data.summary.indexOf("calories") - 1]
       );
     } else {
       setCalories(
-        data.summary[data.summary.indexOf("calories") - 4] +
+          data.summary[data.summary.indexOf("calories") - 4] +
           data.summary[data.summary.indexOf("calories") - 3] +
           data.summary[data.summary.indexOf("calories") - 2] +
           data.summary[data.summary.indexOf("calories") - 1]
@@ -628,8 +628,10 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: "#83C5BC",
     fontWeight: "bold",
-    fontSize: 30,
-  },
+    fontSize: 50,
+    
+    
+      },
   tagline: {
     color: "#ABAEB1",
     fontSize: 16,
