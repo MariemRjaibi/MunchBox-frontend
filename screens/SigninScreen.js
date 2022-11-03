@@ -28,7 +28,7 @@ export default function SigninScreen({ navigation }) {
      //function that directs registered users to sign in page 
   const handleConnection = () => {
     //console.log("clicked")
-    fetch("http://192.168.10.183:3000/users/signin", {
+    fetch("http://192.168.10.124:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -110,21 +110,21 @@ export default function SigninScreen({ navigation }) {
 const styles = StyleSheet.create({
     background: {
       flex: 1,
-      alignItems: "center",
+      //alignItems: "center",
     },
     container: {
       flex: 1,
       marginTop: 50,
       width: "100%",
-      height: "80%",
-      justifyContent: "center",
+      //height: "80%",
+      //justifyContent: "center",
       alignItems: "center",
     },
     logo: {
-      width: "50%",
-      height: "25%",
-      borderRadius: 50,
-      opacity: 0.9,
+      width: 200,
+      height: "17%",
+      marginBottom: 30,
+      backgroundColor: "rgba(0,0,0, 0.5)",
     },
     title: {
       color: "white",

@@ -76,7 +76,7 @@ export default function BatchCalendar({ navigation }) {
 
   // Supprimer une recette du batch
   function deleteRecipe(data) {
-    fetch(`http://192.168.10.178:3000/calendarRecipes/${data._id}`, {
+    fetch(`http://192.168.10.124:3000/calendarRecipes/${data._id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recipeId: data._id }),

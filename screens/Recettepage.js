@@ -184,7 +184,7 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.178:3000/calendarRecipes", requestOptions)
+    fetch("http://192.168.10.124:3000/calendarRecipes", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
