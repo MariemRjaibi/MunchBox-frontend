@@ -19,6 +19,7 @@ import placardIngredients from "./reducers/placardIngredients";
 import favorites from "./reducers/favorites";
 import choosePaths from "./reducers/choosePaths";
 import Calendar from "./reducers/Calendar";
+import dates from "./reducers/dates";
 
 //Import de font
 import { useFonts } from "expo-font";
@@ -108,9 +109,7 @@ const TabNavigator = () => {
   );
 };
 
-
-
-export default function App({navigation}) {
+export default function App({ navigation }) {
   // const [fontsLoaded] = useFonts({
   //   Grandhotel: require("./assets/fonts/GrandHotel.ttf"),
   // });
@@ -132,26 +131,26 @@ export default function App({navigation}) {
   //   return null;
   // }
 
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
-          <Stack.Screen name="FormScreen" component={FormScreen} />
+            <Stack.Screen name="ConceptScreen" component={ConceptScreen} />
+            <Stack.Screen name="FormScreen" component={FormScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
-            <Stack.Screen name="SigninScreen" component={SigninScreen}/>
+            <Stack.Screen name="SigninScreen" component={SigninScreen} />
             <Stack.Screen name="Homepage" component={Homepage} />
-            <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="Recettepage" component={Recettepage} />
-        
-            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
+            <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="Filter" component={Filter} />
-            <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
-            <Stack.Screen  name="ShoppinglistScreen" component={ShoppinglistScreen}/>
-            {/* <Stack.Screen name="BatchweekScreen" component={BatchweekScreen} /> */}
+            <Stack.Screen name="batchCalendar" component={BatchCalendar} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
+            <Stack.Screen
+              name="ShoppinglistScreen"
+              component={ShoppinglistScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
