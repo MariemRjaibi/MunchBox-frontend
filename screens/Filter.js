@@ -120,7 +120,7 @@ export default function Filter({ navigation }) {
     setPescto((current) => !current);
   }
   function handleValidation() {
-    navigation.navigate("Recettepage");
+    navigation.navigate("TabNavigator");
     dispatch(updatePescto(pescto));
     dispatch(updateOmnivore(omnivore));
     dispatch(updateVegan(vegan));

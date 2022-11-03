@@ -16,6 +16,7 @@ import {
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
+import BatchCalendar from "./BatchCalendar";
 
 
  
@@ -23,10 +24,9 @@ import { useSelector } from "react-redux";
 export default function ShoppinglistScreen({navigation}) {
 
   // ======= Bouton retour  =======//
-const goBack = () => {
-  navigation.goBack();
-}
-
+  const goBack = () => {
+    navigation.goBack();
+  };
 
   const token = useSelector((state) => state.users.value.token);
   const [optionsData, setOptionsData] = useState([]);
@@ -139,11 +139,22 @@ const goBack = () => {
   });
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} >
-      <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn} onPress={goBack}/>
-
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <View style={styles.containerHead}>
-        <Text style={styles.title}>Shopping list</Text>
+        <View style={styles.backTitle}>
+          <FontAwesome
+            name="chevron-left"
+            size={20}
+            color={"#92C3BC"}
+            style={styles.buttonReturn}
+            onPress={goBack}
+          />
+          <Text style={styles.title}>Shopping list</Text>
+        </View>
+
         <Text style={styles.subTitle}>What to buy for your next batch?</Text>
       </View>
       <View style={styles.containerInput}>
@@ -182,8 +193,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    paddingTop:30,
-    paddingHorizontal:20,
+    paddingTop: 30,
+    paddingHorizontal: 20,
     backgroundColor: "#FBFBFB",
     //justifyContent: "space-between",
     //   width: Dimensions.get('window') .width,
@@ -192,6 +203,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
+    marginLeft: "5%",
     fontSize: 30,
     fontWeight: "bold",
     color: "#92C3BC",
@@ -258,4 +270,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   textQuantity: {},
+  backTitle: {
+    marginTop: "10%",
+    flexDirection: "row",
+  },
+  buttonReturn: {
+    marginTop: "4%",
+  },
 });

@@ -160,8 +160,11 @@ if (reg.test(value)) {
                   >
                 <Text
                   style={{ width: 150, textAlign: "center", color: "white" }}>
-                  Already registered? Sign In Here
+                  Already registered? 
                 </Text>
+                <Text style={{ width: 150, textAlign: "center", color: "white" }}>
+                  Sign In Here
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View
@@ -222,21 +225,7 @@ if (reg.test(value)) {
               <Text style={styles.register}>Let's Cook!</Text>
             </TouchableOpacity>
 
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View
-                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
-              />
-              <View>
-                <Text
-                  style={{ width: 150, textAlign: "center", color: "white" }}
-                >
-                  or sign up with
-                </Text>
-              </View>
-              <View
-                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
-              />
-            </View>
+    
             </LinearGradient>
           </KeyboardAvoidingView> 
         </TouchableWithoutFeedback>
@@ -315,3 +304,4 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 });
+

@@ -72,7 +72,7 @@ export default function FavoritesScreen({ navigation }) {
     });
   }
 
-
+   
   return (
     <View style={styles.container}>
       <View style={styles.containerheader}>

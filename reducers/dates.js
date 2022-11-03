@@ -1,21 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: [],
 };
 
 export const datesSlice = createSlice({
-  name: "calendars",
+  name: "dates",
   initialState,
   reducers: {
-    calendar: (state, action) => {
-      state.value.push(action.payload);
+    addDate: (state, action) => {
+      state.value = action.payload;
     },
-    uncalendar: (state, action) => {
-      state.value = state.value.filter(e => e.id !== action.payload);
-    },
-   },
+  },
 });
 
-export const { calendar, uncalendar } = calendarsSlice.actions;
-export default calendarsSlice.reducer;
+export const { addDate } = datesSlice.actions;
+export default datesSlice.reducer;
