@@ -13,23 +13,22 @@ import { useSelector, useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import Calendar from "../reducers/Calendar";
-import { removeAllBatch, uncalendar } from "../reducers/Calendar";
-
+import { addCalendar, removeCalendar } from "../reducers/Calendar";
+import { addDate } from "../reducers/dates";
+import ShoppinglistScreen from "./ShoppinglistScreen";
 // Exetension Date
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 //import DateTimePicker from "@react-native-community/datetimepicker";
 //import font from "expo-font";
 
-
 export default function BatchCalendar({ navigation }) {
-
   const dispatch = useDispatch();
 
   //const calendars = useSelector((state) => state.calendars.value);
- const users = useSelector((state) => state.users.value);
+  const users = useSelector((state) => state.users.value);
 
- const token = useSelector((state) => state.users.value.token);
+  const token = useSelector((state) => state.users.value.token);
 
   // ======= Bouton retour  =======//
   const goBack = () => {
@@ -40,19 +39,20 @@ export default function BatchCalendar({ navigation }) {
   const [currentIndex, setCurrentIndex] = useState();
   const [calendarRecipesToDisplay, setCalendarRecipesToDisplay] = useState([]);
 
-
-
-
   // ==== Récuperer les recettes en base de donnée ajouter par l'utilisateur ==== //
   useEffect(() => {
-    fetch(`http://192.168.10.180:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.178:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
-        setCalendarRecipesToDisplay(data.recipes);
+        console.log(data);
+        if (data.recipes.length > 0) {
+          //    dispatch(addCalendar(data.recipes))
+          setCalendarRecipesToDisplay(data.recipes);
+        }
       });
   }, []);
 
-  // Afficher le calendrier pour selectionner une date 
+  // Afficher le calendrier pour selectionner une date
   const showDatePicker = (i) => {
     setCurrentIndex(i);
     setDatePickerVisibility(true);
@@ -63,44 +63,45 @@ export default function BatchCalendar({ navigation }) {
     setDatePickerVisibility(false);
   };
 
+  //permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
+  const handleConfirm = (date) => {
+    let res = calendarRecipesToDisplay.map((element, index) => ({
+      ...element,
+      date: index == currentIndex ? date : element.date,
+    }));
+    setCalendarRecipesToDisplay(res);
 
- //permet de renvoyer une date par item en selectionnant son index puis une fois confirmé on cache la modal datepicker
- const handleConfirm = (date) => {
-  let res = calendarRecipesToDisplay.map((element, index) => ({
-    ...element,
-    date: index == currentIndex ? date : element.date,
-  }));
-  setCalendarRecipesToDisplay(res);
+    hideDatePicker();
+  };
 
-  hideDatePicker();
-};
-
-
-// Supprimer une recette du batch
-function deleteRecipe(data) {
-  console.log("Je supprime :", data._id)
-  fetch(`http://192.168.10.180:3000/calendarRecipes/${data._id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ recipes: data._id }),
-    }).then(response => response.json())
-      .then(data => {
-        console.log("j'ai supprimer")
-        data.result
+  // Supprimer une recette du batch
+  function deleteRecipe(data) {
+    fetch(`http://192.168.10.178:3000/calendarRecipes/${data._id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recipeId: data._id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        data.result;
       });
-}
+    setCalendarRecipesToDisplay(
+      calendarRecipesToDisplay.filter((e) => e.title !== data.title)
+    );
+  }
 
-
+  console.log(calendarRecipesToDisplay);
+  //  const hello = [1, 2, 3];
   let dateRecipe = calendarRecipesToDisplay.map((data, i) => {
-    
     return (
       <View style={styles.ContainerDescriptionRecipe}>
-
-        <Image style={styles.imageRecipe} source={{ uri: data.image}} />
-        <TouchableOpacity style={styles.containIconTrash} onPress={() => deleteRecipe(data)}>
-          <FontAwesome name="trash-o" size={20} color={"#FFFFFF"}/>
+        <Image style={styles.imageRecipe} source={{ uri: data.image }} />
+        <TouchableOpacity
+          style={styles.containIconTrash}
+          onPress={() => deleteRecipe(data)}
+        >
+          <FontAwesome name="trash-o" size={20} color={"#FFFFFF"} />
         </TouchableOpacity>
-       
 
         <DateTimePickerModal
           style={styles.calendrier}
@@ -115,8 +116,7 @@ function deleteRecipe(data) {
           <View style={styles.descriptionRecipe}>
             <View style={styles.descriptionRecipeText}>
               <Text style={styles.titleRecipe}>{data.title}</Text>
-             
-              
+
               <TouchableOpacity
                 style={styles.btnAddDate}
                 onPress={() => showDatePicker(i)}
@@ -152,6 +152,7 @@ function deleteRecipe(data) {
     );
   });
 
+  console.log(dateRecipe.length);
   return (
     <View style={styles.container}>
       <FontAwesome
@@ -161,42 +162,49 @@ function deleteRecipe(data) {
         style={styles.buttonReturn}
         onPress={goBack}
       />
-      <Text style={styles.title}>Recipe list for the week</Text>
-     
-      <View style={styles.containerInfo}>
-      {/* <Text style={styles.dateBacth}>10 -17 septembre</Text> */}
+      <Text style={styles.title}>Recipes list for the batch</Text>
 
-       <View style={styles.containerInfo}>
-        <View style={styles.infoBacth}>
-          <FontAwesome
+      <View style={styles.containerInfo}>
+        {/* <Text style={styles.dateBacth}>10 -17 septembre</Text> */}
+
+        <View style={styles.containerInfo}>
+          <View style={styles.infoBacth}>
+            <FontAwesome
+              name="clock-o"
+              size={20}
+              color={"#92C3BC"}
+              style={styles.iconInfoBatch}
+            />
+            {/* <Text style={styles.titleInfoBacth}>Total duration : </Text>
+          <Text style={styles.dataInfoBacth}>2h30</Text> */}
+          </View>
+          <View style={styles.infoBacth}>
+            {/* <FontAwesome
             name="clock-o"
             size={20}
             color={"#92C3BC"}
             style={styles.iconInfoBatch}
-          />
-          <Text style={styles.titleInfoBacth}>Total duration : </Text>
-          <Text style={styles.dataInfoBacth}>2h30</Text>
-        </View>
-        <View style={styles.infoBacth}>
-          <FontAwesome
-            name="clock-o"
-            size={20}
-            color={"#92C3BC"}
-            style={styles.iconInfoBatch}
-          />
-          <Text style={styles.titleInfoBacth}>Number of recipes : </Text>
-          <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
+          /> */}
+
+            <Text style={styles.titleInfoBacth}>Number of recipes : </Text>
+            <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
+          </View>
         </View>
       </View>
-      </View> 
-
-      <ScrollView contentContainerStyle={styles.containerRecipes}>
-        {/* <Text style={styles.subTitle}>Lundi</Text> */}
-        {dateRecipe}
-      </ScrollView>
+      {dateRecipe.length === 0 ? (
+        <Text> No recipe added yet</Text>
+      ) : (
+        <ScrollView contentContainerStyle={styles.containerRecipes}>
+          {/* <Text style={styles.subTitle}>Lundi</Text> */}
+          {dateRecipe}
+        </ScrollView>
+      )}
 
       <View style={styles.containerBtn}>
-        <TouchableOpacity style={styles.btnSubmit}>
+        <TouchableOpacity
+          style={styles.btnSubmit}
+          onPress={() => navigation.navigate("ShoppinglistScreen")}
+        >
           <Text>Validate my batch 👩🏽‍🍳</Text>
         </TouchableOpacity>
       </View>
@@ -241,10 +249,10 @@ const styles = StyleSheet.create({
     marginTop: 25,
     paddingBottom: 20,
   },
-  containRecipes:{
-    marginTop:10,
+  containRecipes: {
+    marginTop: 10,
   },
-  ContainerDescriptionRecipe:{
+  ContainerDescriptionRecipe: {
     backgroundColor: "#ffffff",
     flexDirection: "row",
     borderRadius: 20,
@@ -252,38 +260,38 @@ const styles = StyleSheet.create({
   },
   descriptionRecipe: {
     flexDirection: "row",
-   // backgroundColor: "pink",
-    width:"88%",
+    // backgroundColor: "pink",
+    width: "88%",
     paddingBottom: 10,
   },
   descriptionRecipeText: {
     //paddingTop: 10,
     paddingLeft: 18,
-    width:"90%",
+    width: "90%",
   },
   btnAddDate: {
     backgroundColor: "#FFD87D",
     padding: 5,
     width: "50%",
     borderRadius: 100,
-    marginVertical:10,
+    marginVertical: 10,
   },
-  TextBtnAddDate:{
-    textAlign:"center"
+  TextBtnAddDate: {
+    textAlign: "center",
   },
   imageRecipe: {
     width: 120,
     height: "100%",
     borderRadius: 20,
   },
-  containIconTrash:{
-    position:"absolute",
-    top:10,
-    left:10,
-    backgroundColor:"rgba(0,0,0, 0.3)",
-    padding:10,
-    paddingHorizontal:14,
-    borderRadius:100,
+  containIconTrash: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    backgroundColor: "rgba(0,0,0, 0.3)",
+    padding: 10,
+    paddingHorizontal: 14,
+    borderRadius: 100,
   },
   titleRecipe: {
     fontSize: 15,
@@ -301,8 +309,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "60%",
   },
-  containTime:{
-    flexDirection:"row",
+  containTime: {
+    flexDirection: "row",
   },
-
+  calendrier: {
+    backgroundColor: "#92C3BC",
+  },
 });

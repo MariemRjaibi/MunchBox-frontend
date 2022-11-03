@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -29,7 +29,7 @@ export default function SignupScreen({ navigation }) {
   //console.log(token);
   //function that directs new users to signup page
   const handleRegister = () => {
-    fetch("http://192.168.10.180:3000/users/signup", {
+    fetch("http://192.168.10.178:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -47,15 +47,14 @@ export default function SignupScreen({ navigation }) {
           setPassword("");
         }
       });
-      if (username&&email&&password) {
-        navigation.navigate(Homepage);
-      }
- 
+    if (username && email && password) {
+      navigation.navigate(Homepage);
+    }
   };
 
   // console.log('token', token)
 
-  //function that directs registered users to sign in page 
+  //function that directs registered users to sign in page
   const handleConnection = () => {
     fetch("http://192.168.10.180:3000/users/signin", {
       method: "POST",
@@ -73,20 +72,20 @@ export default function SignupScreen({ navigation }) {
           setSignInPassword("");
         }
       });
-      if (token) {
-        navigation.navigate(Homepage);
-      }
- 
- };
+    if (token) {
+      navigation.navigate(Homepage);
+    }
+  };
 
- const handleValidEmail = (value) => {
-  let reg =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  
-if (reg.test(value)) {
-    setEmailValidError(false);
-  } else {
-    setEmailValidError(true);
-  }
+  const handleValidEmail = (value) => {
+    let reg =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (reg.test(value)) {
+      setEmailValidError(false);
+    } else {
+      setEmailValidError(true);
+    }
   };
 
   //if token is not identified, sign up page appears
@@ -96,83 +95,92 @@ if (reg.test(value)) {
         source={require("../assets/background-concept.jpg")}
         style={styles.background}
       >
-       
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
           >
             <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.8)"]}
-        style={styles.container}
-      >
-            <Image
-              source={require("../assets/Munchbox-logo.jpg")}
-              style={styles.logo}
-            />
-            <Text style={styles.title}>Join us today!</Text>
-            <Text style={styles.signup}>Sign Up</Text>
-
-            <View style={styles.input}>
-              <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
-              <TextInput
-                placeholder="Username"
-                onChangeText={(value) => setUsername(value)}
-                value={username}
-                style={styles.inputContent}
-              />
-
-              <Text style={{ color: "white", fontSize: 20 }}>Email</Text>
-              <TextInput
-                placeholder="Email"
-                value={email} 
-                onChangeText= {value => {setEmail(value); handleValidEmail(value)}}
-                style={styles.inputContent}
-              />
-              {emailValidError ? (<Text style={{color: 'red', marginLeft: 200}}>*Wrong format</Text>) : 
-              (<Text></Text>)} 
-              
-
-              <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
-              <TextInput
-                placeholder="Password"
-                onChangeText={(value) => setPassword(value)}
-                secureTextEntry={true}
-                value={password}
-                style={styles.inputContent}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.button}
-              activeOpacity={0.8}
-              onPress={() => handleRegister()} 
+              colors={["transparent", "rgba(0,0,0,0.8)"]}
+              style={styles.container}
             >
-              <Text style={styles.register}>Register</Text>
-            </TouchableOpacity>
+              <Image
+                source={require("../assets/Munchbox-logo.jpg")}
+                style={styles.logo}
+              />
+              <Text style={styles.title}>Join us today!</Text>
+              <Text style={styles.signup}>Sign Up</Text>
 
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View
-                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
-              />
-              <View>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(SigninScreen)} 
-                  >
-                <Text
-                  style={{ width: 150, textAlign: "center", color: "white" }}>
-                  Already registered? Sign In Here
-                </Text>
-                </TouchableOpacity>
+              <View style={styles.input}>
+                <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
+                <TextInput
+                  placeholder="Username"
+                  onChangeText={(value) => setUsername(value)}
+                  value={username}
+                  style={styles.inputContent}
+                />
+
+                <Text style={{ color: "white", fontSize: 20 }}>Email</Text>
+                <TextInput
+                  placeholder="Email"
+                  value={email}
+                  onChangeText={(value) => {
+                    setEmail(value);
+                    handleValidEmail(value);
+                  }}
+                  style={styles.inputContent}
+                />
+                {emailValidError ? (
+                  <Text style={{ color: "red", marginLeft: 200 }}>
+                    *Wrong format
+                  </Text>
+                ) : (
+                  <Text></Text>
+                )}
+
+                <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
+                <TextInput
+                  placeholder="Password"
+                  onChangeText={(value) => setPassword(value)}
+                  secureTextEntry={true}
+                  value={password}
+                  style={styles.inputContent}
+                />
               </View>
-              <View
-                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
-              />
-            </View>
+              <TouchableOpacity
+                style={styles.button}
+                activeOpacity={0.8}
+                onPress={() => handleRegister()}
+              >
+                <Text style={styles.register}>Register</Text>
+              </TouchableOpacity>
+
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate(SigninScreen)}
+                  >
+                    <Text
+                      style={{
+                        width: 150,
+                        textAlign: "center",
+                        color: "white",
+                      }}
+                    >
+                      Already registered? Sign In Here
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+                />
+              </View>
             </LinearGradient>
           </KeyboardAvoidingView>
-          
         </TouchableWithoutFeedback>
-       
       </ImageBackground>
     );
     //if token is identified, user already exists and sign in page appears
@@ -188,59 +196,58 @@ if (reg.test(value)) {
             style={styles.background}
           >
             <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.8)"]}
-        style={styles.background}
-      >
-            <Image
-              source={require("../assets/Munchbox-logo.jpg")}
-              style={styles.logo}
-            />
-            <Text style={styles.title}>Join us today!</Text>
-            <Text style={styles.signup}>Sign In</Text>
-            <View style={styles.input}>
-              <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
-              <TextInput
-                placeholder="Username"
-                onChangeText={(value) => setUsername(value)}
-                value={username}
-                style={styles.inputContent}
-              />
-              <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
-              <TextInput
-                placeholder="Password"
-                onChangeText={(value) => setPassword(value)}
-                secureTextEntry={true}
-                value={password}
-                style={styles.inputContent}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.button}
-              activeOpacity={0.8}
-              onPress={() => handleConnection()} 
+              colors={["transparent", "rgba(0,0,0,0.8)"]}
+              style={styles.background}
             >
-              <Text style={styles.register}>Let's Cook!</Text>
-            </TouchableOpacity>
-
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View
-                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+              <Image
+                source={require("../assets/Munchbox-logo.jpg")}
+                style={styles.logo}
               />
-              <View>
-                <Text
-                  style={{ width: 150, textAlign: "center", color: "white" }}
-                >
-                  or sign up with
-                </Text>
+              <Text style={styles.title}>Join us today!</Text>
+              <Text style={styles.signup}>Sign In</Text>
+              <View style={styles.input}>
+                <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
+                <TextInput
+                  placeholder="Username"
+                  onChangeText={(value) => setUsername(value)}
+                  value={username}
+                  style={styles.inputContent}
+                />
+                <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
+                <TextInput
+                  placeholder="Password"
+                  onChangeText={(value) => setPassword(value)}
+                  secureTextEntry={true}
+                  value={password}
+                  style={styles.inputContent}
+                />
               </View>
-              <View
-                style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
-              />
-            </View>
+              <TouchableOpacity
+                style={styles.button}
+                activeOpacity={0.8}
+                onPress={() => handleConnection()}
+              >
+                <Text style={styles.register}>Let's Cook!</Text>
+              </TouchableOpacity>
+
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+                />
+                <View>
+                  <Text
+                    style={{ width: 150, textAlign: "center", color: "white" }}
+                  >
+                    or sign up with
+                  </Text>
+                </View>
+                <View
+                  style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+                />
+              </View>
             </LinearGradient>
-          </KeyboardAvoidingView> 
+          </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
-        
       </ImageBackground>
     );
   }

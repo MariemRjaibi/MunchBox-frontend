@@ -18,18 +18,18 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
-import favorites, { addFavorites, removeAllFavorites, removeFavorites} from "../reducers/favorites";
-import {logout} from "../reducers/users";
+import favorites, {
+  addFavorites,
+  removeAllFavorites,
+  removeFavorites,
+} from "../reducers/favorites";
+import { logout } from "../reducers/users";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ConceptScreen from "./form/ConceptScreen";
 import SignupScreen from "./SignupScreen";
 
 export default function Recettepage({ navigation }) {
-
-
-  
-
   // ======= Bouton retour  =======//
   const goBack = () => {
     navigation.goBack();
@@ -47,11 +47,8 @@ export default function Recettepage({ navigation }) {
   const [displayedSteps, setDisplayedSteps] = useState([]);
   const [apikey, setApiKey] = useState("");
 
-  
-
   const [noResult, setNoResult] = useState(false);
   //const [apikey, setApiKey] = useState("");
-
 
   const user = useSelector((state) => state.users.value.token);
   const isFiltered = useSelector((state) => state.choosePaths.value);
@@ -65,11 +62,11 @@ export default function Recettepage({ navigation }) {
   function handleFilter() {
     navigation.navigate(Filter);
   }
-  const handleLogOut = ()=> {
-    dispatch (logout());
-    navigation.navigate(SignupScreen)
-  } 
-  
+  const handleLogOut = () => {
+    dispatch(logout());
+    navigation.navigate(SignupScreen);
+  };
+
   let textToDisplay = "";
   useEffect(() => {
     // const _clearAll = async () => {
@@ -94,10 +91,10 @@ export default function Recettepage({ navigation }) {
     let apiKey = "";
     //select which api key choose
     if (isFiltered) {
-      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40&tags=${newIngApi}`;
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number&number=40&tags=${newIngApi}`;
     } else {
       apiKey =
-        "https://api.spoonacular.com/recipes/random?apiKey=b41bc51d711c4c78a32661c3968b6e8b&number=40";
+        "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40";
     }
     // console.log(apiKey);
     fetch(apiKey)
@@ -150,7 +147,7 @@ export default function Recettepage({ navigation }) {
 
   //add a recipe in calendarscreen
   function handleCalendar(data) {
-    // console.log(data);
+    console.log(data);
     let calendarSteps = [];
     data.analyzedInstructions[0].steps.forEach(function (element) {
       calendarSteps.push(element.step);
@@ -187,7 +184,7 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.183:3000/calendarRecipes", requestOptions)
+    fetch("http://192.168.10.178:3000/calendarRecipes", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -234,27 +231,22 @@ export default function Recettepage({ navigation }) {
     setDisplayedSteps([...displayedSteps, ...steps]);
   }
 
-  const favoris = useSelector((state) => {
-    //console.log(state);
-    return state;
-  });
-
   // ======= FAVORITES RECIPES =======    //
 
   const favorites = useSelector((state) => state.favorites.value);
 
   function handleFavoris(data) {
-    console.log(data.title)
+    console.log(data.title);
     //console.log(favorites)
-      if(favorites.includes(data)){
-          //supprimer des Favoris 
-          dispatch(removeFavorites(data));
-      }else{
-          // Ajouter aux favoris
-          dispatch(addFavorites(data));
-       }
+    if (favorites.includes(data)) {
+      //supprimer des Favoris
+      dispatch(removeFavorites(data));
+    } else {
+      // Ajouter aux favoris
+      dispatch(addFavorites(data));
+    }
     // Tout supprimer ou cleaner store redux persist
-      //dispatch(removeAllFavorites())
+    //dispatch(removeAllFavorites())
   }
 
   //add a recipe in calendarscreen
@@ -283,24 +275,24 @@ export default function Recettepage({ navigation }) {
         data.summary[data.summary.indexOf("calories") - 1];
     }
 
-const requestOptions = {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    title: data.title,
-    image: data.image,
-    ingredients: calendarIngredients,
-    steps: calendarSteps,
-    calories: calendarCalories,
-    prepTime: data.readyInMinutes,
-    token: user,
-  }),
-};
-fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data.result);
-  });
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: data.title,
+        image: data.image,
+        ingredients: calendarIngredients,
+        steps: calendarSteps,
+        calories: calendarCalories,
+        prepTime: data.readyInMinutes,
+        token: user,
+      }),
+    };
+    fetch("http://192.168.10.178:3000/calendarRecipes/", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      });
   }
   //console.log(Array.isArray(ingredientsList));
   //console.log(typeof ingredientsList);
@@ -312,59 +304,63 @@ fetch("http://192.168.10.204:3000/calendarRecipes/", requestOptions)
 
   const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
     return (
-      <View key={i} >
+      <View key={i}>
         <Text style={styles.ingredientsarray}>-{data}</Text>
       </View>
     );
   });
   const newStepsArray = displayedSteps.map((data, i) => {
     return (
-      <View key={i} >
-        <Text style= {styles.stepsarray}>-{data}</Text>
+      <View key={i}>
+        <Text style={styles.stepsarray}>-{data}</Text>
       </View>
     );
   });
 
   // the array to display
   const Recipes = listRecipe.map((data, i) => {
-
-    const isFavoriteActive = favorites.some(favorite => favorite.title === data.title);
-
+    const isFavoriteActive = favorites.some(
+      (favorite) => favorite.title === data.title
+    );
 
     return (
       <TouchableOpacity onPress={() => handleDescription(data)}>
         <View key={i} style={styles.cardRecipe}>
           <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <TouchableOpacity onPress={() => handleFavoris(data)} style={styles.iconHeart}>
-            <FontAwesome name="heart" size={20} color={isFavoriteActive ? "red" : "#ffffff"} />
+          <TouchableOpacity
+            onPress={() => handleFavoris(data)}
+            style={styles.iconHeart}
+          >
+            <FontAwesome
+              name="heart"
+              size={20}
+              color={isFavoriteActive ? "red" : "#ffffff"}
+            />
           </TouchableOpacity>
           <Text style={styles.cardTitle}>{data.title}</Text>
           <View style={styles.cardInfo}>
             <View style={styles.containerInfo}>
               <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
               <Text style={styles.textInfo}>{data.time}</Text>
-              
             </View>
             <View style={styles.containerInfo}>
-             
-               <TouchableOpacity onPress={() => handleCalendar(data)}>
-              <FontAwesome
-                name="calendar"
-                size={20}
-                color={"#83C5BC"}
-                style={styles.iconCalendar}
-              />
-            </TouchableOpacity>
-            
+              <TouchableOpacity onPress={() => handleCalendar(data)}>
+                <FontAwesome
+                  name="calendar"
+                  size={20}
+                  color={"#83C5BC"}
+                  style={styles.iconCalendar}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-     </TouchableOpacity>
+      </TouchableOpacity>
     );
   });
 
   //.log(Array.isArray(ingredientsList));
-console.log(prepTime)
+  console.log(prepTime);
   //console.log(isEnabled);
 
   // ======  MODAL RECIPE ====== //
@@ -449,98 +445,109 @@ console.log(prepTime)
             ]}
           />
           <ScrollView>
-          {isActive ? newIngredientsArray : newStepsArray}
+            {isActive ? newIngredientsArray : newStepsArray}
 
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              marginTop: 20,
-              marginBottom: 10,
-            }}
-          >
-            Nutrition Information
-          </Text>
-          <Text style={{ fontSize: 10 }}>
-            Fat Carbohydrates Sugar Cholesterol Sodium Protein
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <Ionicons
-              name="fast-food-outline"
-              size={25}
-              color="#92C3BC"
-              style={styles.info}
-            />
-            <Ionicons
-              name="fast-food-outline"
-              size={25}
-              color="#92C3BC"
-              style={styles.info}
-            />
-            <Ionicons
-              name="fast-food-outline"
-              size={25}
-              color="#92C3BC"
-              style={styles.info}
-            />
-            <Ionicons
-              name="fast-food-outline"
-              size={25}
-              color="#92C3BC"
-              style={styles.info}
-            />
-            <Ionicons
-              name="fast-food-outline"
-              size={25}
-              color="#92C3BC"
-              style={styles.info}
-            />
-            <Ionicons
-              name="fast-food-outline"
-              size={25}
-              color="#92C3BC"
-              style={styles.info}
-            />
-          </View>
-          <Text style={{fontWeight: 'bold'}}>Read Reviews</Text>
-          <Text style={{fontWeight: 'bold'}}>
-            Rate this recipe:{" "}
-            <FontAwesome
-              name="star-o"
-              size={20}
-              color="#92C3BC"
-              style={styles.note}
-            />
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <TextInput
-              placeholder="Share your review with us..."
-              style={styles.text}
-            />
-            <Pressable style={styles.submit}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                marginTop: 20,
+                marginBottom: 10,
+              }}
+            >
+              Nutrition Information
+            </Text>
+            <Text style={{ fontSize: 10 }}>
+              Fat Carbohydrates Sugar Cholesterol Sodium Protein
+            </Text>
+            <View style={{ flexDirection: "row" }}>
               <Ionicons
-                name="send-outline"
-                size={23}
-                color="#FAD874"
-                style={styles.iconsend}
+                name="fast-food-outline"
+                size={25}
+                color="#92C3BC"
+                style={styles.info}
               />
-            </Pressable>
-          </View>
-          <Text style={{fontWeight: 'bold'}}>Experiencing an issue with the mobile site?</Text>
+              <Ionicons
+                name="fast-food-outline"
+                size={25}
+                color="#92C3BC"
+                style={styles.info}
+              />
+              <Ionicons
+                name="fast-food-outline"
+                size={25}
+                color="#92C3BC"
+                style={styles.info}
+              />
+              <Ionicons
+                name="fast-food-outline"
+                size={25}
+                color="#92C3BC"
+                style={styles.info}
+              />
+              <Ionicons
+                name="fast-food-outline"
+                size={25}
+                color="#92C3BC"
+                style={styles.info}
+              />
+              <Ionicons
+                name="fast-food-outline"
+                size={25}
+                color="#92C3BC"
+                style={styles.info}
+              />
+            </View>
+            <Text style={{ fontWeight: "bold" }}>Read Reviews</Text>
+            <Text style={{ fontWeight: "bold" }}>
+              Rate this recipe:{" "}
+              <FontAwesome
+                name="star-o"
+                size={20}
+                color="#92C3BC"
+                style={styles.note}
+              />
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <TextInput
+                placeholder="Share your review with us..."
+                style={styles.text}
+              />
+              <Pressable style={styles.submit}>
+                <Ionicons
+                  name="send-outline"
+                  size={23}
+                  color="#FAD874"
+                  style={styles.iconsend}
+                />
+              </Pressable>
+            </View>
+            <Text style={{ fontWeight: "bold" }}>
+              Experiencing an issue with the mobile site?
+            </Text>
           </ScrollView>
         </View>
       </Modal>
 
-{/* Start of page that displays ALL Recipes */}
-      <View style={styles.containerHeader}> 
+      {/* Start of page that displays ALL Recipes */}
+      <View style={styles.containerHeader}>
         <View>
-          <FontAwesome name="chevron-left" size={20} color={"#92C3BC"} style={styles.buttonReturn} onPress={goBack}/>
+          <FontAwesome
+            name="chevron-left"
+            size={20}
+            color={"#92C3BC"}
+            style={styles.buttonReturn}
+            onPress={goBack}
+          />
           <Text style={styles.welcomeText}>Hello Phifi</Text>
           <Text style={styles.tagline}>What you want to cook today ? </Text>
         </View>
 
         <View>
-          <TouchableOpacity style={styles.containerIconUser} onPress={() => handleLogOut()}>
+          <TouchableOpacity
+            style={styles.containerIconUser}
+            onPress={() => handleLogOut()}
+          >
             <Image
               style={styles.imageProfil}
               source={require("../assets/Etchebest.jpg")}
@@ -600,7 +607,6 @@ console.log(prepTime)
         </ScrollView>
       )}
     </View>
-    
   );
 }
 
@@ -667,7 +673,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFD87D",
     padding: 5,
     paddingHorizontal: 8,
-    borderRadius: 'width * 0.125*0.5',
+    borderRadius: "width * 0.125*0.5",
     marginRight: 10,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
@@ -699,7 +705,7 @@ const styles = StyleSheet.create({
   containerRecipes: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent:"space-evenly",
+    justifyContent: "space-evenly",
   },
   cardRecipe: {
     backgroundColor: "rgba(255, 216, 125, 0.3)",
@@ -735,7 +741,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   iconHeart: {
-   position: "absolute",
+    position: "absolute",
     top: 15,
     right: 10,
   },
@@ -763,8 +769,10 @@ const styles = StyleSheet.create({
   //    backgroundColor: "white",
   //    alignItems: "center",
   // },
-  modalContainer: { 
-    flex: 1, width: "100%", backgroundColor: "#FFF4CF" 
+  modalContainer: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "#FFF4CF",
   },
   scrollview: {
     flex: 1,
@@ -836,16 +844,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   stepsarray: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     paddingHorizontal: 10,
     marginTop: 20,
     paddingBottom: 30,
   },
   ingredientsarray: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     paddingBottom: 30,
     paddingTop: 20,
     marginRight: 70,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
   },
 });
