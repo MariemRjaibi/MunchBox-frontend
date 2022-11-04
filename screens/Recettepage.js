@@ -91,10 +91,10 @@ export default function Recettepage({ navigation }) {
     let apiKey = "";
     //select which api key choose
     if (isFiltered) {
-      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number&number=40&tags=${newIngApi}`;
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number&number=40&tags=${newIngApi}`;
     } else {
       apiKey =
-        "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40";
+        "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40";
     }
     // console.log(apiKey);
     fetch(apiKey)
@@ -114,7 +114,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -125,7 +125,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -136,7 +136,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -305,14 +305,14 @@ export default function Recettepage({ navigation }) {
   const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
     return (
       <View key={i}>
-        <Text style={styles.ingredientsarray}>-{data}</Text>
+        <Text style={styles.ingredientsarray}>• {data}</Text>
       </View>
     );
   });
   const newStepsArray = displayedSteps.map((data, i) => {
     return (
       <View key={i}>
-        <Text style={styles.stepsarray}>-{data}</Text>
+        <Text style={styles.stepsarray}>• {data}</Text>
       </View>
     );
   });
@@ -917,14 +917,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   stepsarray: {
+    color:"#343333",
     fontWeight: "bold",
     paddingHorizontal: 10,
     marginTop: 20,
-    paddingBottom: 10,
+    //paddingBottom: 10,
   },
   ingredientsarray: {
+    color:"#343333",
     fontWeight: "bold",
-    paddingBottom: 10,
+    //paddingBottom: 10,
     paddingTop: 10,
     marginRight: 70,
     justifyContent: "flex-start",
