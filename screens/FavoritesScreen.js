@@ -12,6 +12,9 @@ import {
 } from "react-native";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { logout } from "../reducers/users";
+import SignupScreen from "./SignupScreen";
+
 
 export default function FavoritesScreen({ navigation }) {
 
@@ -25,6 +28,12 @@ export default function FavoritesScreen({ navigation }) {
   // Récuperer les données stocker dans le stock favorrites
   const favorites = useSelector((state) => state.favorites.value);
   //console.log(favorites)
+
+  // se deconnecter
+  const handleLogOut = () => {
+    dispatch(logout());
+    navigation.navigate(SignupScreen);
+  };
 
   function handleFavoris(data) {
     // Ajouter aux favoris
@@ -76,16 +85,23 @@ export default function FavoritesScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.containerheader}>
-        <FontAwesome
-          name="chevron-left"
-          size={20}
-          color={"#92C3BC"}
-          style={styles.buttonReturn}
-          onPress={goBack}
-        />
+        <View>
+          <FontAwesome
+            name="chevron-left"
+            size={20}
+            color={"#92C3BC"}
+            style={styles.buttonReturn}
+            onPress={goBack}
+          />
+          <Text style={styles.title}>Favorite Recipes</Text>
+          <Text style={styles.tagline}>What you want to cook today ?</Text>
+        </View>
 
         <View>
-          <TouchableOpacity style={styles.containerIconUser}>
+          <TouchableOpacity
+            style={styles.containerIconUser}
+            onPress={() => handleLogOut()}
+          >
             <Image
               style={styles.imageProfil}
               source={require("../assets/Etchebest.jpg")}
@@ -93,12 +109,6 @@ export default function FavoritesScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.containerHead}>
-        <Text style={styles.title}>Favorite Recipes</Text>
-        <Text style={styles.subTitle}>What you want to cook today ?</Text>
-      </View>
-
 
       <View style={styles.containerNumberRecipes}>
         <Text style={styles.textNumberRecipes}>Number of recipes saved : </Text>
@@ -120,10 +130,12 @@ const styles = StyleSheet.create({
   containerheader: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 30,
   },
   imageProfil: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#83C5BC",
@@ -135,6 +147,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "#92C3BC",
+  },
+  tagline: {
+    color: "#ABAEB1",
+    fontSize: 16,
   },
   containerNumberRecipes: {
     flexDirection: "row",

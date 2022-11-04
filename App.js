@@ -88,7 +88,7 @@ const TabNavigator = () => {
             iconName = "heart";
           } else if (route.name === "Calendar") {
             iconName = "calendar";
-          } else if (route.name === "Shopping") {
+          } else if (route.name === "ShoppinglistScreen") {
             iconName = "shopping-basket";
           }
 
@@ -104,7 +104,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Home" component={Recettepage} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Calendar" component={BatchCalendar} />
-      <Tab.Screen name="Shopping" component={ShoppinglistScreen} />
+      <Tab.Screen name="ShoppinglistScreen" component={ShoppinglistScreen} />
     </Tab.Navigator>
   );
 };

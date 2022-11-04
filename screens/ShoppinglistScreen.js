@@ -35,7 +35,7 @@ export default function ShoppinglistScreen({navigation}) {
 
   let tmp = [];
   useEffect(() => {
-    fetch(`http://192.168.10.178:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.161:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         for (let element of data.recipes) {
@@ -155,7 +155,7 @@ export default function ShoppinglistScreen({navigation}) {
           <Text style={styles.title}>Shopping list</Text>
         </View>
 
-        <Text style={styles.subTitle}>What to buy for your next batch?</Text>
+        <Text style={styles.tagline}>What to buy for your next batch?</Text>
       </View>
       <View style={styles.containerInput}>
         <TextInput
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    paddingTop: 30,
+    paddingTop: 10,
     paddingHorizontal: 20,
     backgroundColor: "#FBFBFB",
     //justifyContent: "space-between",
@@ -208,10 +208,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#92C3BC",
   },
-  subTitle: {
-    fontSize: 20,
-    //marginBottom: 20,
-    //color:"#ABAEB1",
+  tagline: {
+    color: "#ABAEB1",
+    fontSize: 16,
   },
   containerInput: {
     flexDirection: "row",

@@ -29,7 +29,7 @@ export default function SignupScreen({ navigation }) {
   //console.log(token);
   //function that directs new users to signup page
   const handleRegister = () => {
-    fetch("http://192.168.10.183:3000/users/signup", {
+    fetch("http://192.168.10.161:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -56,7 +56,7 @@ export default function SignupScreen({ navigation }) {
 
   //function that directs registered users to sign in page
   const handleConnection = () => {
-    fetch("http://192.168.10.124:3000/users/signin", {
+    fetch("http://192.168.10.161:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -288,15 +288,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    marginTop: 20,
-    // marginLeft: "30%",
-    backgroundColor: "#F9D77E",
-    borderRadius: 30,
-    width: "40%",
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 20,
+    backgroundColor: "#e8be4b",
+    color:"#fff",
+    fontSize: 25,
+    padding:10,
+    paddingHorizontal:50,
+    borderTopRightRadius:45,
+    borderBottomLeftRadius:45,
+    marginBottom:40,
   },
   inputContent: {
     backgroundColor: "white",

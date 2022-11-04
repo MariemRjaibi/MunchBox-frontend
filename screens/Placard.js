@@ -22,6 +22,12 @@ import {
 } from "../reducers/placardIngredients";
 
 export default function Placard({ navigation }) {
+
+  // ======= Bouton retour  =======//
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   const ingredientsToDisplay = useSelector((state) => {
     // console.log("looooog", state);
     //console.log(state.placardIngredients.value);
@@ -69,8 +75,19 @@ export default function Placard({ navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
+      
+
+
+        
         <View style={styles.bigText}>
-          <Text style={styles.bigTextContent}> What I have in my closet</Text>
+        <FontAwesome
+        name="chevron-left"
+        size={20}
+        color={"#92C3BC"}
+        style={styles.buttonReturn}
+        onPress={goBack}
+      />
+          <Text style={styles.bigTextContent}> What I have in my kitchen</Text>
         </View>
 
         <View style={styles.inputContainer}>
@@ -82,14 +99,22 @@ export default function Placard({ navigation }) {
             }}
             value={littleIngredient}
           ></TextInput>
-          <TouchableOpacity
+          <FontAwesome
+            name="plus"
+            size={20}
+            color={"#ffffff"}
+            onPress={() => handleAdd()}
+            style={styles.btnPlus}
+          />
+          {/* <TouchableOpacity
             style={styles.addBtn}
             activeOpacity={0.8}
             onPress={() => handleAdd()}
           >
             <Text style={styles.textButton}>Add</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
+        <View style={styles.containerMain} >
         <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
 
         <TouchableOpacity
@@ -99,6 +124,7 @@ export default function Placard({ navigation }) {
         >
           <Text style={styles.textButton}>Find a recipe</Text>
         </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -108,23 +134,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
+    paddingHorizontal: 20,
+    //alignItems: "center",
+    //justifyContent: "center",
+  },
+  containerMain:{
+    flex:1,
+    width:"100%",
     alignItems: "center",
-    justifyContent: "center",
+   
+   
   },
   searchBar: {},
   inputContainer: {
+    marginTop:10,
     flexDirection: "row",
-    marginTop: 30,
-    marginBottom: 30,
+    alignItems: "center",
   },
   inputText: {
-    width: 270,
+    width: "100%",
     padding: 10,
     marginTop: 6,
     borderWidth: 1,
     borderColor: "#E9E9E9",
     borderRadius: 100,
     fontSize: 14,
+  },
+  btnPlus: {
+    backgroundColor: "#e8be4b",
+    padding: 10,
+    paddingHorizontal: 12,
+    borderRadius: 100,
+    right: 50,
+    top: 3,
   },
   addBtn: {
     backgroundColor: "#F9D77E",
@@ -136,11 +178,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   bigText: {
-    alignItems: "center",
-    marginTop: 30,
+    //alignItems: "center",
+    marginTop: 40,
   },
   bigTextContent: {
-    marginTop: "10%",
+    color: "#83C5BC",
+    fontWeight: "bold",
+    marginTop: 15,
     fontSize: 25,
   },
   findBtn: {
@@ -156,9 +200,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   displayedView: {
+    marginTop:20,
     height: "40%",
     backgroundColor: "rgba(146,195,188, 0.2)",
-    width: "80%",
+    width: "100%",
     borderRadius: 20,
     alignItem: "center",
   },

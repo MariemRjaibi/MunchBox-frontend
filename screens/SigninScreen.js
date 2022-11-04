@@ -15,6 +15,7 @@ import Homepage from "./Homepage";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../reducers/users";
 import { LinearGradient } from "expo-linear-gradient";
+import SignupScreen from "./SignupScreen";
 
 export default function SigninScreen({ navigation }) {
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function SigninScreen({ navigation }) {
      //function that directs registered users to sign in page 
   const handleConnection = () => {
     //console.log("clicked")
-    fetch("http://192.168.10.124:3000/users/signin", {
+    fetch("http://192.168.10.161:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -67,10 +68,14 @@ export default function SigninScreen({ navigation }) {
               colors={["transparent", "rgba(0,0,0,0.8)"]}
               style={styles.container}
             >
+
+              
                   <Image
                     source={require("../assets/logo2blanc.png")}
                     style={styles.logo}
                   />
+
+
                   <Text style={styles.title}>Join us today!</Text>
                   <Text style={styles.signup}>Sign In</Text>
                   <View style={styles.input}>
@@ -97,6 +102,39 @@ export default function SigninScreen({ navigation }) {
                   >
                     <Text style={styles.register}>Let's Cook!</Text>
                   </TouchableOpacity>
+
+                  <View style={{ flexDirection: "row", alignItems: "center", marginTop:20 }}>
+                <View
+                  style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate(SignupScreen)}
+                  >
+                    <Text
+                      style={{
+                        width: 150,
+                        textAlign: "center",
+                        color: "white",
+                      }}
+                    >
+                      Register ?
+                    </Text>
+                    <Text
+                      style={{
+                        width: 150,
+                        textAlign: "center",
+                        color: "white",
+                      }}
+                    >
+                      Sign Up Here
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{ flex: 1, height: 2, backgroundColor: "#92C3BC" }}
+                />
+              </View>
 
                   </LinearGradient>
                 </KeyboardAvoidingView> 
@@ -134,19 +172,18 @@ const styles = StyleSheet.create({
     },
     signup: {
       color: "white",
-      fontSize: 45,
+      fontSize: 30,
       justifyContent: "center",
     },
     button: {
-      marginTop: 20,
-      // marginLeft: "30%",
-      backgroundColor: "#F9D77E",
-      borderRadius: 30,
-      width: "40%",
-      height: 40,
-      alignItems: "center",
-      justifyContent: "center",
-      marginBottom: 20,
+      backgroundColor: "#e8be4b",
+      color:"#fff",
+      fontSize: 25,
+      padding:10,
+      paddingHorizontal:50,
+      borderTopRightRadius:45,
+      borderBottomLeftRadius:45,
+      marginBottom:10,
     },
     inputContent: {
       backgroundColor: "white",

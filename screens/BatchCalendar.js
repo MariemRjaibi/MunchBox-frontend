@@ -41,7 +41,7 @@ export default function BatchCalendar({ navigation }) {
 
   // ==== Récuperer les recettes en base de donnée ajouter par l'utilisateur ==== //
   useEffect(() => {
-    fetch(`http://192.168.10.178:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.10.161:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -76,7 +76,7 @@ export default function BatchCalendar({ navigation }) {
 
   // Supprimer une recette du batch
   function deleteRecipe(data) {
-    fetch(`http://192.168.10.124:3000/calendarRecipes/${data._id}`, {
+    fetch(`http:/192.168.10.161:3000/calendarRecipes/${data._id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recipeId: data._id }),
@@ -153,6 +153,10 @@ export default function BatchCalendar({ navigation }) {
   });
 
   console.log(dateRecipe.length);
+
+  const handleNext = () => {
+    navigation.navigate(ShoppinglistScreen)
+  }
   return (
     <View style={styles.container}>
       <FontAwesome
@@ -163,29 +167,21 @@ export default function BatchCalendar({ navigation }) {
         onPress={goBack}
       />
       <Text style={styles.title}>Recipe list for the week</Text>
+     
 
-      <View style={styles.containerInfo}>
+       <View style={styles.containerInfo}>
+        {/* <View style={styles.infoBacth}>
+        <Image style={styles.iconCooktime} source={require("../assets/icon/cooking-time.png")}/>
+          <Text style={styles.titleInfoBacth}>Total duration : </Text>
+          <Text style={styles.dataInfoBacth}>2h30</Text>
+        </View> */}
         <View style={styles.infoBacth}>
-          <Image
-            style={styles.iconCooktime}
-            source={require("../assets/icon/cooking-time.png")}
-          />
-        </View>
-        <View style={styles.containerInfo}>
-          <View style={styles.infoBacth}>
-            <Text style={styles.titleInfoBacth}>Total duration : </Text>
-            <Text style={styles.dataInfoBacth}>2h30</Text>
-          </View>
-          <View style={styles.infoBacth}>
-            <Image
-              style={styles.iconChef}
-              source={require("../assets/icon/chef.png")}
-            />
-            <Text style={styles.titleInfoBacth}>Number of recipes : </Text>
-            <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
-          </View>
+        <Image style={styles.iconChef} source={require("../assets/icon/chef.png")}/>
+          <Text style={styles.titleInfoBacth}>Number of recipes : </Text>
+          <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
         </View>
       </View>
+     
 
       <ScrollView contentContainerStyle={styles.containerRecipes}>
         {/* <Text style={styles.subTitle}>Lundi</Text> */}
@@ -193,10 +189,7 @@ export default function BatchCalendar({ navigation }) {
       </ScrollView>
 
       <View style={styles.containerBtn}>
-        <TouchableOpacity
-          style={styles.btnSubmit}
-          onPress={() => navigation.navigate("ShoppinglistScreen")}
-        >
+        <TouchableOpacity style={styles.btnSubmit} onPress={() => handleNext()}>
           <Text>Validate my batch 👩🏽‍🍳</Text>
         </TouchableOpacity>
       </View>

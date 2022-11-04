@@ -135,7 +135,8 @@ export default function Filter({ navigation }) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
-         
+        <View style={styles.head}>
+        <Text style={styles.title}>Filtres</Text>
           <Ionicons // closes the filter and return to Recettepage
             name="close"
             size={35}
@@ -143,6 +144,9 @@ export default function Filter({ navigation }) {
             style={styles.close}
             onPress={() => navigation.navigate("TabNavigator")}
           />
+
+        </View>
+        
           <View style={styles.inputContainer}>
             {displayedItems.length === 0 ? (
               <Text style={styles.textTitle}>Ingredients</Text>
@@ -151,6 +155,7 @@ export default function Filter({ navigation }) {
                 Ingredients: {displayedItems.length}
               </Text>
             )}
+
             <View style={styles.searchBar}>
               <TextInput
                 style={styles.inputText}
@@ -165,7 +170,14 @@ export default function Filter({ navigation }) {
                 activeOpacity={0.8}
                 onPress={() => handleAddIngredients()}
               >
-                <Text style={styles.textButton}>Add</Text>
+                {/* <Text style={styles.textButton}>Add</Text> */}
+                <FontAwesome
+            name="plus"
+            size={20}
+            color={"#ffffff"}
+           
+           
+          />
               </TouchableOpacity>
             </View>
           </View>
@@ -296,7 +308,13 @@ export default function Filter({ navigation }) {
                 activeOpacity={0.8}
                 onPress={() => handleAddAllergies()}
               >
-                <Text style={styles.textButton}>Add</Text>
+                <FontAwesome
+            name="plus"
+            size={20}
+            color={"#ffffff"}
+           
+           
+          />
               </TouchableOpacity>
             </View>
           </View>
@@ -304,13 +322,20 @@ export default function Filter({ navigation }) {
           <ScrollView style={styles.displayedView}>
             {displayedAllergiesItems}
           </ScrollView>
-          <TouchableOpacity
-            style={styles.addBtn}
-            activeOpacity={0.8}
-            onPress={() => handleValidation()}
-          >
-            <Text style={styles.textButton}>Ok</Text>
-          </TouchableOpacity>
+
+          <View  style={styles.containBtnValided}>
+            <TouchableOpacity
+              style={styles.btnValided}
+              activeOpacity={0.8}
+              onPress={() => handleValidation()}
+            >
+              <Text style={styles.textBtnValided}>Ok 🧑‍🍳</Text>
+            </TouchableOpacity>
+
+          </View>
+         
+
+
         </KeyboardAvoidingView>
       </ScrollView>
     </TouchableWithoutFeedback>
@@ -318,35 +343,45 @@ export default function Filter({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  close: {
-    position: "absolute",
-    top: 50,
-    right: 50,
-    color: "black",
-  },
   container: {
     flex: 1,
-    backgroundColor: "#ffff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#FBFBFB",
+    paddingTop: 45,
+    paddingHorizontal: 20,
+    paddingBottom:50,
+    //alignItems: "center",
+    //justifyContent: "center",
+  },
+  head:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+  },
+  close: {
+    color: "#92C3BC",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#92C3BC",
+    marginBottom: 25,
   },
 
   inputContainer: {
-    // flexDirection: "row",
-    alignItems: "center",
-    marginTop: "20%",
-    marginBottom: 30,
+    //flexDirection: "row",
+   // alignItems: "center",
+    //marginTop: "20%",
+    //marginBottom: 30,
   },
   inputContainerAllergies: {
-    alignItems: "center",
-
+   // alignItems: "center",
     marginBottom: 30,
   },
   searchBar: {
     flexDirection: "row",
+    alignItems: "center",
   },
   inputText: {
-    width: 270,
+    width: "100%",
     padding: 10,
     marginTop: 6,
     borderWidth: 1,
@@ -355,16 +390,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   addBtn: {
-    backgroundColor: "#F9D77E",
-    borderRadius: 20,
-    width: 50,
-    fontSize: 14,
-    height: 50,
-    //  padding: 10,
-    // marginTop: 6,
-    marginLeft: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#e8be4b",
+    padding: 10,
+    paddingHorizontal: 12,
+    borderRadius: 100,
+    right: 50,
+    top: 3,
   },
   bigText: {
     alignItems: "center",
@@ -387,7 +418,7 @@ const styles = StyleSheet.create({
   },
   displayedView: {
     backgroundColor: "rgba(146,195,188, 0.2)",
-    width: "80%",
+    width: "100%",
     borderRadius: 20,
     alignItem: "center",
     marginBottom: "15%",
@@ -407,24 +438,21 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   imgAvatar: {
-    width: 40,
-    height: 40,
-    marginTop: 30,
+    width: 30,
+    height: 30,
   },
   dietElements: {
     flexDirection: "row",
-    justifyContent: "center",
     flexWrap: "wrap",
-    marginBottom: "50%",
-    marginTop: "5%",
+    marginBottom: 50,
     justifyContent: "space-evenly",
   },
   dietItem: {
     alignItems: "center",
     borderRadius: 20,
-    // backgroundColor: "rgba(146,195,188, 0.1)",
-    height: "40%",
-    width: "40%",
+    paddingVertical:15,
+    height: "30%",
+    width: "34%",
     marginBottom: "5%",
     shadowColor: "#000",
     shadowOffset: {
@@ -440,7 +468,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sliderContainer: {
-    alignItems: "center",
-    marginBottom: "20%",
+    marginBottom: 30,
+  },
+  containBtnValided:{
+   
+    alignItems:"center",
+  },
+  btnValided:{
+    
+    backgroundColor: "#e8be4b",
+    fontSize: 25,
+    padding:10,
+    paddingHorizontal:40,
+    borderTopRightRadius:45,
+    borderBottomLeftRadius:45,
+    width:"50%",
+  },
+  textBtnValided:{
+    color:'#fff',
+    textAlign:"center",
   },
 });

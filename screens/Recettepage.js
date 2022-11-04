@@ -91,10 +91,10 @@ export default function Recettepage({ navigation }) {
     let apiKey = "";
     //select which api key choose
     if (isFiltered) {
-      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number&number=40&tags=${newIngApi}`;
+      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number&number=40&tags=${newIngApi}`;
     } else {
       apiKey =
-        "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40";
+        "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40";
     }
     // console.log(apiKey);
     fetch(apiKey)
@@ -114,7 +114,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressStarter() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=138de8a9dfa441a78a7f487e72211ff8&number=40&tags=starter"
+      "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40&tags=starter"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -125,7 +125,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressMainCourse() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=lunch"
+      "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40&tags=lunch"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -136,7 +136,7 @@ export default function Recettepage({ navigation }) {
 
   function handlePressDessert() {
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=0b9f0e7f50714fbab1c330efde390d64&number=40&tags=dessert"
+      "https://api.spoonacular.com/recipes/random?apiKey=84f1945109bc46d8ad0cf8ef8efc6fa7&number=40&tags=dessert"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -184,7 +184,7 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.124:3000/calendarRecipes", requestOptions)
+    fetch("http://192.168.10.161:3000/calendarRecipes", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -288,7 +288,7 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.124:3000/calendarRecipes/", requestOptions)
+    fetch("http://192.168.10.161:3000/calendarRecipes/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -324,7 +324,7 @@ export default function Recettepage({ navigation }) {
     );
 
     return (
-      <TouchableOpacity onPress={() => handleDescription(data)}>
+      
         <View key={i} style={styles.cardRecipe}>
           <Image style={styles.imageRecipe} source={{ uri: data.image }} />
           <TouchableOpacity
@@ -337,7 +337,7 @@ export default function Recettepage({ navigation }) {
               color={isFavoriteActive ? "red" : "#ffffff"}
             />
           </TouchableOpacity>
-          <Text style={styles.cardTitle}>{data.title}</Text>
+          <Text style={styles.cardTitle} onPress={() => handleDescription(data)} >{data.title}</Text>
           <View style={styles.cardInfo}>
             <View style={styles.containerInfo}>
               <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
@@ -355,7 +355,7 @@ export default function Recettepage({ navigation }) {
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      
     );
   });
 
@@ -457,50 +457,80 @@ export default function Recettepage({ navigation }) {
             >
               Nutrition Information
             </Text>
-            <Text style={{ fontSize: 10 }}>
-              Fat Carbohydrates Sugar Cholesterol Sodium Protein
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Ionicons
-                name="fast-food-outline"
-                size={25}
-                color="#92C3BC"
-                style={styles.info}
-              />
-              <Ionicons
-                name="fast-food-outline"
-                size={25}
-                color="#92C3BC"
-                style={styles.info}
-              />
-              <Ionicons
-                name="fast-food-outline"
-                size={25}
-                color="#92C3BC"
-                style={styles.info}
-              />
-              <Ionicons
-                name="fast-food-outline"
-                size={25}
-                color="#92C3BC"
-                style={styles.info}
-              />
-              <Ionicons
-                name="fast-food-outline"
-                size={25}
-                color="#92C3BC"
-                style={styles.info}
-              />
-              <Ionicons
-                name="fast-food-outline"
-                size={25}
-                color="#92C3BC"
-                style={styles.info}
-              />
+
+            <View style={styles.containeNutrition}>
+              <View >
+                <Text  style={styles.textNutrition}>Glucide</Text>
+                <View style={styles.infoContainer}>
+                <Image style={styles.info} source={require("../assets/icon/les-glucides.png")}/>
+                </View>
+                 <Text style={styles.grammeNutrition}>58 g</Text>
+              </View>
+
+              <View >
+                <Text  style={styles.textNutrition}>Lipides</Text>
+
+                <View style={styles.infoContainer}>
+                  <Image style={styles.info} source={require("../assets/icon/grain.png")}/>
+                </View>
+                
+                 <Text style={styles.grammeNutrition}>11 g</Text>
+              </View>
+
+              <View >
+                <Text  style={styles.textNutrition}>Proteins</Text>
+                <View style={styles.infoContainer}>
+                <Image style={styles.info} source={require("../assets/icon/proteine.png")}/>
+                </View>
+                <Text style={styles.grammeNutrition}>22 g</Text>
+              </View>
+
+              <View >
+                <Text  style={styles.textNutrition}>Fibres</Text>
+                <View style={styles.infoContainer}>
+                <Image style={styles.info} source={require("../assets/icon/gras-trans.png")}/>
+                </View>
+                 <Text style={styles.grammeNutrition}>28 g</Text>
+              </View>
+
+              <View >
+                <Text  style={styles.textNutrition}>Sale</Text>
+                <View style={styles.infoContainer}>
+                <Image style={styles.info} source={require("../assets/icon/sel.png")}/>
+                </View>
+                 <Text style={styles.grammeNutrition}>408 kcal</Text>
+              </View>
+             
+             
+              
             </View>
-            <Text style={{ fontWeight: "bold" }}>Read Reviews</Text>
+            {/* <Text style={{ fontWeight: "bold" }}>Read Reviews</Text> */}
             <Text style={{ fontWeight: "bold" }}>
               Rate this recipe:{" "}
+              <FontAwesome
+                name="star-o"
+                size={20}
+                color="#92C3BC"
+                style={styles.note}
+              />
+              <FontAwesome
+                name="star-o"
+                size={20}
+                color="#92C3BC"
+                style={styles.note}
+              />
+              <FontAwesome
+                name="star-o"
+                size={20}
+                color="#92C3BC"
+                style={styles.note}
+              />
+              <FontAwesome
+                name="star-o"
+                size={20}
+                color="#92C3BC"
+                style={styles.note}
+              />
               <FontAwesome
                 name="star-o"
                 size={20}
@@ -522,7 +552,7 @@ export default function Recettepage({ navigation }) {
                 />
               </Pressable>
             </View>
-            <Text style={{ fontWeight: "bold" }}>
+            <Text style={styles.warning}>
               Experiencing an issue with the mobile site?
             </Text>
           </ScrollView>
@@ -646,8 +676,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   imageProfil: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#83C5BC",
@@ -749,6 +779,27 @@ const styles = StyleSheet.create({
   },
 
   //modal style
+  warning:{ 
+    fontWeight: "200", 
+    textAlign:"center",
+    fontSize:12, 
+  },
+  containeNutrition:{
+    flexDirection:"row",
+    justifyContent:'space-between',
+    marginBottom:40,
+  },
+  textNutrition:{
+    fontSize:12, 
+    textAlign:"center",
+    paddingBottom:5,
+  },
+  grammeNutrition:{
+    paddingTop:4,
+    textAlign:"center",
+    fontWeight:"bold",
+    fontSize:12,
+  },
   chicken: {
     width: "100%",
     height: "30%",
@@ -812,10 +863,26 @@ const styles = StyleSheet.create({
   ingredient: {
     marginTop: 30,
   },
+  infoContainer:{
+    paddingVertical:6,
+    paddingHorizontal:6,
+    backgroundColor: "#ffffff",
+    borderRadius:10,
+   shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2.24,
+    elevation: 3,
+    
+  },
   info: {
-    paddingRight: 10,
-    paddingLeft: 10,
-    marginBottom: 30,
+    width:35,
+    height: 35,
+   
+   
   },
   text: {
     backgroundColor: "white",
