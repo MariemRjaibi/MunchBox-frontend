@@ -28,6 +28,7 @@ import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ConceptScreen from "./form/ConceptScreen";
 import SignupScreen from "./SignupScreen";
+import SigninScreen from "./SigninScreen";
 
 export default function Recettepage({ navigation }) {
   // ======= Bouton retour  =======//
@@ -64,7 +65,7 @@ export default function Recettepage({ navigation }) {
   }
   const handleLogOut = () => {
     dispatch(logout());
-    navigation.navigate(SignupScreen);
+    navigation.navigate(SigninScreen);
   };
 
   let textToDisplay = "";

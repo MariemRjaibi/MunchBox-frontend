@@ -193,60 +193,8 @@ export default function SignupScreen({ navigation }) {
       </ImageBackground>
     );
     //if token is identified, user already exists and sign in page appears
-  } else {
-    return (
-      <ImageBackground
-        source={require("../assets/background-concept.jpg")}
-        style={styles.background}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.background}
-          >
-            <LinearGradient
-              colors={["transparent", "rgba(0,0,0,0.8)"]}
-              style={styles.background}
-            >
-              <View style={styles.containeLogo}>
-                <Image
-                  source={require("../assets/logo2blanc.png")}
-                  style={styles.logo}
-                />
-              </View>
-
-              <Text style={styles.title}>Join us today!</Text>
-              <Text style={styles.signup}>Sign In</Text>
-              <View style={styles.input}>
-                <Text style={{ color: "white", fontSize: 20 }}>Username</Text>
-                <TextInput
-                  placeholder="Username"
-                  onChangeText={(value) => setUsername(value)}
-                  value={username}
-                  style={styles.inputContent}
-                />
-                <Text style={{ color: "white", fontSize: 20 }}>Password</Text>
-                <TextInput
-                  placeholder="Password"
-                  onChangeText={(value) => setPassword(value)}
-                  secureTextEntry={true}
-                  value={password}
-                  style={styles.inputContent}
-                />
-              </View>
-              <TouchableOpacity
-                style={styles.button}
-                activeOpacity={0.8}
-                onPress={() => handleConnection()}
-              >
-                <Text style={styles.register}>Let's Cook!</Text>
-              </TouchableOpacity>
-            </LinearGradient>
-          </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
-      </ImageBackground>
-    );
   }
+  
 }
 
 const styles = StyleSheet.create({

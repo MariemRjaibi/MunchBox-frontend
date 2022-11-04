@@ -14,6 +14,7 @@ import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { logout } from "../reducers/users";
 import SignupScreen from "./SignupScreen";
+import SigninScreen from "./SigninScreen";
 
 
 export default function FavoritesScreen({ navigation }) {
@@ -32,7 +33,7 @@ export default function FavoritesScreen({ navigation }) {
   // se deconnecter
   const handleLogOut = () => {
     dispatch(logout());
-    navigation.navigate(SignupScreen);
+    navigation.navigate(SigninScreen);
   };
 
   function handleFavoris(data) {

@@ -79,10 +79,10 @@ export default function ShoppinglistScreen({navigation}) {
   const listCoursesUser = shoppingList.map((data, i) => {
     
 
-    let isCheckedUserList = shoppingList.some((e) => {
-      //console.log('debug',data.name,e);
-      return e !== data;
-    })
+    // let isCheckedUserList = shoppingList.some((e) => {
+    //   //console.log('debug',data.name,e);
+    //   return e !== data;
+    // })
 
     return (
       <View key={i} style={styles.section}>

@@ -118,7 +118,7 @@ export default function SigninScreen({ navigation }) {
                         color: "white",
                       }}
                     >
-                      Register ?
+                      No account yet ?
                     </Text>
                     <Text
                       style={{

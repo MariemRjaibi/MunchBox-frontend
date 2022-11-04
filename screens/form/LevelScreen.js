@@ -32,8 +32,8 @@ export default function LevelScreen({ navigation }) {
           How do you rate yourself in the kitchen ?{" "}
           </Text>
           <SliderPicker
-            minLabel={"Débutant"}
-            midLabel={"Commis"}
+            minLabel={"Beginner"}
+            midLabel={"Average"}
             maxLabel={"Etchebest"}
             defaultValue={1}
             maxValue={2}
@@ -59,9 +59,9 @@ export default function LevelScreen({ navigation }) {
           <Text style={styles.title}>🍲 Cooking time</Text>
           <Text style={styles.text}>Do you have time to cook?</Text>
           <SliderPicker
-            minLabel={"Bof"}
-            midLabel={"Moyen"}
-            maxLabel={"Carrément"}
+            minLabel={"Not at all"}
+            midLabel={"A bit of time"}
+            maxLabel={"Absolutely"}
             defaultValue={1}
             maxValue={2}
             //   callback={position => {
