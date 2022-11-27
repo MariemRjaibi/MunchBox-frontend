@@ -29,7 +29,7 @@ export default function SigninScreen({ navigation }) {
      //function that directs registered users to sign in page 
   const handleConnection = () => {
     //console.log("clicked")
-    fetch("http://192.168.10.161:3000/users/signin", {
+    fetch("http://192.168.1.12:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

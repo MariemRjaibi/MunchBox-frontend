@@ -73,7 +73,6 @@ export default function FormScreen({ navigation }) {
 
   // Bouton suivant et soumettre -> Si ce n'est pas la derniere page continuer à défilé les pages et Si c'est la derniere page afficher le bouton soumettre 
   function handlePress() {
-    console.log("Info :", formData)
     if(screen === 3){
       //console.log("Info :", formData)
       dispatch(addPreference(formData))

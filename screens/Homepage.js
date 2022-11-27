@@ -34,45 +34,36 @@ export default function Homepage({ navigation }) {
           </Text>
 
           <View style={styles.containerButton}>
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(removeIsFiltered());
-                  navigation.navigate("TabNavigator");
-                }}
-                style={styles.button}
-                activeOpacity={0.8}
-              >
-                <Text>Oh, yes!</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(removeIsFiltered());
+                navigation.navigate("TabNavigator");
+              }}
+              style={styles.button}
+              activeOpacity={0.8}
+            >
+              <Text>Oh, yes!</Text>
+            </TouchableOpacity>
           </View>
+        </View>
 
-          
-
-          
-
-            <View style={styles.containerOption}>
-              <Text style={styles.title}>
-                Find recipes based on ingredients that you have on hand
-              </Text>
-              <View style={styles.containerButton}>
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(removeIsFiltered());
-                  navigation.navigate("Placard");
-                }}
-                style={styles.button}
-                activeOpacity={0.8}
-              >
-              
-                <Text>Ok, great!</Text>
-              </TouchableOpacity>
-              </View>
-            </View>
-          
-      
-
-        
+        <View style={styles.containerOption}>
+          <Text style={styles.title}>
+            Find recipes based on ingredients that you have on hand
+          </Text>
+          <View style={styles.containerButton}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(updateIsFiltered());
+                navigation.navigate("Placard");
+              }}
+              style={styles.button}
+              activeOpacity={0.8}
+            >
+              <Text>Ok, great!</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </LinearGradient>
     </ImageBackground>
   );
@@ -89,17 +80,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
   },
-  containerOption:{
-      backgroundColor:"rgba(0,0,0, 0.6)",
-      borderRadius:20,
-      padding:30,
+  containerOption: {
+    backgroundColor: "rgba(0,0,0, 0.6)",
+    borderRadius: 20,
+    padding: 30,
   },
   title: {
     color: "#ffffff",
     fontWeight: "bold",
     fontSize: 20,
-    textAlign:"center",
-    paddingBottom:15,
+    textAlign: "center",
+    paddingBottom: 15,
   },
   tagline: {
     color: "#ABAEB1",

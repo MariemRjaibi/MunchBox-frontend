@@ -31,8 +31,6 @@ export const modalFiltersSlice = createSlice({
       state.value.allergies.push(action.payload);
     },
     removeAllergies: (state, action) => {
-      console.log(action);
-      console.log(state.value.allergies);
       state.value.allergies = state.value.allergies.filter(
         (e) => e !== action.payload
       );

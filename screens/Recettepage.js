@@ -29,12 +29,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ConceptScreen from "./form/ConceptScreen";
 import SignupScreen from "./SignupScreen";
 import SigninScreen from "./SigninScreen";
+//import { APIKEY } from "react-native-dotenv";
 
 export default function Recettepage({ navigation }) {
   // ======= Bouton retour  =======//
   const goBack = () => {
     navigation.goBack();
   };
+  // const API_KEY = process.env.API_KEY;
 
   const [listRecipe, setListRecipe] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -46,7 +48,6 @@ export default function Recettepage({ navigation }) {
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
-  const [apikey, setApiKey] = useState("");
 
   const [noResult, setNoResult] = useState(false);
   //const [apikey, setApiKey] = useState("");
@@ -57,9 +58,6 @@ export default function Recettepage({ navigation }) {
     (state) => state.placardIngredients.value
   );
   const dispatch = useDispatch();
-  // console.log("recettespage", isFiltered);
-
-  console.log(ingredientsFromFilter);
   function handleFilter() {
     navigation.navigate(Filter);
   }
@@ -68,7 +66,6 @@ export default function Recettepage({ navigation }) {
     navigation.navigate(SigninScreen);
   };
 
-  let textToDisplay = "";
   useEffect(() => {
     // const _clearAll = async () => {
     //   try {
@@ -84,24 +81,23 @@ export default function Recettepage({ navigation }) {
 
     let newIngApi = "";
     for (let i = 0; i < ingredientsFromFilter.length; i++) {
-      // console.log(ingredientsFromFilter[i]);
+ 
       newIngApi += `${ingredientsFromFilter[i].toLowerCase()}+,`;
-      //console.log("===========", newIngApi);
+
     }
-    console.log("isFiltered", isFiltered);
-    let apiKey = "";
+   // console.log("isFiltered", isFiltered);
+    let apiUrl = "";
     //select which api key choose
     if (isFiltered) {
-      apiKey = `https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number&number=40&tags=${newIngApi}`;
+      apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number&number=40&tags=${newIngApi}`;
     } else {
-      apiKey =
+      apiUrl =
         "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40";
     }
-    // console.log(apiKey);
-    fetch(apiKey)
+
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         if (data.recipes.length === 0) {
           setNoResult(true);
         } else {
@@ -185,7 +181,8 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.161:3000/calendarRecipes", requestOptions)
+
+    fetch("https://munch-box-backend.vercel.app/calendarRecipes", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -237,8 +234,7 @@ export default function Recettepage({ navigation }) {
   const favorites = useSelector((state) => state.favorites.value);
 
   function handleFavoris(data) {
-    console.log(data.title);
-    //console.log(favorites)
+    
     if (favorites.includes(data)) {
       //supprimer des Favoris
       dispatch(removeFavorites(data));
@@ -289,7 +285,7 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("http://192.168.10.161:3000/calendarRecipes/", requestOptions)
+    fetch("https://munch-box-backend.vercel.app/calendarRecipes/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -325,38 +321,38 @@ export default function Recettepage({ navigation }) {
     );
 
     return (
-      
-        <View key={i} style={styles.cardRecipe}>
-          <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-          <TouchableOpacity
-            onPress={() => handleFavoris(data)}
-            style={styles.iconHeart}
-          >
-            <FontAwesome
-              name="heart"
-              size={20}
-              color={isFavoriteActive ? "red" : "#ffffff"}
-            />
-          </TouchableOpacity>
-          <Text style={styles.cardTitle} onPress={() => handleDescription(data)} >{data.title}</Text>
-          <View style={styles.cardInfo}>
-            <View style={styles.containerInfo}>
-              <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
-              <Text style={styles.textInfo}>{data.time}</Text>
-            </View>
-            <View style={styles.containerInfo}>
-              <TouchableOpacity onPress={() => handleCalendar(data)}>
-                <FontAwesome
-                  name="calendar"
-                  size={20}
-                  color={"#83C5BC"}
-                  style={styles.iconCalendar}
-                />
-              </TouchableOpacity>
-            </View>
+      <View key={i} style={styles.cardRecipe}>
+        <Image style={styles.imageRecipe} source={{ uri: data.image }} />
+        <TouchableOpacity
+          onPress={() => handleFavoris(data)}
+          style={styles.iconHeart}
+        >
+          <FontAwesome
+            name="heart"
+            size={20}
+            color={isFavoriteActive ? "red" : "#ffffff"}
+          />
+        </TouchableOpacity>
+        <Text style={styles.cardTitle} onPress={() => handleDescription(data)}>
+          {data.title}
+        </Text>
+        <View style={styles.cardInfo}>
+          <View style={styles.containerInfo}>
+            <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
+            <Text style={styles.textInfo}>{data.time}</Text>
+          </View>
+          <View style={styles.containerInfo}>
+            <TouchableOpacity onPress={() => handleCalendar(data)}>
+              <FontAwesome
+                name="calendar"
+                size={20}
+                color={"#83C5BC"}
+                style={styles.iconCalendar}
+              />
+            </TouchableOpacity>
           </View>
         </View>
-      
+      </View>
     );
   });
 
@@ -382,13 +378,7 @@ export default function Recettepage({ navigation }) {
             style={styles.close}
             onPress={() => setModalVisible(false)}
           />
-          {/* <Ionicons
-            name="heart"
-            size={24}
-            color={isFavoriteActive ? "red" : "#ffffff"}
-            style={styles.heart}
-            onPress={() => handleFavoris(data)}
-          /> */}
+          
           <Text style={styles.title}>{title}</Text>
           <View style={styles.input}>
             <FontAwesome
@@ -406,33 +396,6 @@ export default function Recettepage({ navigation }) {
             />
             <Text>{calories} kcal</Text>
           </View>
-          {/* <View style={styles.star}>
-            <FontAwesome
-              name="star-o"
-              size={25}
-              color="#92C3BC"
-              style={styles.note}
-            />
-            <FontAwesome
-              name="star-o"
-              size={25}
-              color="#92C3BC"
-              style={styles.note}
-            />
-            <FontAwesome
-              name="star-o"
-              size={25}
-              color="#92C3BC"
-              style={styles.note}
-            />
-            <FontAwesome
-              name="star-o"
-              size={25}
-              color="#92C3BC"
-              style={styles.note}
-            />
-            <Text style={styles.starnote}> 4/5 (123 reviews)</Text>
-          </View> */}
           <SwitchSelector
             buttonColor={"#92C3BC"}
             ios_backgroundColor={"#92C3BC"}
@@ -460,50 +423,62 @@ export default function Recettepage({ navigation }) {
             </Text>
 
             <View style={styles.containeNutrition}>
-              <View >
-                <Text  style={styles.textNutrition}>Glucide</Text>
+              <View>
+                <Text style={styles.textNutrition}>Glucide</Text>
                 <View style={styles.infoContainer}>
-                <Image style={styles.info} source={require("../assets/icon/les-glucides.png")}/>
+                  <Image
+                    style={styles.info}
+                    source={require("../assets/icon/les-glucides.png")}
+                  />
                 </View>
-                 <Text style={styles.grammeNutrition}>58 g</Text>
+                <Text style={styles.grammeNutrition}>58 g</Text>
               </View>
 
-              <View >
-                <Text  style={styles.textNutrition}>Lipides</Text>
+              <View>
+                <Text style={styles.textNutrition}>Lipides</Text>
 
                 <View style={styles.infoContainer}>
-                  <Image style={styles.info} source={require("../assets/icon/grain.png")}/>
+                  <Image
+                    style={styles.info}
+                    source={require("../assets/icon/grain.png")}
+                  />
                 </View>
-                
-                 <Text style={styles.grammeNutrition}>11 g</Text>
+
+                <Text style={styles.grammeNutrition}>11 g</Text>
               </View>
 
-              <View >
-                <Text  style={styles.textNutrition}>Proteins</Text>
+              <View>
+                <Text style={styles.textNutrition}>Proteins</Text>
                 <View style={styles.infoContainer}>
-                <Image style={styles.info} source={require("../assets/icon/proteine.png")}/>
+                  <Image
+                    style={styles.info}
+                    source={require("../assets/icon/proteine.png")}
+                  />
                 </View>
                 <Text style={styles.grammeNutrition}>22 g</Text>
               </View>
 
-              <View >
-                <Text  style={styles.textNutrition}>Fibres</Text>
+              <View>
+                <Text style={styles.textNutrition}>Fibres</Text>
                 <View style={styles.infoContainer}>
-                <Image style={styles.info} source={require("../assets/icon/gras-trans.png")}/>
+                  <Image
+                    style={styles.info}
+                    source={require("../assets/icon/gras-trans.png")}
+                  />
                 </View>
-                 <Text style={styles.grammeNutrition}>28 g</Text>
+                <Text style={styles.grammeNutrition}>28 g</Text>
               </View>
 
-              <View >
-                <Text  style={styles.textNutrition}>Sale</Text>
+              <View>
+                <Text style={styles.textNutrition}>Sale</Text>
                 <View style={styles.infoContainer}>
-                <Image style={styles.info} source={require("../assets/icon/sel.png")}/>
+                  <Image
+                    style={styles.info}
+                    source={require("../assets/icon/sel.png")}
+                  />
                 </View>
-                 <Text style={styles.grammeNutrition}>408 kcal</Text>
+                <Text style={styles.grammeNutrition}>408 kcal</Text>
               </View>
-             
-             
-              
             </View>
             {/* <Text style={{ fontWeight: "bold" }}>Read Reviews</Text> */}
             <Text style={{ fontWeight: "bold" }}>
@@ -780,26 +755,26 @@ const styles = StyleSheet.create({
   },
 
   //modal style
-  warning:{ 
-    fontWeight: "200", 
-    textAlign:"center",
-    fontSize:12, 
+  warning: {
+    fontWeight: "200",
+    textAlign: "center",
+    fontSize: 12,
   },
-  containeNutrition:{
-    flexDirection:"row",
-    justifyContent:'space-between',
-    marginBottom:40,
+  containeNutrition: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 40,
   },
-  textNutrition:{
-    fontSize:12, 
-    textAlign:"center",
-    paddingBottom:5,
+  textNutrition: {
+    fontSize: 12,
+    textAlign: "center",
+    paddingBottom: 5,
   },
-  grammeNutrition:{
-    paddingTop:4,
-    textAlign:"center",
-    fontWeight:"bold",
-    fontSize:12,
+  grammeNutrition: {
+    paddingTop: 4,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 12,
   },
   chicken: {
     width: "100%",
@@ -864,12 +839,12 @@ const styles = StyleSheet.create({
   ingredient: {
     marginTop: 30,
   },
-  infoContainer:{
-    paddingVertical:6,
-    paddingHorizontal:6,
+  infoContainer: {
+    paddingVertical: 6,
+    paddingHorizontal: 6,
     backgroundColor: "#ffffff",
-    borderRadius:10,
-   shadowColor: "#000",
+    borderRadius: 10,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -877,13 +852,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2.24,
     elevation: 3,
-    
   },
   info: {
-    width:35,
+    width: 35,
     height: 35,
-   
-   
   },
   text: {
     backgroundColor: "white",
@@ -918,14 +890,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   stepsarray: {
-    color:"#343333",
+    color: "#343333",
     fontWeight: "bold",
     paddingHorizontal: 10,
     marginTop: 20,
     //paddingBottom: 10,
   },
   ingredientsarray: {
-    color:"#343333",
+    color: "#343333",
     fontWeight: "bold",
     //paddingBottom: 10,
     paddingTop: 10,

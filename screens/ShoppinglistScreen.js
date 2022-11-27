@@ -35,7 +35,7 @@ export default function ShoppinglistScreen({navigation}) {
 
   let tmp = [];
   useEffect(() => {
-    fetch(`http://192.168.10.161:3000/calendarRecipes/${token}`)
+    fetch(`http://192.168.1.12:3000/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         for (let element of data.recipes) {

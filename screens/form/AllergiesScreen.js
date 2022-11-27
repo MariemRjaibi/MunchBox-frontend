@@ -14,8 +14,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function AllergiesScreen({ formData, setFormData }) {
   // Répurération de la data pour le form final
-  // allergies:"",
-  // allergiesOption:[],
+
 
   // ======= Liste des ingredients entrées manuellement par l'utilisateur ======= //
   const [ingredient, setIngredient] = useState("");
@@ -23,7 +22,6 @@ export default function AllergiesScreen({ formData, setFormData }) {
 
 
   const deleteClick = () =>{
-    console.log("je supprime");
 
       setIngredientList(ingredientList.filter(e => e !== ingredient));
 

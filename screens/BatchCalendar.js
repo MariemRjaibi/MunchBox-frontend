@@ -6,8 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Button,
-  TimePickerAndroid,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -35,13 +33,15 @@ export default function BatchCalendar({ navigation }) {
     navigation.goBack();
   };
 
+  //componentDidMount()
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [currentIndex, setCurrentIndex] = useState();
   const [calendarRecipesToDisplay, setCalendarRecipesToDisplay] = useState([]);
 
-  // ==== Récuperer les recettes en base de donnée ajouter par l'utilisateur ==== //
+  // ==== Récuperer les recettes en base de donnée ajoutées par l'utilisateur ==== //
   useEffect(() => {
-    fetch(`http://192.168.10.161:3000/calendarRecipes/${token}`)
+    fetch(`https://munch-box-backend.vercel.app/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -76,7 +76,7 @@ export default function BatchCalendar({ navigation }) {
 
   // Supprimer une recette du batch
   function deleteRecipe(data) {
-    fetch(`http:/192.168.10.161:3000/calendarRecipes/${data._id}`, {
+    fetch(`https://munch-box-backend.vercel.app/calendarRecipes/${data._id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recipeId: data._id }),
@@ -152,11 +152,11 @@ export default function BatchCalendar({ navigation }) {
     );
   });
 
-  console.log(dateRecipe.length);
+  //console.log(dateRecipe.length);
 
   const handleNext = () => {
-    navigation.navigate(ShoppinglistScreen)
-  }
+    navigation.navigate(ShoppinglistScreen);
+  };
   return (
     <View style={styles.container}>
       <FontAwesome
@@ -167,21 +167,22 @@ export default function BatchCalendar({ navigation }) {
         onPress={goBack}
       />
       <Text style={styles.title}>Recipe list for the week</Text>
-     
 
-       <View style={styles.containerInfo}>
+      <View style={styles.containerInfo}>
         {/* <View style={styles.infoBacth}>
         <Image style={styles.iconCooktime} source={require("../assets/icon/cooking-time.png")}/>
           <Text style={styles.titleInfoBacth}>Total duration : </Text>
           <Text style={styles.dataInfoBacth}>2h30</Text>
         </View> */}
         <View style={styles.infoBacth}>
-        <Image style={styles.iconChef} source={require("../assets/icon/chef.png")}/>
+          <Image
+            style={styles.iconChef}
+            source={require("../assets/icon/chef.png")}
+          />
           <Text style={styles.titleInfoBacth}>Number of recipes : </Text>
           <Text style={styles.dataInfoBacth}>{dateRecipe.length}</Text>
         </View>
       </View>
-     
 
       <ScrollView contentContainerStyle={styles.containerRecipes}>
         {/* <Text style={styles.subTitle}>Lundi</Text> */}

@@ -32,6 +32,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-design-utility": "^2.0.4",
     "react-native-dismiss-keyboard": "^1.0.0",
+    "react-native-dotenv": "^3.4.2",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-safe-area-context": "4.3.1",

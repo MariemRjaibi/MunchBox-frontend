@@ -29,7 +29,7 @@ export default function SignupScreen({ navigation }) {
   //console.log(token);
   //function that directs new users to signup page
   const handleRegister = () => {
-    fetch("http://192.168.10.161:3000/users/signup", {
+    fetch("http://192.168.1.12:3000/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
