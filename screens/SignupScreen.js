@@ -40,7 +40,6 @@ export default function SignupScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         if (data.result) {
           dispatch(login({ username: username, token: data.token }));
           setUsername("");
@@ -52,30 +51,6 @@ export default function SignupScreen({ navigation }) {
     }
   };
 
-  // console.log('token', token)
-
-  //function that directs registered users to sign in page
-  const handleConnection = () => {
-    fetch("http://192.168.10.161:3000/users/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: signInUsername,
-        password: signInPassword,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          dispatch(login({ username: signInUsername, token: data.token }));
-          setSignInUsername("");
-          setSignInPassword("");
-        }
-      });
-    if (token) {
-      navigation.navigate(Homepage);
-    }
-  };
 
   const handleValidEmail = (value) => {
     let reg =

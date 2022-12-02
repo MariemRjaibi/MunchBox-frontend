@@ -63,7 +63,7 @@ export default function Filter({ navigation }) {
 
   //dispatch info to reducers (ingredients & allergies)
   function handleAddIngredients() {
-    console.log("clicked");
+   // console.log("clicked");
     dispatch(addIngredients(ingredient));
     setIngredient("");
   }
@@ -116,6 +116,7 @@ export default function Filter({ navigation }) {
       </View>
     );
   });
+  
   function handlePressPescto() {
     setPescto((current) => !current);
   }

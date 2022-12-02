@@ -39,10 +39,8 @@ export default function SigninScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then(data => {
-        console.log(data.result)
         data.result && dispatch(login({ username: data.username, token: data.token}));
-         // setSignInUsername("");
-         // setSignInPassword("");
+        
          if (token) {
           navigation.navigate(Homepage);
         }
@@ -52,7 +50,7 @@ export default function SigninScreen({ navigation }) {
     
  
   };
-  console.log(token)
+
 
         return (
             <ImageBackground

@@ -19,7 +19,7 @@ import placardIngredients from "./reducers/placardIngredients";
 import favorites from "./reducers/favorites";
 import choosePaths from "./reducers/choosePaths";
 import Calendar from "./reducers/Calendar";
-import dates from "./reducers/dates";
+import fromWhichScreen from "./reducers/fromWhichScreen";
 
 //Import de font
 import { useFonts } from "expo-font";
@@ -37,17 +37,18 @@ import BatchCalendar from "./screens/BatchCalendar";
 import Homepage from "./screens/Homepage";
 import Recettepage from "./screens/Recettepage";
 import Filter from "./screens/Filter";
-import RecettepageFiltered from "./screens/RecettepageFiltered";
+
 import FormScreen from "./screens/form/FormScreen";
 import SignupScreen from "./screens/SignupScreen";
 import SigninScreen from "./screens/SigninScreen";
 import ShoppinglistScreen from "./screens/ShoppinglistScreen";
-import BatchweekScreen from "./screens/BatchweekScreen";
+
 import FavoritesScreen from "./screens/FavoritesScreen";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { shouldUseActivityState } from "react-native-screens";
 import Placard from "./screens/Placard";
+import Descriptif from "./screens/Descriptif";
 
 LogBox.ignoreAllLogs();
 
@@ -60,6 +61,7 @@ const reducers = combineReducers({
   modalFilters,
   choosePaths,
   Calendar,
+  fromWhichScreen,
 });
 const persistConfig = { key: "munchbox", storage: AsyncStorage };
 
@@ -145,12 +147,16 @@ export default function App({ navigation }) {
             <Stack.Screen name="SigninScreen" component={SigninScreen} />
             <Stack.Screen name="Homepage" component={Homepage} />
             <Stack.Screen name="Recettepage" component={Recettepage} />
+            <Stack.Screen name="Descriptif" component={Descriptif} />
             <Stack.Screen name="Placard" component={Placard} />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="batchCalendar" component={BatchCalendar} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen
+              name="ShoppinglistScreen"
+              component={ShoppinglistScreen}
+            />
             <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
-            <Stack.Screen name="ShoppinglistScreen" component={ShoppinglistScreen}/>
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

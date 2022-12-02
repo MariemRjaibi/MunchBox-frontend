@@ -14,7 +14,6 @@ import {
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import Filter from "./Filter";
-import RecettepageFiltered from "./RecettepageFiltered";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addPlacardIngredients,
@@ -22,7 +21,6 @@ import {
 } from "../reducers/placardIngredients";
 
 export default function Placard({ navigation }) {
-
   // ======= Bouton retour  =======//
   const goBack = () => {
     navigation.goBack();
@@ -75,18 +73,14 @@ export default function Placard({ navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-      
-
-
-        
         <View style={styles.bigText}>
-        <FontAwesome
-        name="chevron-left"
-        size={20}
-        color={"#92C3BC"}
-        style={styles.buttonReturn}
-        onPress={goBack}
-      />
+          <FontAwesome
+            name="chevron-left"
+            size={20}
+            color={"#92C3BC"}
+            style={styles.buttonReturn}
+            onPress={goBack}
+          />
           <Text style={styles.bigTextContent}> What I have in my kitchen</Text>
         </View>
 
@@ -114,16 +108,16 @@ export default function Placard({ navigation }) {
             <Text style={styles.textButton}>Add</Text>
           </TouchableOpacity> */}
         </View>
-        <View style={styles.containerMain} >
-        <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
+        <View style={styles.containerMain}>
+          <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
 
-        <TouchableOpacity
-          style={styles.findBtn}
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate("TabNavigator")}
-        >
-          <Text style={styles.textButton}>Find a recipe</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.findBtn}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("TabNavigator")}
+          >
+            <Text style={styles.textButton}>Find a recipe</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -138,16 +132,14 @@ const styles = StyleSheet.create({
     //alignItems: "center",
     //justifyContent: "center",
   },
-  containerMain:{
-    flex:1,
-    width:"100%",
+  containerMain: {
+    flex: 1,
+    width: "100%",
     alignItems: "center",
-   
-   
   },
   searchBar: {},
   inputContainer: {
-    marginTop:10,
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -200,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   displayedView: {
-    marginTop:20,
+    marginTop: 20,
     height: "40%",
     backgroundColor: "rgba(146,195,188, 0.2)",
     width: "100%",

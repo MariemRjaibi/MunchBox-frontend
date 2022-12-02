@@ -23,12 +23,14 @@ import favorites, {
   removeAllFavorites,
   removeFavorites,
 } from "../reducers/favorites";
+import {recetteScreen} from "../reducers/fromWhichScreen";
 import { logout } from "../reducers/users";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ConceptScreen from "./form/ConceptScreen";
 import SignupScreen from "./SignupScreen";
 import SigninScreen from "./SigninScreen";
+import Descriptif from "./Descriptif";
 //import { APIKEY } from "react-native-dotenv";
 
 export default function Recettepage({ navigation }) {
@@ -48,9 +50,7 @@ export default function Recettepage({ navigation }) {
   const [prepTime, setPrepTime] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [displayedSteps, setDisplayedSteps] = useState([]);
-
   const [noResult, setNoResult] = useState(false);
-  //const [apikey, setApiKey] = useState("");
 
   const user = useSelector((state) => state.users.value.token);
   const isFiltered = useSelector((state) => state.choosePaths.value);
@@ -81,23 +81,22 @@ export default function Recettepage({ navigation }) {
 
     let newIngApi = "";
     for (let i = 0; i < ingredientsFromFilter.length; i++) {
- 
       newIngApi += `${ingredientsFromFilter[i].toLowerCase()}+,`;
-
     }
-   // console.log("isFiltered", isFiltered);
+    // console.log("isFiltered", isFiltered);
     let apiUrl = "";
     //select which api key choose
     if (isFiltered) {
-      apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number&number=40&tags=${newIngApi}`;
+      apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&tags=${newIngApi}&number=400`;
     } else {
       apiUrl =
-        "https://api.spoonacular.com/recipes/random?apiKey=c2766ffb9a9f4f0d9b5306cbd219822c&number=40";
+        "https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&number=40";
     }
 
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data.recipes.length);
         if (data.recipes.length === 0) {
           setNoResult(true);
         } else {
@@ -144,7 +143,7 @@ export default function Recettepage({ navigation }) {
 
   //add a recipe in calendarscreen
   function handleCalendar(data) {
-    console.log(data);
+    // console.log(data);
     let calendarSteps = [];
     data.analyzedInstructions[0].steps.forEach(function (element) {
       calendarSteps.push(element.step);
@@ -182,7 +181,10 @@ export default function Recettepage({ navigation }) {
       }),
     };
 
-    fetch("https://munch-box-backend.vercel.app/calendarRecipes", requestOptions)
+    fetch(
+      "https://munch-box-backend.vercel.app/calendarRecipes",
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
@@ -191,50 +193,23 @@ export default function Recettepage({ navigation }) {
 
   //display the description of the recipe
   function handleDescription(data) {
-    setImage(data.image);
-    setTitle(data.title);
-    setModalVisible(true);
-    // console.log("========================", data.readyInMinutes);
-    // console.log(data);
-    if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
-      setCalories(
-        data.summary[data.summary.indexOf("calories") - 3] +
-          data.summary[data.summary.indexOf("calories") - 2] +
-          data.summary[data.summary.indexOf("calories") - 1]
-      );
-    } else {
-      setCalories(
-        data.summary[data.summary.indexOf("calories") - 4] +
-          data.summary[data.summary.indexOf("calories") - 3] +
-          data.summary[data.summary.indexOf("calories") - 2] +
-          data.summary[data.summary.indexOf("calories") - 1]
-      );
-    }
-
-    setPrepTime(data.readyInMinutes);
-
-    //return the ingredients array in the modal
-    let newIngredients = [];
-    data.extendedIngredients.forEach(function (element) {
-      newIngredients.push(element.name);
-    });
-    setIngredientsList([...ingredientsList, ...newIngredients]);
-
-    // the steps to display
-    let steps = [];
-    //console.log(data.analyzedInstructions[0].steps);
-    data.analyzedInstructions[0].steps.forEach(function (element) {
-      steps.push(element.step);
-    });
-    setDisplayedSteps([...displayedSteps, ...steps]);
+    dispatch(recetteScreen());
+    navigation.navigate("Descriptif", (paramKey = data));
   }
+
+  //console.log("hello", openDescription);
+
+  // setImage(data.image);
+  // setTitle(data.title);
+  // setModalVisible(true);
+  // // console.log("========================", data.readyInMinutes);
+  // // console.log(data);
 
   // ======= FAVORITES RECIPES =======    //
 
   const favorites = useSelector((state) => state.favorites.value);
 
   function handleFavoris(data) {
-    
     if (favorites.includes(data)) {
       //supprimer des Favoris
       dispatch(removeFavorites(data));
@@ -245,6 +220,7 @@ export default function Recettepage({ navigation }) {
     // Tout supprimer ou cleaner store redux persist
     //dispatch(removeAllFavorites())
   }
+
 
   //add a recipe in calendarscreen
 
@@ -285,34 +261,19 @@ export default function Recettepage({ navigation }) {
         token: user,
       }),
     };
-    fetch("https://munch-box-backend.vercel.app/calendarRecipes/", requestOptions)
+    fetch(
+      "https://munch-box-backend.vercel.app/calendarRecipes/",
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result);
       });
   }
-  //console.log(Array.isArray(ingredientsList));
-  //console.log(typeof ingredientsList);
-  //console.log(ingredientsList);
 
-  function handlePressSwitcher() {
-    setIsActive((current) => !current);
-  }
 
-  const newIngredientsArray = Array.from(ingredientsList).map((data, i) => {
-    return (
-      <View key={i}>
-        <Text style={styles.ingredientsarray}>• {data}</Text>
-      </View>
-    );
-  });
-  const newStepsArray = displayedSteps.map((data, i) => {
-    return (
-      <View key={i}>
-        <Text style={styles.stepsarray}>• {data}</Text>
-      </View>
-    );
-  });
+
+
 
   // the array to display
   const Recipes = listRecipe.map((data, i) => {
@@ -338,7 +299,10 @@ export default function Recettepage({ navigation }) {
         </Text>
         <View style={styles.cardInfo}>
           <View style={styles.containerInfo}>
-            <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
+          
+          <FontAwesome name="clock-o" size={20} color={"#92C3BC"} x />
+  
+
             <Text style={styles.textInfo}>{data.time}</Text>
           </View>
           <View style={styles.containerInfo}>
@@ -357,185 +321,14 @@ export default function Recettepage({ navigation }) {
   });
 
   //.log(Array.isArray(ingredientsList));
-  console.log(prepTime);
+  //console.log(prepTime);
   //console.log(isEnabled);
 
   // ======  MODAL RECIPE ====== //
   return (
     <View style={styles.container}>
-      <Modal
-        visible={modalVisible}
-        animationType="fade"
-        transparent
-        style={styles.modalContainer}
-      >
-        <View style={styles.scrollview}>
-          <Image source={{ uri: image }} style={styles.chicken} />
-          <Ionicons
-            name="close"
-            size={35}
-            color="#dedede"
-            style={styles.close}
-            onPress={() => setModalVisible(false)}
-          />
-          
-          <Text style={styles.title}>{title}</Text>
-          <View style={styles.input}>
-            <FontAwesome
-              name="clock-o"
-              size={25}
-              color="#92C3BC"
-              style={styles.icons}
-            />
-            <Text>{prepTime} mins</Text>
-            <Ionicons
-              name="barbell"
-              size={25}
-              color="#92C3BC"
-              style={styles.icons}
-            />
-            <Text>{calories} kcal</Text>
-          </View>
-          <SwitchSelector
-            buttonColor={"#92C3BC"}
-            ios_backgroundColor={"#92C3BC"}
-            hasPadding
-            style={{ marginTop: 20 }}
-            initial={0}
-            onPress={() => handlePressSwitcher()}
-            options={[
-              { label: "Ingredients", value: "ingredients" },
-              { label: "Steps", value: "steps" },
-            ]}
-          />
-          <ScrollView>
-            {isActive ? newIngredientsArray : newStepsArray}
-
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                marginTop: 20,
-                marginBottom: 10,
-              }}
-            >
-              Nutrition Information
-            </Text>
-
-            <View style={styles.containeNutrition}>
-              <View>
-                <Text style={styles.textNutrition}>Glucide</Text>
-                <View style={styles.infoContainer}>
-                  <Image
-                    style={styles.info}
-                    source={require("../assets/icon/les-glucides.png")}
-                  />
-                </View>
-                <Text style={styles.grammeNutrition}>58 g</Text>
-              </View>
-
-              <View>
-                <Text style={styles.textNutrition}>Lipides</Text>
-
-                <View style={styles.infoContainer}>
-                  <Image
-                    style={styles.info}
-                    source={require("../assets/icon/grain.png")}
-                  />
-                </View>
-
-                <Text style={styles.grammeNutrition}>11 g</Text>
-              </View>
-
-              <View>
-                <Text style={styles.textNutrition}>Proteins</Text>
-                <View style={styles.infoContainer}>
-                  <Image
-                    style={styles.info}
-                    source={require("../assets/icon/proteine.png")}
-                  />
-                </View>
-                <Text style={styles.grammeNutrition}>22 g</Text>
-              </View>
-
-              <View>
-                <Text style={styles.textNutrition}>Fibres</Text>
-                <View style={styles.infoContainer}>
-                  <Image
-                    style={styles.info}
-                    source={require("../assets/icon/gras-trans.png")}
-                  />
-                </View>
-                <Text style={styles.grammeNutrition}>28 g</Text>
-              </View>
-
-              <View>
-                <Text style={styles.textNutrition}>Sale</Text>
-                <View style={styles.infoContainer}>
-                  <Image
-                    style={styles.info}
-                    source={require("../assets/icon/sel.png")}
-                  />
-                </View>
-                <Text style={styles.grammeNutrition}>408 kcal</Text>
-              </View>
-            </View>
-            {/* <Text style={{ fontWeight: "bold" }}>Read Reviews</Text> */}
-            <Text style={{ fontWeight: "bold" }}>
-              Rate this recipe:{" "}
-              <FontAwesome
-                name="star-o"
-                size={20}
-                color="#92C3BC"
-                style={styles.note}
-              />
-              <FontAwesome
-                name="star-o"
-                size={20}
-                color="#92C3BC"
-                style={styles.note}
-              />
-              <FontAwesome
-                name="star-o"
-                size={20}
-                color="#92C3BC"
-                style={styles.note}
-              />
-              <FontAwesome
-                name="star-o"
-                size={20}
-                color="#92C3BC"
-                style={styles.note}
-              />
-              <FontAwesome
-                name="star-o"
-                size={20}
-                color="#92C3BC"
-                style={styles.note}
-              />
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <TextInput
-                placeholder="Share your review with us..."
-                style={styles.text}
-              />
-              <Pressable style={styles.submit}>
-                <Ionicons
-                  name="send-outline"
-                  size={23}
-                  color="#FAD874"
-                  style={styles.iconsend}
-                />
-              </Pressable>
-            </View>
-            <Text style={styles.warning}>
-              Experiencing an issue with the mobile site?
-            </Text>
-          </ScrollView>
-        </View>
-      </Modal>
-
       {/* Start of page that displays ALL Recipes */}
+      {/* {openDescription && <Descriptif details={data} />} */}
       <View style={styles.containerHeader}>
         <View>
           <FontAwesome

@@ -21,8 +21,6 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 //import font from "expo-font";
 
 export default function BatchCalendar({ navigation }) {
-  const dispatch = useDispatch();
-
   //const calendars = useSelector((state) => state.calendars.value);
   const users = useSelector((state) => state.users.value);
 
@@ -36,7 +34,7 @@ export default function BatchCalendar({ navigation }) {
   //componentDidMount()
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [calendarRecipesToDisplay, setCalendarRecipesToDisplay] = useState([]);
 
   // ==== Récuperer les recettes en base de donnée ajoutées par l'utilisateur ==== //
@@ -44,13 +42,13 @@ export default function BatchCalendar({ navigation }) {
     fetch(`https://munch-box-backend.vercel.app/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.recipes.length > 0) {
           //    dispatch(addCalendar(data.recipes))
           setCalendarRecipesToDisplay(data.recipes);
         }
       });
-  }, []);
+  }, [calendarRecipesToDisplay]);
 
   // Afficher le calendrier pour selectionner une date
   const showDatePicker = (i) => {
@@ -67,7 +65,7 @@ export default function BatchCalendar({ navigation }) {
   const handleConfirm = (date) => {
     let res = calendarRecipesToDisplay.map((element, index) => ({
       ...element,
-      date: index == currentIndex ? date : element.date,
+      date: index === currentIndex ? date : element.date,
     }));
     setCalendarRecipesToDisplay(res);
 
@@ -83,14 +81,14 @@ export default function BatchCalendar({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.result;
+        console.log(data.result);
       });
     setCalendarRecipesToDisplay(
       calendarRecipesToDisplay.filter((e) => e.title !== data.title)
     );
   }
 
-  console.log(calendarRecipesToDisplay);
+  //console.log(calendarRecipesToDisplay);
   //  const hello = [1, 2, 3];
   let dateRecipe = calendarRecipesToDisplay.map((data, i) => {
     return (

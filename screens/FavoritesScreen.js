@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { addFavorites, removeFavorites, removeAllFavorites } from "../reducers/favorites";
+import {
+  addFavorites,
+  removeFavorites,
+  removeAllFavorites,
+} from "../reducers/favorites";
 import {
   StyleSheet,
   Platform,
@@ -15,10 +19,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { logout } from "../reducers/users";
 import SignupScreen from "./SignupScreen";
 import SigninScreen from "./SigninScreen";
-
+import { favorisScreen } from "../reducers/fromWhichScreen";
 
 export default function FavoritesScreen({ navigation }) {
-
   const dispatch = useDispatch();
 
   // ======= Bouton retour  =======//
@@ -38,33 +41,44 @@ export default function FavoritesScreen({ navigation }) {
 
   function handleFavoris(data) {
     // Ajouter aux favoris
-   //dispatch(addFavorites(data));
+    //dispatch(addFavorites(data));
 
-   //supprimer des Favoris 
-   dispatch(removeFavorites(data));
+    //supprimer des Favoris
+    dispatch(removeFavorites(data));
 
-    // Tout supprimer 
-   // dispatch(removeAllFavorites())
+    // Tout supprimer
+    // dispatch(removeAllFavorites())
+  }
+
+  function handleDescription(data) {
+    dispatch(favorisScreen());
+    navigation.navigate("Descriptif", (paramKey = data));
   }
 
   // Si y pas de recette au favoris un message, Si non afficher les recettes
   let listRecipes = <Text>Add recipes to your favorites</Text>;
-  if (favorites.length >0) {
+  if (favorites.length > 0) {
     listRecipes = favorites.map((data, i) => {
       return (
-                <View key={i} style={styles.cardRecipe}>
-                  <Image style={styles.imageRecipe} source={{ uri: data.image }} />
-                  <TouchableOpacity onPress={() => handleFavoris(data)} style={styles.iconContent}>
+        <View key={i} style={styles.cardRecipe}>
+          <Image style={styles.imageRecipe} source={{ uri: data.image }} />
+          <TouchableOpacity
+            onPress={() => handleFavoris(data)}
+            style={styles.iconContent}
+          >
             <FontAwesome name="heart" size={20} color={"red"} />
           </TouchableOpacity>
-                  
-                  <Text style={styles.cardTitle}>{data.title}</Text>
+          <Text
+            style={styles.cardTitle}
+            onPress={() => handleDescription(data)}
+          >
+            {data.title}
+          </Text>
 
-                  <View style={styles.cardInfo}>
+          <View style={styles.cardInfo}>
             <View style={styles.containerInfo}>
               <FontAwesome name="clock-o" size={20} color={"#92C3BC"} />
               <Text style={styles.textInfo}>{data.time}</Text>
-              
             </View>
             <View style={styles.containerInfo}>
               <FontAwesome
@@ -76,13 +90,11 @@ export default function FavoritesScreen({ navigation }) {
               />
             </View>
           </View>
-                  
-                </View>
+        </View>
       );
     });
   }
 
-   
   return (
     <View style={styles.container}>
       <View style={styles.containerheader}>
@@ -115,8 +127,9 @@ export default function FavoritesScreen({ navigation }) {
         <Text style={styles.textNumberRecipes}>Number of recipes saved : </Text>
         <Text style={styles.numberRecipe}>{listRecipes.length}</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.containerRecipes}>{listRecipes}</ScrollView>
-
+      <ScrollView contentContainerStyle={styles.containerRecipes}>
+        {listRecipes}
+      </ScrollView>
     </View>
   );
 }

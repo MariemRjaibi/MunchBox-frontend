@@ -71,7 +71,7 @@ export default function ShoppinglistScreen({navigation}) {
       setShoppingList(current => !current.data)
     }
     
-    console.log("New ingredient selectioné:", data)
+   // console.log("New ingredient selectioné:", data)
   }
  
 
@@ -110,7 +110,7 @@ export default function ShoppinglistScreen({navigation}) {
       // push
       setCheckedList([...checkedList, data]); 
     }
-    console.log("Ingredient selectionné:", data);
+   // console.log("Ingredient selectionné:", data);
   };
 
 
