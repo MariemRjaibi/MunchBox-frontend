@@ -64,7 +64,7 @@ export default function ShoppinglistScreen({ navigation }) {
           style={styles.checkbox}
           value={isCheckedUserList}
           onValueChange={() => checkBoxNewclick(data)}
-          color={isCheckedUserList ? "#92C3BC" : none}
+          color={isCheckedUserList ? "#92C3BC" : null}
         />
         <Text style={styles.textOption}>{data}</Text>
       </View>
