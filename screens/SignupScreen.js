@@ -23,13 +23,10 @@ export default function SignupScreen({ navigation }) {
   const [emailValidError, setEmailValidError] = useState(false);
   const [password, setPassword] = useState("");
   const token = useSelector((state) => state.users.value.token);
-  const [signInUsername, setSignInUsername] = useState("");
-  const [signInPassword, setSignInPassword] = useState("");
 
-  //console.log(token);
   //function that directs new users to signup page
   const handleRegister = () => {
-    fetch("http://192.168.1.12:3000/users/signup", {
+    fetch("https://munch-box-backend.vercel.app/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -50,7 +47,6 @@ export default function SignupScreen({ navigation }) {
       navigation.navigate(Homepage);
     }
   };
-
 
   const handleValidEmail = (value) => {
     let reg =
@@ -169,26 +165,20 @@ export default function SignupScreen({ navigation }) {
     );
     //if token is identified, user already exists and sign in page appears
   }
-  
 }
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    //alignItems: "center",
-    //justifyContent: "center",
   },
   container: {
     flex: 1,
     marginTop: 30,
     width: "100%",
-    //height: "80%",
-    //justifyContent: "center",
     alignItems: "center",
   },
   containeLogo: {
-    //backgroundColor:"rgba(0,0,0, 0.5)",
-    paddingTop:40,
+    paddingTop: 40,
     backgroundColor: "pink",
   },
   logo: {
@@ -196,8 +186,6 @@ const styles = StyleSheet.create({
     height: "17%",
     marginBottom: 30,
     backgroundColor: "rgba(0,0,0, 0.5)",
-    
-    
   },
   title: {
     color: "white",
@@ -212,13 +200,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#e8be4b",
-    color:"#fff",
+    color: "#fff",
     fontSize: 25,
-    padding:10,
-    paddingHorizontal:50,
-    borderTopRightRadius:45,
-    borderBottomLeftRadius:45,
-    marginBottom:40,
+    padding: 10,
+    paddingHorizontal: 50,
+    borderTopRightRadius: 45,
+    borderBottomLeftRadius: 45,
+    marginBottom: 40,
   },
   inputContent: {
     backgroundColor: "white",

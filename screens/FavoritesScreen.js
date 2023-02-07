@@ -1,53 +1,41 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addFavorites,
   removeFavorites,
-  removeAllFavorites,
 } from "../reducers/favorites";
 import {
   StyleSheet,
-  Platform,
   Image,
   Text,
   View,
   ScrollView,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { logout } from "../reducers/users";
-import SignupScreen from "./SignupScreen";
 import SigninScreen from "./SigninScreen";
 import { favorisScreen } from "../reducers/fromWhichScreen";
 
 export default function FavoritesScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  // ======= Bouton retour  =======//
+  // ======= Back button  =======//
   const goBack = () => {
     navigation.goBack();
   };
 
-  // Récuperer les données stocker dans le stock favorrites
+  // data saved in local storage
   const favorites = useSelector((state) => state.favorites.value);
-  //console.log(favorites)
 
-  // se deconnecter
+
+  // logout
   const handleLogOut = () => {
     dispatch(logout());
     navigation.navigate(SigninScreen);
   };
 
   function handleFavoris(data) {
-    // Ajouter aux favoris
-    //dispatch(addFavorites(data));
-
-    //supprimer des Favoris
     dispatch(removeFavorites(data));
-
-    // Tout supprimer
-    // dispatch(removeAllFavorites())
   }
 
   function handleDescription(data) {
@@ -55,7 +43,7 @@ export default function FavoritesScreen({ navigation }) {
     navigation.navigate("Descriptif", (paramKey = data));
   }
 
-  // Si y pas de recette au favoris un message, Si non afficher les recettes
+  // If there is nothing, a message would appear
   let listRecipes = <Text>Add recipes to your favorites</Text>;
   if (favorites.length > 0) {
     listRecipes = favorites.map((data, i) => {

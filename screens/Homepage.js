@@ -1,23 +1,19 @@
-import { NavigationContainer } from "@react-navigation/native";
 import {
-  Button,
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  TextInput,
 } from "react-native";
 import React from "react";
-import Recettepage from "./Recettepage";
 import { LinearGradient } from "expo-linear-gradient";
-import Placard from "./Placard";
 import { useDispatch } from "react-redux";
 import { updateIsFiltered, removeIsFiltered } from "../reducers/choosePaths";
 
 export default function Homepage({ navigation }) {
+
   const dispatch = useDispatch();
+  
   return (
     <ImageBackground
       source={require("../assets/background-concept.jpg")}
@@ -99,21 +95,17 @@ const styles = StyleSheet.create({
   containerChoice: {
     flex: 1,
     paddingHorizontal: 20,
-    //height: "100%",
     paddingHorizontal: 20,
     justifyContent: "space-evenly",
   },
   backgroundContain: {
     justifyContent: "flex-end",
-    //padding: 20,
-    //paddingBottom:50,
   },
   textChoice: {
     color: "#ffffff",
     fontSize: 20,
     fontWeight: "bold",
     paddingLeft: 20,
-    // paddingBottom:15,
   },
   containerButton: {
     alignItems: "center",

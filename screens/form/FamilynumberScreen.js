@@ -1,4 +1,4 @@
-import { Children, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Image,
@@ -12,23 +12,21 @@ import {
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function FamilynumberScreen({ formData, setFormData }) {
-  //prop form
-  // NumberAdult:"",
-  // numberChildren: "",
 
-  // ======= Compteur adulte =======//
+export default function FamilynumberScreen({ formData, setFormData }) {
+
+  // ======= adults counter =======//
   const [numberAdult, setnumberAdult] = useState(0);
 
-  //const result = setFormData({...formData, numberAdult});
 
-  // Ajouter +1
+
+  // Count +1
   const counterClickPlus = () => {
     setnumberAdult(numberAdult + 1);
     setFormData({...formData, numberAdult : numberAdult + 1})
   };
 
-  // Retirer -1
+  //Count -1
   const counterClickmoins = () => {
     if (numberAdult > 0) {
       setnumberAdult(numberAdult - 1);
@@ -36,16 +34,16 @@ export default function FamilynumberScreen({ formData, setFormData }) {
     }
   };
 
-   // ======== Compteur enfant ======= //
+   // ========  Kids counter ======= //
   const [numberChildren, setnumberChildren] = useState(0);
 
-  // Ajouter +1
+  // Add +1
   const counterPlusChildClick = () => {
     setnumberChildren(numberChildren + 1);
     setFormData({...formData,  numberChildren : numberChildren+ 1})
   };
 
-  // Retirer -1
+  // Remove -1
   const counterPlusChildMoins = () => {
     if (numberChildren > 0) {
       setnumberChildren(numberChildren - 1);

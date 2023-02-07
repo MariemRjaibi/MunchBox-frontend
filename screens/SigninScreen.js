@@ -20,16 +20,13 @@ import SignupScreen from "./SignupScreen";
 export default function SigninScreen({ navigation }) {
     const dispatch = useDispatch();
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const token = useSelector((state) => state.users.value.token);
-    const [signInUsername, setSignInUsername] = useState("");
-    const [signInPassword, setSignInPassword] = useState("");
 
      //function that directs registered users to sign in page 
-  const handleConnection = () => {
+     const handleConnection = () => {
     //console.log("clicked")
-    fetch("http://192.168.1.12:3000/users/signin", {
+    fetch("https://munch-box-backend.vercel.app/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,6 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { useReducer } from "react";
-import { StyleSheet, Text, View, LogBox } from "react-native";
+import { LogBox } from "react-native";
 
 // Redux store
 import { Provider } from "react-redux";
@@ -20,11 +18,6 @@ import favorites from "./reducers/favorites";
 import choosePaths from "./reducers/choosePaths";
 import Calendar from "./reducers/Calendar";
 import fromWhichScreen from "./reducers/fromWhichScreen";
-
-//Import de font
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useCallback } from "react";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -46,10 +39,10 @@ import ShoppinglistScreen from "./screens/ShoppinglistScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import { shouldUseActivityState } from "react-native-screens";
 import Placard from "./screens/Placard";
 import Descriptif from "./screens/Descriptif";
 
+// To hide the small warnings displayed on the bottom of screens
 LogBox.ignoreAllLogs();
 
 // Configuration Reducer Store
@@ -112,30 +105,6 @@ const TabNavigator = () => {
 };
 
 export default function App({ navigation }) {
-  // const [fontsLoaded] = useFonts({
-  //   Grandhotel: require("./assets/fonts/Hotel.ttf"),
-  //   Spirax: require("./assets/fonts/Spirax.ttf"),
-  //   Pacifico: require("./assets/fonts/Pacifico.ttf"),
-
-  // });
-  // //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
-  // useEffect(() => {
-  //   async function prepare() {
-  //     await SplashScreen.preventAutoHideAsync();
-  //   }
-  //   prepare();
-  // }, []);
-
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
@@ -163,11 +132,31 @@ export default function App({ navigation }) {
     </Provider>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+
+//Import de font
+// import { useFonts } from "expo-font";
+// import * as SplashScreen from "expo-splash-screen";
+// import { useEffect, useCallback } from "react";
+// const [fontsLoaded] = useFonts({
+//   Grandhotel: require("./assets/fonts/Hotel.ttf"),
+//   Spirax: require("./assets/fonts/Spirax.ttf"),
+//   Pacifico: require("./assets/fonts/Pacifico.ttf"),
+
+// });
+// //utilisation du SplashScreen pour pouvoir charger la font en arriere plan avant de charger l'app
+// useEffect(() => {
+//   async function prepare() {
+//     await SplashScreen.preventAutoHideAsync();
+//   }
+//   prepare();
+// }, []);
+
+// const onLayoutRootView = useCallback(async () => {
+//   if (fontsLoaded) {
+//     await SplashScreen.hideAsync();
+//   }
+// }, [fontsLoaded]);
+
+// if (!fontsLoaded) {
+//   return null;
+// }

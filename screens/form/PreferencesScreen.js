@@ -1,4 +1,4 @@
-import { useDeferredValue, useState } from "react";
+import { useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -10,22 +10,11 @@ import {
   ScrollView,
 } from "react-native";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-
 export default function PreferencesScreen({ formData, setFormData }) {
 
-  // Donnée à récupérer pour le formulaire pincipale 
-  // regime:"",
-
-  const [preference, setPreference] = useState("");
   const [preferenceList, setPreferenceList] = useState([]);
 
-
-  // Probleme avec rgba fait un petit carre foncé sur le texte
-  //const activeColor = "rgba(146,195,188, 0.4)";
-
-
-  // Liste par défaut des regime alimentaire
+  // default diet list
   const optionsData = [
     { id: 1, name: "Vegan", photo: require("../../assets/icon/vegan.png"), isActive: false, },
     { id: 2, name: "Veggie", photo: require("../../assets/icon/broccoli.png"), isActive: false, },
@@ -40,7 +29,7 @@ export default function PreferencesScreen({ formData, setFormData }) {
   const preferenceClik = (data) => {
 
     if (preferenceList.includes(data.name)) {
-      // Filter si le nom existe déja dans le tableau
+      // Filter if name is in preferenceList
       setPreferenceList(preferenceList.filter((e) => e !== data.name));
       setFormData({
         ...formData,
@@ -57,13 +46,10 @@ export default function PreferencesScreen({ formData, setFormData }) {
 
   };
 
-
-
   const optionPreferences = optionsData.map((data, i) => {
 
-     // Changer de couleur si il est déja dans le tableau
+     // change the color
      let isActive = preferenceList.some((e) => {
-      //console.log('debug',data.name,e);
       return e === data.name;
     })
 

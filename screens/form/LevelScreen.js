@@ -1,16 +1,10 @@
 import { useState } from "react";
 import {
-  Image,
-  ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { SliderPicker } from "react-native-slider-picker";
 
@@ -38,9 +32,6 @@ export default function LevelScreen({ navigation }) {
             defaultValue={1}
             maxValue={2}
             callback={levelClick}
-            //   callback={position => {
-            //     this.setState({ value: position });
-            //   }}
             labelFontColor={"#92C3BC"}
             labelFontWeight={"400"}
             labelFontSize={15}
@@ -64,9 +55,6 @@ export default function LevelScreen({ navigation }) {
             maxLabel={"Absolutely"}
             defaultValue={1}
             maxValue={2}
-            //   callback={position => {
-            //     this.setState({ value: position });
-            //   }}
             labelFontColor={"#92C3BC"}
             labelFontWeight={"400"}
             labelFontSize={15}

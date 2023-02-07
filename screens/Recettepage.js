@@ -1,55 +1,30 @@
 import { useState, useEffect } from "react";
 import {
   StyleSheet,
-  Platform,
   Image,
   Text,
   View,
   ScrollView,
-  Button,
   TouchableOpacity,
-  Modal,
-  TextInput,
-  Pressable,
 } from "react-native";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import SwitchSelector from "react-native-switch-selector";
 import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
-import favorites, {
-  addFavorites,
-  removeAllFavorites,
-  removeFavorites,
-} from "../reducers/favorites";
-import {recetteScreen} from "../reducers/fromWhichScreen";
+import { addFavorites, removeFavorites } from "../reducers/favorites";
+import { recetteScreen } from "../reducers/fromWhichScreen";
 import { logout } from "../reducers/users";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ConceptScreen from "./form/ConceptScreen";
-import SignupScreen from "./SignupScreen";
 import SigninScreen from "./SigninScreen";
-import Descriptif from "./Descriptif";
-//import { APIKEY } from "react-native-dotenv";
 
 export default function Recettepage({ navigation }) {
-  // ======= Bouton retour  =======//
+  // ======= Back button =======//
   const goBack = () => {
     navigation.goBack();
   };
-  // const API_KEY = process.env.API_KEY;
 
   const [listRecipe, setListRecipe] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isActive, setIsActive] = useState(true);
-
-  const [image, setImage] = useState("");
-  const [title, setTitle] = useState("");
-  const [calories, setCalories] = useState("");
-  const [prepTime, setPrepTime] = useState(0);
-  const [ingredientsList, setIngredientsList] = useState([]);
-  const [displayedSteps, setDisplayedSteps] = useState([]);
   const [noResult, setNoResult] = useState(false);
 
   const user = useSelector((state) => state.users.value.token);
@@ -57,7 +32,9 @@ export default function Recettepage({ navigation }) {
   const ingredientsFromFilter = useSelector(
     (state) => state.placardIngredients.value
   );
+
   const dispatch = useDispatch();
+
   function handleFilter() {
     navigation.navigate(Filter);
   }
@@ -67,25 +44,14 @@ export default function Recettepage({ navigation }) {
   };
 
   useEffect(() => {
-    // const _clearAll = async () => {
-    //   try {
-    //     await AsyncStorage.clear();
-    //     console.log("Done");
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // _clearAll();
-
     //structure of filter string on api
 
     let newIngApi = "";
     for (let i = 0; i < ingredientsFromFilter.length; i++) {
       newIngApi += `${ingredientsFromFilter[i].toLowerCase()}+,`;
     }
-    // console.log("isFiltered", isFiltered);
     let apiUrl = "";
-    //select which api key choose
+    //select which api key according from where this screen has been dispayed
     if (isFiltered) {
       apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=a1425b05fa144d0496da062596d9ef97&tags=${newIngApi}&number=400`;
     } else {
@@ -96,7 +62,6 @@ export default function Recettepage({ navigation }) {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.recipes.length);
         if (data.recipes.length === 0) {
           setNoResult(true);
         } else {
@@ -114,7 +79,6 @@ export default function Recettepage({ navigation }) {
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         setListRecipe(data.recipes);
       });
   }
@@ -125,7 +89,6 @@ export default function Recettepage({ navigation }) {
     )
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         setListRecipe(data.recipes);
       });
   }
@@ -136,23 +99,24 @@ export default function Recettepage({ navigation }) {
     )
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         setListRecipe(data.recipes);
       });
   }
 
   //add a recipe in calendarscreen
   function handleCalendar(data) {
-    // console.log(data);
+    //adding recipe steps
     let calendarSteps = [];
     data.analyzedInstructions[0].steps.forEach(function (element) {
       calendarSteps.push(element.step);
     });
+    // adding recipe ingredients
     let calendarIngredients = [];
     data.extendedIngredients.forEach(function (element) {
       calendarIngredients.push(element.name);
     });
-    //calories
+
+    //grap calories from the paragraph of summary
     let calendarCalories = "";
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       calendarCalories =
@@ -197,33 +161,23 @@ export default function Recettepage({ navigation }) {
     navigation.navigate("Descriptif", (paramKey = data));
   }
 
-  //console.log("hello", openDescription);
-
-  // setImage(data.image);
-  // setTitle(data.title);
-  // setModalVisible(true);
-  // // console.log("========================", data.readyInMinutes);
-  // // console.log(data);
-
   // ======= FAVORITES RECIPES =======    //
 
   const favorites = useSelector((state) => state.favorites.value);
 
   function handleFavoris(data) {
     if (favorites.includes(data)) {
-      //supprimer des Favoris
+      //remove Favoris
       dispatch(removeFavorites(data));
     } else {
-      // Ajouter aux favoris
+      // add to Favoris
       dispatch(addFavorites(data));
     }
-    // Tout supprimer ou cleaner store redux persist
-    //dispatch(removeAllFavorites())
   }
-
+  // To clear the store redux persist
+  //dispatch(removeAllFavorites())
 
   //add a recipe in calendarscreen
-
   function handleCalendar(data) {
     let calendarSteps = [];
     data.analyzedInstructions[0].steps.forEach(function (element) {
@@ -233,6 +187,7 @@ export default function Recettepage({ navigation }) {
     data.extendedIngredients.forEach(function (element) {
       calendarIngredients.push(element.name);
     });
+
     //calories
     let calendarCalories = "";
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
@@ -271,11 +226,7 @@ export default function Recettepage({ navigation }) {
       });
   }
 
-
-
-
-
-  // the array to display
+  // the array/list to display
   const Recipes = listRecipe.map((data, i) => {
     const isFavoriteActive = favorites.some(
       (favorite) => favorite.title === data.title
@@ -299,9 +250,7 @@ export default function Recettepage({ navigation }) {
         </Text>
         <View style={styles.cardInfo}>
           <View style={styles.containerInfo}>
-          
-          <FontAwesome name="clock-o" size={20} color={"#92C3BC"} x />
-  
+            <FontAwesome name="clock-o" size={20} color={"#92C3BC"} x />
 
             <Text style={styles.textInfo}>{data.time}</Text>
           </View>
@@ -320,15 +269,9 @@ export default function Recettepage({ navigation }) {
     );
   });
 
-  //.log(Array.isArray(ingredientsList));
-  //console.log(prepTime);
-  //console.log(isEnabled);
-
   // ======  MODAL RECIPE ====== //
   return (
     <View style={styles.container}>
-      {/* Start of page that displays ALL Recipes */}
-      {/* {openDescription && <Descriptif details={data} />} */}
       <View style={styles.containerHeader}>
         <View>
           <FontAwesome
@@ -395,11 +338,6 @@ export default function Recettepage({ navigation }) {
         </ScrollView>
       </View>
 
-      {/* <View style={styles.containerNumberRecipes}>
-        <Text style={styles.textNumberRecipes}>
-          Pick one and start cooking now!
-        </Text>
-      </View> */}
       {noResult ? (
         <Text>Sorry, no recipe corresponds to your search</Text>
       ) : (
@@ -433,14 +371,6 @@ const styles = StyleSheet.create({
     color: "#ABAEB1",
     fontSize: 16,
   },
-  containerIconUser: {
-    // backgroundColor: "#92C3BC",
-    // padding: 5,
-    // justifyContent:"center",
-    // width: 40,
-    // height: 40,
-    // borderRadius: 100,
-  },
   iconUser: {
     textAlign: "center",
   },
@@ -455,7 +385,6 @@ const styles = StyleSheet.create({
   containerNumberRecipes: {
     flexDirection: "row",
     alignItems: "flex-start",
-    //justifyContent:"center",
     marginBottom: 10,
   },
   textNumberRecipes: {
@@ -476,27 +405,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginRight: 10,
     borderRadius: 100,
-    // borderBottomLeftRadius: 30,
-    // borderBottomRightRadius: 30,
-    //borderTopRightRadius: 30,
-    //borderTopLeftRadius: 30,
   },
-  contentScroll: {
-    //height: 25,
-  },
+
   menu: {
     flexDirection: "row",
     alignItems: "center",
-    //justifyContent: "space-evenly",
-    //marginBottom: 30,
   },
   menuBtn: {
     paddingHorizontal: 20,
     backgroundColor: "#83C5BC",
     marginHorizontal: 5,
     borderRadius: 20,
-    //borderBottomWidth: 2,
-    // borderBottomColor: "#92C3BC",
   },
   menuBtnText: {
     fontSize: 16,
@@ -545,156 +464,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 15,
     right: 10,
-  },
-
-  //modal style
-  warning: {
-    fontWeight: "200",
-    textAlign: "center",
-    fontSize: 12,
-  },
-  containeNutrition: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 40,
-  },
-  textNutrition: {
-    fontSize: 12,
-    textAlign: "center",
-    paddingBottom: 5,
-  },
-  grammeNutrition: {
-    paddingTop: 4,
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 12,
-  },
-  chicken: {
-    width: "100%",
-    height: "30%",
-    borderRadius: 30,
-    marginTop: 30,
-  },
-  close: {
-    position: "absolute",
-    top: 40,
-    right: 40,
-    color: "white",
-    backgroundColor: "rgba(0,0,0, 0.3)",
-    padding: 7,
-    paddingHorizontal: 10,
-    borderRadius: 100,
-  },
-  heart: {
-    position: "absolute",
-    top: 50,
-    right: 60,
-    color: "red",
-  },
-  // container: {
-  //    backgroundColor: "white",
-  //    alignItems: "center",
-  // },
-  modalContainer: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#FFF4CF",
-  },
-  scrollview: {
-    flex: 1,
-    backgroundColor: "#FFF4CF",
-    paddingBottom: 20,
-    alignItems: "center",
-    paddingHorizontal: 30,
-  },
-  title: {
-    marginTop: 20,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  input: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-    marginRight: 15,
-  },
-  icons: {
-    paddingRight: 5,
-    paddingLeft: 30,
-  },
-  star: {
-    marginTop: 20,
-    flexDirection: "row",
-  },
-  starnote: {
-    paddingLeft: 80,
-  },
-  ingredient: {
-    marginTop: 30,
-  },
-  infoContainer: {
-    paddingVertical: 6,
-    paddingHorizontal: 6,
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2.24,
-    elevation: 3,
-  },
-  info: {
-    width: 35,
-    height: 35,
-  },
-  text: {
-    backgroundColor: "white",
-    padding: 2,
-    marginTop: 30,
-    width: "80%",
-    borderColor: "#E9E9E9",
-    borderRadius: 5,
-    fontSize: 14,
-    marginBottom: 50,
-    paddingLeft: 10,
-  },
-  submit: {
-    backgroundColor: "#92C3BC",
-    width: 40,
-    height: 35,
-    borderRadius: 5,
-    marginTop: 30,
-    alignItems: "center",
-    paddingLeft: 5,
-  },
-  iconsend: {
-    paddingTop: 3,
-  },
-  modalView: {
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  stepsarray: {
-    color: "#343333",
-    fontWeight: "bold",
-    paddingHorizontal: 10,
-    marginTop: 20,
-    //paddingBottom: 10,
-  },
-  ingredientsarray: {
-    color: "#343333",
-    fontWeight: "bold",
-    //paddingBottom: 10,
-    paddingTop: 10,
-    marginRight: 70,
-    justifyContent: "flex-start",
   },
 });

@@ -1,7 +1,6 @@
-import { useDeferredValue, useState } from "react";
+import { useState } from "react";
 import {
   Image,
-  ImageBackground,
   StyleSheet,
   Text,
   TextInput,
@@ -13,35 +12,24 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function AllergiesScreen({ formData, setFormData }) {
-  // Répurération de la data pour le form final
-
-
-  // ======= Liste des ingredients entrées manuellement par l'utilisateur ======= //
+  // ======= List of ingredients entered by user ======= //
   const [ingredient, setIngredient] = useState("");
   const [ingredientList, setIngredientList] = useState([]);
 
+  const deleteClick = () => {
+    setIngredientList(ingredientList.filter((e) => e !== ingredient));
+  };
 
-  const deleteClick = () =>{
-
-      setIngredientList(ingredientList.filter(e => e !== ingredient));
-
-    
-  }
-
-  // Récupérer et stocker les aliments écrit par l'utilisateur dans l'input
+  //Save 
   const addPreferenceClick = () => {
-    //Afficer les aliments taper par l'utilisateur
     setIngredientList([...ingredientList, ingredient]);
     setIngredient("");
 
-    // variable pour relier au formulaire
     const allergies = [...ingredientList, ingredient];
     setFormData({ ...formData, allergies });
   };
 
-
-
-  // Ajouter des aliments à la liste des allergies
+  // display the ingredients entered by the user
   const listPreference = ingredientList.map((data, i) => {
     return (
       <View key={i} style={styles.addOption}>
@@ -57,36 +45,35 @@ export default function AllergiesScreen({ formData, setFormData }) {
     );
   });
 
-
-
-  // ======= Liste des options par défaut des allergies de l'utilisateur ======= //
-
-  // Liste par défaut des aliments pour les intollérances
+  // ======= Default list of allergies proposed to the user ======= //
   const optionsData = [
     { id: 1, name: "Grain", photo: require("../../assets/icon/grain.png") },
-    { id: 2, name: "Shellfish", photo: require("../../assets/icon/shrimp.png")},
+    {
+      id: 2,
+      name: "Shellfish",
+      photo: require("../../assets/icon/shrimp.png"),
+    },
     { id: 3, name: "Porc", photo: require("../../assets/icon/porc.png") },
-    { id: 4, name: "Sesame", photo: require("../../assets/icon/sesame.png")},
+    { id: 4, name: "Sesame", photo: require("../../assets/icon/sesame.png") },
     { id: 5, name: "Dairy", photo: require("../../assets/icon/milk.png") },
-    { id: 6, name: "Soja", photo: require("../../assets/icon/graine-de-soja.png") },
+    {
+      id: 6,
+      name: "Soja",
+      photo: require("../../assets/icon/graine-de-soja.png"),
+    },
     { id: 7, name: "Peanut", photo: require("../../assets/icon/peanut.png") },
     { id: 8, name: "Egg", photo: require("../../assets/icon/oeuf-dur.png") },
   ];
 
-  //const [preference, setPreference] = useState("");
 
-  // Ajouter tous les choix de l'utilisateur dans un tableau
+
+  // Add the option chosen by the user to an array
   const [preferenceList, setPreferenceList] = useState([]);
 
-  // Couleurs statut active et inative
-  const inativeColor = "#ffffff";
-  const activeColor = "#E8F4F5";
-
   const preferenceClik = (data) => {
-    // console.log("test => ", preferenceList.includes("Gluten"));
 
     if (preferenceList.includes(data.name)) {
-      // Filter si le nom existe déja dans le tableau
+      // Filter if the name exists already
       setPreferenceList(preferenceList.filter((e) => e !== data.name));
       setFormData({
         ...formData,
@@ -103,10 +90,8 @@ export default function AllergiesScreen({ formData, setFormData }) {
   };
 
   const optionPreferences = optionsData.map((data, i) => {
-
-    // Changer de couleur si il est déja dans le tableau
+    // Change the color if it is already in the array
     let isActive = preferenceList.some((e) => {
-      //console.log('debug',data.name,e);
       return e === data.name;
     });
 
@@ -186,7 +171,7 @@ const styles = StyleSheet.create({
   textOption: {
     paddingRight: 10,
     color: "#fff",
-    fontWeight:"bold",
+    fontWeight: "bold",
   },
   btnPlus: {
     backgroundColor: "#e8be4b",
@@ -244,7 +229,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  textOptionDefaut:{
-    textAlign:"center",
-  }
+  textOptionDefaut: {
+    textAlign: "center",
+  },
 });

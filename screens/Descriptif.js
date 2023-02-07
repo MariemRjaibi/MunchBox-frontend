@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
-
 import {
   StyleSheet,
-  Platform,
   Image,
   Text,
   View,
   ScrollView,
-  Button,
-  TouchableOpacity,
-  Modal,
   TextInput,
   Pressable,
 } from "react-native";
@@ -30,7 +25,6 @@ export default function Descriptif({ route, navigation }) {
 
   useEffect(() => {
     let data = route.params;
-    //  console.log("data", typeof data);
 
     if (data.summary[data.summary.indexOf("calories") - 4] === ">") {
       setCalories(
@@ -49,7 +43,7 @@ export default function Descriptif({ route, navigation }) {
 
     setPrepTime(data.readyInMinutes);
 
-    //return the ingredients array in the modal
+    //the ingredients to display
     let newIngredients = [];
     data.extendedIngredients.forEach(function (element) {
       newIngredients.push(element.name);
@@ -58,7 +52,6 @@ export default function Descriptif({ route, navigation }) {
 
     // the steps to display
     let steps = [];
-    //console.log(data.analyzedInstructions[0].steps);
     data.analyzedInstructions[0].steps.forEach(function (element) {
       steps.push(element.step);
     });
@@ -306,7 +299,6 @@ const styles = StyleSheet.create({
   containerNumberRecipes: {
     flexDirection: "row",
     alignItems: "flex-start",
-    //justifyContent:"center",
     marginBottom: 10,
   },
   textNumberRecipes: {
@@ -327,27 +319,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginRight: 10,
     borderRadius: 100,
-    // borderBottomLeftRadius: 30,
-    // borderBottomRightRadius: 30,
-    //borderTopRightRadius: 30,
-    //borderTopLeftRadius: 30,
   },
-  contentScroll: {
-    //height: 25,
-  },
+
   menu: {
     flexDirection: "row",
     alignItems: "center",
-    //justifyContent: "space-evenly",
-    //marginBottom: 30,
   },
   menuBtn: {
     paddingHorizontal: 20,
     backgroundColor: "#83C5BC",
     marginHorizontal: 5,
     borderRadius: 20,
-    //borderBottomWidth: 2,
-    // borderBottomColor: "#92C3BC",
   },
   menuBtnText: {
     fontSize: 16,
@@ -442,10 +424,6 @@ const styles = StyleSheet.create({
     right: 60,
     color: "red",
   },
-  // container: {
-  //    backgroundColor: "white",
-  //    alignItems: "center",
-  // },
   modalContainer: {
     flex: 1,
     width: "100%",
@@ -538,12 +516,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingHorizontal: 10,
     marginTop: 20,
-    //paddingBottom: 10,
   },
   ingredientsarray: {
     color: "#343333",
     fontWeight: "bold",
-    //paddingBottom: 10,
     paddingTop: 10,
     marginRight: 70,
     justifyContent: "flex-start",

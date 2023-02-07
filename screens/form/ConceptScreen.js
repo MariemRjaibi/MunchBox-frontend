@@ -4,7 +4,6 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -14,13 +13,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import FormScreen from "./FormScreen";
 import Homepage from "../Homepage";
 
-import { login } from "../../reducers/users";
-
 export default function ConceptScreen({ navigation }) {
-  const dispatch = useDispatch();
+
 
   const token = useSelector((state) => state.users.value.token);
 
+  // If there is a token, we skip the form and display the homepage
   const nextClick = () => {
     if (!token) {
       navigation.navigate(FormScreen);
@@ -28,11 +26,6 @@ export default function ConceptScreen({ navigation }) {
       navigation.navigate(Homepage);
     }
   };
-
-  //Si il ya un token on passe directement à la home
-  if (token) {
-    navigation.navigate(Homepage);
-  }
 
   return (
     <ImageBackground
@@ -53,7 +46,7 @@ export default function ConceptScreen({ navigation }) {
             No time to search for your next meal idea?
           </Text>
           <Text style={styles.text}>
-            Get free access to Munchbox’s library of over {"\n"}100, 000 recipes !{" "}
+            Get free access to Munchbox’s library of over {"\n"}100 000 recipes !{" "}
           
             {"\n"}
             {"\n"}Batch-cooking has never been easier with our monthly meal planner!
