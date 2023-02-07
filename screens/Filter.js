@@ -44,8 +44,6 @@ export default function Filter({ navigation }) {
   const allergiesList = useSelector(
     (state) => state.modalFilters.value.allergies
   );
-  // const dietFromReducer = useSelector((state) => state.modalFilters.value.diet);
-  // console.log(dietFromReducer);
 
   const [ingredient, setIngredient] = useState("");
 
@@ -63,7 +61,6 @@ export default function Filter({ navigation }) {
 
   //dispatch info to reducers (ingredients & allergies)
   function handleAddIngredients() {
-   // console.log("clicked");
     dispatch(addIngredients(ingredient));
     setIngredient("");
   }
@@ -116,7 +113,7 @@ export default function Filter({ navigation }) {
       </View>
     );
   });
-  
+
   function handlePressPescto() {
     setPescto((current) => !current);
   }
@@ -136,18 +133,17 @@ export default function Filter({ navigation }) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
-        <View style={styles.head}>
-        <Text style={styles.title}>Filtres</Text>
-          <Ionicons // closes the filter and return to Recettepage
-            name="close"
-            size={35}
-            color="#dedede"
-            style={styles.close}
-            onPress={() => navigation.navigate("TabNavigator")}
-          />
+          <View style={styles.head}>
+            <Text style={styles.title}>Filtres</Text>
+            <Ionicons // close the filter and return to Recettepage
+              name="close"
+              size={35}
+              color="#dedede"
+              style={styles.close}
+              onPress={() => navigation.navigate("TabNavigator")}
+            />
+          </View>
 
-        </View>
-        
           <View style={styles.inputContainer}>
             {displayedItems.length === 0 ? (
               <Text style={styles.textTitle}>Ingredients</Text>
@@ -171,14 +167,7 @@ export default function Filter({ navigation }) {
                 activeOpacity={0.8}
                 onPress={() => handleAddIngredients()}
               >
-                {/* <Text style={styles.textButton}>Add</Text> */}
-                <FontAwesome
-            name="plus"
-            size={20}
-            color={"#ffffff"}
-           
-           
-          />
+                <FontAwesome name="plus" size={20} color={"#ffffff"} />
               </TouchableOpacity>
             </View>
           </View>
@@ -309,13 +298,7 @@ export default function Filter({ navigation }) {
                 activeOpacity={0.8}
                 onPress={() => handleAddAllergies()}
               >
-                <FontAwesome
-            name="plus"
-            size={20}
-            color={"#ffffff"}
-           
-           
-          />
+                <FontAwesome name="plus" size={20} color={"#ffffff"} />
               </TouchableOpacity>
             </View>
           </View>
@@ -324,7 +307,7 @@ export default function Filter({ navigation }) {
             {displayedAllergiesItems}
           </ScrollView>
 
-          <View  style={styles.containBtnValided}>
+          <View style={styles.containBtnValided}>
             <TouchableOpacity
               style={styles.btnValided}
               activeOpacity={0.8}
@@ -332,11 +315,7 @@ export default function Filter({ navigation }) {
             >
               <Text style={styles.textBtnValided}>Ok 🧑‍🍳</Text>
             </TouchableOpacity>
-
           </View>
-         
-
-
         </KeyboardAvoidingView>
       </ScrollView>
     </TouchableWithoutFeedback>
@@ -349,13 +328,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FBFBFB",
     paddingTop: 45,
     paddingHorizontal: 20,
-    paddingBottom:50,
-    //alignItems: "center",
-    //justifyContent: "center",
+    paddingBottom: 50,
   },
-  head:{
-    flexDirection:"row",
-    justifyContent:"space-between",
+  head: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   close: {
     color: "#92C3BC",
@@ -366,15 +343,7 @@ const styles = StyleSheet.create({
     color: "#92C3BC",
     marginBottom: 25,
   },
-
-  inputContainer: {
-    //flexDirection: "row",
-   // alignItems: "center",
-    //marginTop: "20%",
-    //marginBottom: 30,
-  },
   inputContainerAllergies: {
-   // alignItems: "center",
     marginBottom: 30,
   },
   searchBar: {
@@ -451,7 +420,7 @@ const styles = StyleSheet.create({
   dietItem: {
     alignItems: "center",
     borderRadius: 20,
-    paddingVertical:15,
+    paddingVertical: 15,
     height: "30%",
     width: "34%",
     marginBottom: "5%",
@@ -471,22 +440,20 @@ const styles = StyleSheet.create({
   sliderContainer: {
     marginBottom: 30,
   },
-  containBtnValided:{
-   
-    alignItems:"center",
+  containBtnValided: {
+    alignItems: "center",
   },
-  btnValided:{
-    
+  btnValided: {
     backgroundColor: "#e8be4b",
     fontSize: 25,
-    padding:10,
-    paddingHorizontal:40,
-    borderTopRightRadius:45,
-    borderBottomLeftRadius:45,
-    width:"50%",
+    padding: 10,
+    paddingHorizontal: 40,
+    borderTopRightRadius: 45,
+    borderBottomLeftRadius: 45,
+    width: "50%",
   },
-  textBtnValided:{
-    color:'#fff',
-    textAlign:"center",
+  textBtnValided: {
+    color: "#fff",
+    textAlign: "center",
   },
 });

@@ -13,7 +13,6 @@ import {
 } from "react-native";
 import { Keyboard } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-//import Filter from "./Filter";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addPlacardIngredients,
@@ -21,22 +20,19 @@ import {
 } from "../reducers/placardIngredients";
 
 export default function Placard({ navigation }) {
-  // ======= Bouton retour  =======//
+  // ======= Back button   =======//
   const goBack = () => {
     navigation.goBack();
   };
 
   const ingredientsToDisplay = useSelector((state) => {
-    // console.log("looooog", state);
-    //console.log(state.placardIngredients.value);
-    return state.placardIngredients.value;
+    return state.placardIngredients.value
   });
   const isFiltered = useSelector((state) => state.choosePaths.value);
-  console.log("placard", isFiltered);
-  // console.log(ingredientsToDisplay);
+
   const dispatch = useDispatch();
   const [littleIngredient, setIngredient] = useState("");
-  //let [ingredientList, setIngredientList] = useState([]);
+
 
   function handleAdd() {
     dispatch(addPlacardIngredients(littleIngredient));
@@ -49,8 +45,7 @@ export default function Placard({ navigation }) {
   function handleDelete(e) {
     dispatch(removePlacardIngredients(e));
   }
-  //console.log("hello hesre", ingredientsToDisplay);
-  //const hello = [1, 2, 3];
+
   const displayedItems = ingredientsToDisplay.map((e, i) => {
     return (
       <View style={styles.item}>
@@ -100,13 +95,7 @@ export default function Placard({ navigation }) {
             onPress={() => handleAdd()}
             style={styles.btnPlus}
           />
-          {/* <TouchableOpacity
-            style={styles.addBtn}
-            activeOpacity={0.8}
-            onPress={() => handleAdd()}
-          >
-            <Text style={styles.textButton}>Add</Text>
-          </TouchableOpacity> */}
+          
         </View>
         <View style={styles.containerMain}>
           <ScrollView style={styles.displayedView}>{displayedItems}</ScrollView>
@@ -129,8 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     paddingHorizontal: 20,
-    //alignItems: "center",
-    //justifyContent: "center",
+ 
   },
   containerMain: {
     flex: 1,
@@ -170,7 +158,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   bigText: {
-    //alignItems: "center",
     marginTop: 40,
   },
   bigTextContent: {

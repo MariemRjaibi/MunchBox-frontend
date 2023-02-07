@@ -7,18 +7,14 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import Calendar from "../reducers/Calendar";
-import { addCalendar, removeCalendar } from "../reducers/Calendar";
-import { addDate } from "../reducers/dates";
+// import { addCalendar, removeCalendar } from "../reducers/Calendar";
+// import { addDate } from "../reducers/dates";
 import ShoppinglistScreen from "./ShoppinglistScreen";
-// Exetension Date
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-//import DateTimePicker from "@react-native-community/datetimepicker";
-//import font from "expo-font";
 
 export default function BatchCalendar({ navigation }) {
   //const calendars = useSelector((state) => state.calendars.value);
@@ -26,23 +22,20 @@ export default function BatchCalendar({ navigation }) {
 
   const token = useSelector((state) => state.users.value.token);
 
-  // ======= Bouton retour  =======//
+  // ======= Back button  =======//
   const goBack = () => {
     navigation.goBack();
   };
-
-  //componentDidMount()
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [calendarRecipesToDisplay, setCalendarRecipesToDisplay] = useState([]);
 
-  // ==== Récuperer les recettes en base de donnée ajoutées par l'utilisateur ==== //
+  // ==== Get recipes from database of the user==== //
   useEffect(() => {
     fetch(`https://munch-box-backend.vercel.app/calendarRecipes/${token}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         if (data.recipes.length > 0) {
           //    dispatch(addCalendar(data.recipes))
           setCalendarRecipesToDisplay(data.recipes);
@@ -50,13 +43,13 @@ export default function BatchCalendar({ navigation }) {
       });
   }, [calendarRecipesToDisplay]);
 
-  // Afficher le calendrier pour selectionner une date
+  // Display the calendar to select a date
   const showDatePicker = (i) => {
     setCurrentIndex(i);
     setDatePickerVisibility(true);
   };
 
-  //cacher le datepicker du telephone
+  //hide datePicker
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
@@ -72,7 +65,11 @@ export default function BatchCalendar({ navigation }) {
     hideDatePicker();
   };
 
-  // Supprimer une recette du batch
+  const handleNext = () => {
+    navigation.navigate(ShoppinglistScreen);
+  };
+
+  // Delete a recipe
   function deleteRecipe(data) {
     fetch(`https://munch-box-backend.vercel.app/calendarRecipes/${data._id}`, {
       method: "DELETE",
@@ -88,8 +85,6 @@ export default function BatchCalendar({ navigation }) {
     );
   }
 
-  //console.log(calendarRecipesToDisplay);
-  //  const hello = [1, 2, 3];
   let dateRecipe = calendarRecipesToDisplay.map((data, i) => {
     return (
       <View style={styles.ContainerDescriptionRecipe}>
@@ -107,7 +102,7 @@ export default function BatchCalendar({ navigation }) {
           mode="date"
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
-          //Affiche la date a choisir a partir d'aujourd'hui
+          //display the date to select fom today
           minimumDate={moment().toDate()}
         />
         <View key={"item" + i} style={styles.containRecipes}>
@@ -150,11 +145,6 @@ export default function BatchCalendar({ navigation }) {
     );
   });
 
-  //console.log(dateRecipe.length);
-
-  const handleNext = () => {
-    navigation.navigate(ShoppinglistScreen);
-  };
   return (
     <View style={styles.container}>
       <FontAwesome
@@ -167,11 +157,6 @@ export default function BatchCalendar({ navigation }) {
       <Text style={styles.title}>Recipe list for the week</Text>
 
       <View style={styles.containerInfo}>
-        {/* <View style={styles.infoBacth}>
-        <Image style={styles.iconCooktime} source={require("../assets/icon/cooking-time.png")}/>
-          <Text style={styles.titleInfoBacth}>Total duration : </Text>
-          <Text style={styles.dataInfoBacth}>2h30</Text>
-        </View> */}
         <View style={styles.infoBacth}>
           <Image
             style={styles.iconChef}
@@ -183,7 +168,6 @@ export default function BatchCalendar({ navigation }) {
       </View>
 
       <ScrollView contentContainerStyle={styles.containerRecipes}>
-        {/* <Text style={styles.subTitle}>Lundi</Text> */}
         {dateRecipe}
       </ScrollView>
 
